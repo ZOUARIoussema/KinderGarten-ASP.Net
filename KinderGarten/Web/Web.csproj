@@ -123,7 +123,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\FolderMedicalController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SpentController.cs" />
+    <Compile Include="Controllers\VaccineChildController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -500,6 +503,21 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Events.cshtml" />
+    <Content Include="Views\Spent\Create.cshtml" />
+    <Content Include="Views\Spent\Edit.cshtml" />
+    <Content Include="Views\Spent\Delete.cshtml" />
+    <Content Include="Views\Spent\Index.cshtml" />
+    <Content Include="Views\Spent\Details.cshtml" />
+    <Content Include="Views\VaccineChild\Index.cshtml" />
+    <Content Include="Views\VaccineChild\Details.cshtml" />
+    <Content Include="Views\VaccineChild\Create.cshtml" />
+    <Content Include="Views\VaccineChild\Edit.cshtml" />
+    <Content Include="Views\VaccineChild\Delete.cshtml" />
+    <Content Include="Views\FolderMedical\Index.cshtml" />
+    <Content Include="Views\FolderMedical\Details.cshtml" />
+    <Content Include="Views\FolderMedical\Create.cshtml" />
+    <Content Include="Views\FolderMedical\Edit.cshtml" />
+    <Content Include="Views\FolderMedical\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -517,6 +535,16 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{c837320f-4d75-40f3-a23e-c45ddda2ac4b}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Service\Service.csproj">
+      <Project>{773f2072-2ecf-4328-9947-702b2dc8bb89}</Project>
+      <Name>Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,8 @@ namespace Model
 
     public class User
     {
+
+        [JsonProperty("id")]
         public int Id { get; set; }
         public String FirstName { get; set; }
         public String LastName { get; set; }
