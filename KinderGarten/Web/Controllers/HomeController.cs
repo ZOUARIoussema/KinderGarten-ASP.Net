@@ -14,11 +14,7 @@ namespace Web.Controllers
         }
 
 
-        public ActionResult Events()
-        {
-            return View();
-        }
-
+    
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
