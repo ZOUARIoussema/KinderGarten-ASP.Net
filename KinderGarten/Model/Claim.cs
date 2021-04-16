@@ -10,7 +10,7 @@ namespace Model
     {
 
         public int Id { get; set; }
-        public String Object { get; set; }
+        public String Objet { get; set; }
         public String Description { get; set; }
         public String Type { get; set; }
         public String State { get; set; }

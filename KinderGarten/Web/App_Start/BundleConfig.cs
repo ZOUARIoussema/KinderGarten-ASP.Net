@@ -56,6 +56,34 @@ namespace Web
 
                     ));
 
+            bundles.Add(new ScriptBundle("~/admin/js").Include(
+             "~/Scripts/admin/js/jquery-ui-1.10.3.min.js",
+             "~/Scripts/admin/js/bootstrap.min.js",
+             "~/Scripts/admin/js/plugins/morris/morris.min.js",
+             "~/Scripts/admin/js/plugins/sparkline/jquery.sparkline.min.js",
+             "~/Scripts/admin/js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js",
+             "~/Scripts/admin/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js",
+             "~/Scripts/admin/js/plugins/fullcalendar/fullcalendar.min.js",
+             "~/Scripts/admin/js/plugins/jqueryKnob/jquery.knob.js",
+             "~/Scripts/admin/js/plugins/daterangepicker/daterangepicker.js",
+             "~/Scripts/admin/js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js",
+             "~/Scripts/admin/js/plugins/iCheck/icheck.min.js",
+             "~/Scripts/admin/js/AdminLTE/app.js",
+             "~/Scripts/admin/js/AdminLTE/dashboard.js"
+             ));
+
+            bundles.Add(new StyleBundle("~/admin/css").Include(
+                      "~/Content/admin/css/bootstrap.min.css",
+                      "~/Content/admin/css/font-awesome.min.css",
+                      "~/Content/admin/css/ionicons.min.css",
+                      "~/Content/admin/css/morris/morris.css",
+                      "~/Content/admin/css/jvectormap/jquery-jvectormap-1.2.2.css",
+                      "~/Content/admin/css/fullcalendar/fullcalendar.css",
+                      "~/Content/admin/css/daterangepicker/daterangepicker-bs3.css",
+                      "~/Content/admin/css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css",
+                      "~/Content/admin/css/AdminLTE.css"
+                      ));
+
 
 
         }
