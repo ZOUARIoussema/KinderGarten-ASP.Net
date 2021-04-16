@@ -36,7 +36,8 @@ namespace Web
                       "~/Content/plugins/themify/themify-icons.css",
                         "~/Content/css/style.min.css",
                         "~/Content/css/templete.min.css",
-                        "~/Content/css/skin/skin-2.css"
+                        "~/Content/css/skin/skin-2.css",
+                          "~/Content/css/font.css"
                       ));
 
 
