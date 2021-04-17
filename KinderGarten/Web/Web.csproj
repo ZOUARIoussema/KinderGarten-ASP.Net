@@ -123,10 +123,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CategorySubscriptionController.cs" />
     <Compile Include="Controllers\ConsultationMedicalController.cs" />
+    <Compile Include="Controllers\ExtraController.cs" />
     <Compile Include="Controllers\FolderMedicalController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KinderGartenController.cs" />
+    <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\SpentController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\VaccineChildController.cs" />
@@ -1040,6 +1045,31 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\Users.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\KinderGarten\Details.cshtml" />
+    <Content Include="Views\KinderGarten\Index.cshtml" />
+    <Content Include="Views\KinderGarten\Create.cshtml" />
+    <Content Include="Views\KinderGarten\Edit.cshtml" />
+    <Content Include="Views\KinderGarten\Delete.cshtml" />
+    <Content Include="Views\Extra\Create.cshtml" />
+    <Content Include="Views\Extra\Edit.cshtml" />
+    <Content Include="Views\Extra\Delete.cshtml" />
+    <Content Include="Views\Extra\Index.cshtml" />
+    <Content Include="Views\Extra\Details.cshtml" />
+    <Content Include="Views\CategorySubscription\Index.cshtml" />
+    <Content Include="Views\CategorySubscription\Details.cshtml" />
+    <Content Include="Views\CategorySubscription\Create.cshtml" />
+    <Content Include="Views\CategorySubscription\Delete.cshtml" />
+    <Content Include="Views\CategorySubscription\Edit.cshtml" />
+    <Content Include="Views\Meeting\Details.cshtml" />
+    <Content Include="Views\Meeting\Create.cshtml" />
+    <Content Include="Views\Meeting\Edit.cshtml" />
+    <Content Include="Views\Meeting\Delete.cshtml" />
+    <Content Include="Views\Meeting\Index.cshtml" />
+    <Content Include="Views\Activity\Index.cshtml" />
+    <Content Include="Views\Activity\Details.cshtml" />
+    <Content Include="Views\Activity\Create.cshtml" />
+    <Content Include="Views\Activity\Edit.cshtml" />
+    <Content Include="Views\Activity\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
