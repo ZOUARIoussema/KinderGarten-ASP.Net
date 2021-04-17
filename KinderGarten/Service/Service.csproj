@@ -54,6 +54,7 @@
     <Compile Include="ExtraService.cs" />
     <Compile Include="FolderMedicalService.cs" />
     <Compile Include="KinderGartenService.cs" />
+    <Compile Include="MedicalVisitService.cs" />
     <Compile Include="MeetingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpentService.cs" />
