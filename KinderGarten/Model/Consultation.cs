@@ -24,5 +24,6 @@ namespace Model
         [JsonProperty("folderMedical")]
         public FolderMedical FolderMedical { get; set; }
 
+         
     }
 }

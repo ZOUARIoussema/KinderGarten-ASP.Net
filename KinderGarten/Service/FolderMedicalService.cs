@@ -57,6 +57,9 @@ namespace Service
 
             var response = httpClient.GetAsync(Statics.baseAddress + "medical/getAllChild").Result;
 
+
+            System.Diagnostics.Debug.WriteLine(response.StatusCode);
+
             if (response.IsSuccessStatusCode)
             {
                 var childs = response.Content.ReadAsAsync<IEnumerable<Child>>().Result;

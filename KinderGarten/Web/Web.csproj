@@ -130,6 +130,7 @@
     <Compile Include="Controllers\ExtraController.cs" />
     <Compile Include="Controllers\FolderMedicalController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MedicalVisitController.cs" />
     <Compile Include="Controllers\KinderGartenController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\SpentController.cs" />
@@ -1070,10 +1071,13 @@
     <Content Include="Views\Activity\Create.cshtml" />
     <Content Include="Views\Activity\Edit.cshtml" />
     <Content Include="Views\Activity\Delete.cshtml" />
+    <Content Include="Views\ConsultationMedical\Edit.cshtml" />
+    <Content Include="Views\ConsultationMedical\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\MedicalVisit\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

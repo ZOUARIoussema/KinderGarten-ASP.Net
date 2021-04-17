@@ -12,6 +12,7 @@ namespace Service
     public class ConsultationService
     {
         HttpClient httpClient;
+        
         public ConsultationService()
         {
 
@@ -70,6 +71,45 @@ namespace Service
 
 
         }
+
+        public bool DeleteConsultation(int id)
+        {
+
+            try
+            {
+                var APIResponse = httpClient.DeleteAsync(Statics.baseAddress + "medical/deleteConsultation/" + id);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool Update(Consultation consultation)
+        {
+            System.Diagnostics.Debug.WriteLine(consultation.FolderMedical.Id);
+
+            try
+            {
+                var APIResponse = httpClient.PutAsJsonAsync<Consultation>(Statics.baseAddress + "medical/updateConsultationMedical/" ,
+                 consultation).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
+
+                System.Diagnostics.Debug.WriteLine(APIResponse.Result);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+
+
+
+
 
 
 

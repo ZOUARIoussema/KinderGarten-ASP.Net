@@ -13,6 +13,10 @@ namespace Web.Controllers
 
         private ConsultationService consultationService = new ConsultationService();
         private FolderMedicalService folderMedicalService = new FolderMedicalService();
+        private static FolderMedical folderMedical = new FolderMedical();
+        private static User doctor = new User();
+
+        
 
         // GET: ConsultationMedical
         public ActionResult Index()
@@ -63,28 +67,58 @@ namespace Web.Controllers
         // GET: ConsultationMedical/Edit/5
         public ActionResult Edit(int id)
         {
+
+            Consultation consultation = consultationService.GetById(id);
+
+            if (consultation != null)
+            {
+                folderMedical = consultation.FolderMedical;
+                doctor = consultation.Doctor;
+               
+
+                return View(consultation);
+            }
+
+
             return View();
         }
 
         // POST: ConsultationMedical/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, [Bind(Include = ("Description,Weight,Height,DateC,Id"))] Consultation consultation)
         {
-            try
+
+             
+            consultation.Doctor=doctor;
+            consultation.FolderMedical=folderMedical;
+            
+
+            System.Diagnostics.Debug.WriteLine("edit d" + consultation.FolderMedical.Id);
+            System.Diagnostics.Debug.WriteLine("edit f" + consultation.FolderMedical.Id);
+
+            if (consultationService.Update(consultation))
             {
-                // TODO: Add update logic here
 
                 return RedirectToAction("Index");
             }
-            catch
-            {
+                
+             
+             
                 return View();
-            }
+            
         }
 
         // GET: ConsultationMedical/Delete/5
         public ActionResult Delete(int id)
         {
+            Consultation consultation = consultationService.GetById(id);
+
+            if (consultation != null)
+            {
+               
+
+                return View(consultation);
+            }
             return View();
         }
 
@@ -92,16 +126,16 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            try
-            {
-                // TODO: Add delete logic here
 
+
+            if (consultationService.DeleteConsultation(id))
+            {
                 return RedirectToAction("Index");
             }
-            catch
-            {
+               
+            
                 return View();
-            }
+             
         }
     }
 }
