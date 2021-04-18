@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,11 @@ namespace Model
 {
     public class Category
     {
-
+        [JsonProperty("id")]
         public int Id { get; set; }
+        [JsonProperty("description")]
         public String Description { get; set; }
+        [JsonProperty("kinderGarten")]
         public KinderGarten KinderGarten { get; set; }
         public List<Event> LisEvents { get; set; }
         public List<Club> ListClubs { get; set; }

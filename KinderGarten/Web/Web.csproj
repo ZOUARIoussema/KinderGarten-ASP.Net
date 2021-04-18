@@ -125,14 +125,18 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CategorySubscriptionController.cs" />
+    <Compile Include="Controllers\ClubController.cs" />
     <Compile Include="Controllers\ConsultationMedicalController.cs" />
+    <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\ExtraController.cs" />
     <Compile Include="Controllers\FolderMedicalController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MedicalVisitController.cs" />
     <Compile Include="Controllers\KinderGartenController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
+    <Compile Include="Controllers\SessionVoteController.cs" />
     <Compile Include="Controllers\SpentController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\VaccineChildController.cs" />
@@ -1177,6 +1181,26 @@
     <Content Include="Views\MedicalVisit\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutMedicalVisitC.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Event\Create.cshtml" />
+    <Content Include="Views\Event\Edit.cshtml" />
+    <Content Include="Views\Event\Delete.cshtml" />
+    <Content Include="Views\Event\Index.cshtml" />
+    <Content Include="Views\Event\Details.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Category\Details.cshtml" />
+    <Content Include="Views\Category\Create.cshtml" />
+    <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Category\Delete.cshtml" />
+    <Content Include="Views\Club\Index.cshtml" />
+    <Content Include="Views\Club\Details.cshtml" />
+    <Content Include="Views\Club\Create.cshtml" />
+    <Content Include="Views\Club\Edit.cshtml" />
+    <Content Include="Views\Club\Delete.cshtml" />
+    <Content Include="Views\SessionVote\Index.cshtml" />
+    <Content Include="Views\SessionVote\Details.cshtml" />
+    <Content Include="Views\SessionVote\Create.cshtml" />
+    <Content Include="Views\SessionVote\Edit.cshtml" />
+    <Content Include="Views\SessionVote\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
