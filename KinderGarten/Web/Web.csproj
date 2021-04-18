@@ -1176,6 +1176,7 @@
     <Content Include="Views\ConsultationMedical\Delete.cshtml" />
     <Content Include="Views\MedicalVisit\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutMedicalVisitC.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

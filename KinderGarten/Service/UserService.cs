@@ -22,6 +22,29 @@ namespace Service
 
         }
 
+        public String authenticate(User u)
+        {
+            try
+            {
+                var APIResponse = httpClient.PostAsJsonAsync<User>(Statics.baseAddress + "user/authenticate/", u).Result;
+
+
+
+                if (APIResponse.IsSuccessStatusCode)
+                {
+
+                    String user = APIResponse.Content.ReadAsStringAsync().ToString();
+                    return user;
+                }
+               
+            }
+            catch
+            {
+                return "user non authenticated";
+            }
+            return "u";
+        }
+
 
         public IEnumerable<User> GetAll()
         {

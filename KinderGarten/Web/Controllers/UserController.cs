@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Service;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace Web.Controllers
 {
     public class UserController : Controller
     {
 
-
+        private UserService userservice = new UserService();
 
         public ActionResult Login()
         {
@@ -22,8 +25,34 @@ namespace Web.Controllers
         public ActionResult Login([Bind(Include = "Email,Password")] User user)
         {
 
+            var httpClient = new HttpClient();
 
-            return View();
+            httpClient.BaseAddress = new Uri("http://localhost:8081/user/");
+
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var response = httpClient.PostAsJsonAsync<User>("authenticate", user);
+
+
+            response.Wait();
+            var result = response.Result;
+               
+            if (ModelState.IsValid)
+            {
+                if (result.IsSuccessStatusCode)
+                {
+                    String userauthenticated = result.Content.ToString();
+
+                    Console.WriteLine(userauthenticated);
+
+                    System.Diagnostics.Debug.WriteLine(userauthenticated);
+
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            ModelState.AddModelError(string.Empty, "error in login , try again");
+            return View(user);
         }
 
         // GET: User

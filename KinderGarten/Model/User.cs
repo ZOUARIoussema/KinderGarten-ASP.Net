@@ -34,9 +34,11 @@ namespace Model
         public int Tel { get; set; }
         public DateTime DateC { get; set; }
         public int ScoreDelegate { get; set; }
+        [JsonProperty("email")]
         public String Email { get; set; }
+        [JsonProperty("password")]
         public String Password { get; set; }
-        public List<Claim> ListClaims { get; set; }
+        public List<Claim> ListClaims { get; set; } 
         public List<Notice> ListNotices { get; set; }
         public List<JustificationAbsence> ListJustificationAdsences { get; set; }
         public List<Publication> ListPublications { get; set; }
