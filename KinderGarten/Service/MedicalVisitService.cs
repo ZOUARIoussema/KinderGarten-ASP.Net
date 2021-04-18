@@ -43,6 +43,46 @@ namespace Service
 
         }
 
+        public bool AddMedicalVisit(MedicalVisitKinderGarten m)
+        {
+            try
+            {
+
+
+                var APIResponse = httpClient.PostAsJsonAsync<MedicalVisitKinderGarten>(Statics.baseAddress + "medical/addMedicalVisit",
+               m).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
+
+                System.Diagnostics.Debug.WriteLine(APIResponse.Result);
+
+
+
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+
+
+        public bool Delete(int id)
+        {
+
+            try
+            {
+                var APIResponse = httpClient.DeleteAsync(Statics.baseAddress + "medical/deleteVisitMedical/" + id);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
 
 
     }

@@ -24,7 +24,7 @@ namespace Web.Controllers
         {
 
 
-            System.Diagnostics.Debug.WriteLine("****"+medicalVisitService.GetAll().Count());
+            
            return new JsonResult { Data = medicalVisitService.GetAll().ToList(), JsonRequestBehavior = JsonRequestBehavior.AllowGet };
              
 
@@ -33,6 +33,63 @@ namespace Web.Controllers
 
         }
 
-      
+
+        [HttpPost]
+        public JsonResult SaveEvent(MedicalVisitKinderGarten m)
+        {
+
+            
+
+            System.Diagnostics.Debug.WriteLine("**** " + m);
+            var status = false;
+
+            if (m.Id > 0)
+            {
+                //Update the event
+                var v = medicalVisitService.GetAll().Where(a => a.Id == m.Id).FirstOrDefault();
+                if (v != null)
+                {
+                    v.Subject = m.Subject;
+                    v.DateStart = m.DateStart;
+                    v.DateEnd = m.DateEnd;
+                    v.Description = m.Description;
+                    v.IsFullDay = m.IsFullDay;
+                    v.ThemeColor = m.ThemeColor;
+                    medicalVisitService.AddMedicalVisit(v);
+
+
+                }
+            }
+            else
+            {
+
+                medicalVisitService.AddMedicalVisit(m);
+
+
+
+
+                status = true;
+            }
+            
+            return new JsonResult { Data = new { status = status } };
+        }
+
+
+        [HttpPost]
+        public JsonResult DeleteEvent(int id)
+        {
+            var status = false;
+            
+                
+                if (medicalVisitService.Delete(id))
+                {
+                    
+                    status = true;
+                }
+             
+            return new JsonResult { Data = new { status = status } };
+        }
+
+
     }
 }
