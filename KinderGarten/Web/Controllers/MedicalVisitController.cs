@@ -55,7 +55,7 @@ namespace Web.Controllers
                     v.Description = m.Description;
                     v.IsFullDay = m.IsFullDay;
                     v.ThemeColor = m.ThemeColor;
-                    medicalVisitService.AddMedicalVisit(v);
+                    medicalVisitService.Update(v);
 
 
                 }

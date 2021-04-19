@@ -48,6 +48,7 @@ namespace Service
             try
             {
 
+                System.Diagnostics.Debug.WriteLine("** service** " + m);
 
                 var APIResponse = httpClient.PostAsJsonAsync<MedicalVisitKinderGarten>(Statics.baseAddress + "medical/addMedicalVisit",
                m).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
@@ -61,6 +62,7 @@ namespace Service
             }
             catch
             {
+               
                 return false;
             }
 
@@ -69,6 +71,8 @@ namespace Service
 
         public bool Delete(int id)
         {
+
+            System.Diagnostics.Debug.WriteLine("** service** " +id);
 
             try
             {
@@ -80,6 +84,28 @@ namespace Service
             {
                 return false;
             }
+        }
+
+
+        public bool Update(MedicalVisitKinderGarten m)
+        {
+
+            System.Diagnostics.Debug.WriteLine("** service** " + m);
+
+            try
+            {
+                var APIResponse = httpClient.PutAsJsonAsync<MedicalVisitKinderGarten>(Statics.baseAddress + "medical/updateMedicalVisit/",
+                 m).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
+
+                System.Diagnostics.Debug.WriteLine(APIResponse.Result);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
         }
 
 
