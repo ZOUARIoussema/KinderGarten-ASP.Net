@@ -1231,6 +1231,7 @@
     <Content Include="Views\PayementHandToHand\GetListSubscription.cshtml" />
     <Content Include="Views\PayementHandToHand\Details.cshtml" />
     <Content Include="Views\PayementHandToHand\Create.cshtml" />
+    <Content Include="Views\PayementHandToHand\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -25,11 +25,21 @@ namespace Web.Controllers
         public ActionResult Details(int id)
         {
 
-             
-            
+
+            ViewBag.Lien = "http://localhost:8081/accounting/detailSubscription/1";
+
 
             return View(payementService.GetAllPayementBySubscription(id));
         }
+
+
+        public ActionResult DetailsPayement(int id)
+        {
+
+
+            return View();
+        }
+        
 
 
         // GET: PayementHandToHand/Create
@@ -64,23 +74,23 @@ namespace Web.Controllers
         // GET: PayementHandToHand/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(payementService.FindById(id));
         }
 
         // POST: PayementHandToHand/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit([Bind(Include = ("Price,TypePayement,CheckNumber,DateCheck"))] PayementSubscription payementSubscription)
         {
-            try
-            {
-                // TODO: Add update logic here
+             
+                if (payementService.UpdatePayementSubscription(payementSubscription))
+                {
+                    return RedirectToAction("Index");
+                }
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
+                
+             
                 return View();
-            }
+            
         }
 
         // GET: PayementHandToHand/Delete/5

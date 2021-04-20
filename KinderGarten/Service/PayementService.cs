@@ -53,6 +53,9 @@ namespace Service
             return new List<PayementSubscription>();
         }
 
+
+        
+
         public IEnumerable<SubscriptionChild> GetAllSubscription()
         {
 
@@ -98,30 +101,25 @@ namespace Service
 
         }
 
-        public Spent FindById(int id)
+        public PayementSubscription FindById(int id)
         {
 
-            var tokenResponse = httpClient.GetAsync(Statics.baseAddress + "accounting/getSpentById/" + id).Result;
+            var tokenResponse = httpClient.GetAsync(Statics.baseAddress + "accounting/getPayementById/" + id).Result;
 
-            return tokenResponse.Content.ReadAsAsync<Spent>().Result;
+            return tokenResponse.Content.ReadAsAsync<PayementSubscription>().Result;
         }
 
-        public bool UpdateSpent(Spent spent)
+        public bool UpdatePayementSubscription(PayementSubscription payementSubscription)
         {
 
             try
             {
 
-                //set user 
-
-                User u = new User();
-                u.Id = 3;
-
-                spent.AgentCashier = u;
+                
 
 
-                var APIResponse = httpClient.PutAsJsonAsync<Spent>(Statics.baseAddress + "accounting/updateSpent",
-                 spent).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
+                var APIResponse = httpClient.PutAsJsonAsync<PayementSubscription>(Statics.baseAddress + "accounting/updatePayementHandToHand",
+                 payementSubscription).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
 
                 System.Diagnostics.Debug.WriteLine(APIResponse.Result);
 
@@ -134,21 +132,7 @@ namespace Service
         }
 
 
-        public bool DeleteSpent(int id)
-        {
-
-            try
-            {
-                var APIResponse = httpClient.DeleteAsync(Statics.baseAddress + "accounting/deleteSpent/" + id);
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-
-        }
+       
 
     }
 }

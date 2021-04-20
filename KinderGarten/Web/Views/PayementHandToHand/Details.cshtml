@@ -4,9 +4,15 @@
     ViewBag.Title = "Details payement subscription child";
 }
 
-<h2>Details</h2>
+<h2>Details payement</h2>
 
- 
+<p>
+    <a href=@ViewBag.Lien class="btn  btn-success">Details[PDF]</a>
+</p>
+
+
+
+
 <table class="table">
     <tr>
         <th>
@@ -27,29 +33,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.DateC)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Price)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.CheckNumber)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.DateCheck)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TypePayement)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-    </td>
-</tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCheck)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypePayement)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) 
+              @*@  @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+            </td>
+        </tr>
+    }
 
 </table>
