@@ -65,6 +65,7 @@
     <Compile Include="UserService.cs" />
     <Compile Include="Utils\Statics.cs" />
     <Compile Include="VaccineChildService.cs" />
+    <Compile Include="VoteService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">

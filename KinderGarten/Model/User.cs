@@ -27,12 +27,19 @@ namespace Model
 
         [JsonProperty("id")]
         public int Id { get; set; }
+        [JsonProperty("firstName")]
         public String FirstName { get; set; }
+        [JsonProperty("lastName")]
         public String LastName { get; set; }
+        [JsonProperty("address")]
         public String Address { get; set; }
+        [JsonProperty("role")]
         public Role Role { get; set; }
+        [JsonProperty("tel")]
         public int Tel { get; set; }
+        [JsonProperty("dateC")]
         public DateTime DateC { get; set; }
+        [JsonProperty("scoreDelegate")]
         public int ScoreDelegate { get; set; }
         [JsonProperty("email")]
         public String Email { get; set; }
@@ -44,9 +51,13 @@ namespace Model
         public List<Publication> ListPublications { get; set; }
         public List<Comment> LisCommentst { get; set; }
         public List<Child> ListChilds { get; set; }
+        [JsonProperty("switchAccount")]
         public SwitchAccount SwitchAccount { get; set; }
+        [JsonProperty("kinderGartenInscription")]
         public KinderGarten KinderGartenInscription { get; set; }
+        [JsonProperty("kinderGartenResponsible")]
         public KinderGarten KinderGartenResponsible { get; set; }
+        [JsonProperty("kinderGartenDelegate")]
         public KinderGarten kinderGartenDelegate { get; set; }
         public List<Consultation> ListConsultations { get; set; }
         public List<MedicalVisitKinderGarten> ListMedicalVisitKinderGartens { get; set; }

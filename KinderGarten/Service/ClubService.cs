@@ -19,22 +19,24 @@ namespace Service
         httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", Statics._AccessToken));
     }
-    public Boolean Add(Club club)
+     
+        public Boolean Add(Club club)
     {
         try
         {
-            var APIResponse = httpClient.PostAsJsonAsync<Club>(Statics.baseAddress + "admingarten/addClub/",
-                club).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
-            System.Diagnostics.Debug.WriteLine(APIResponse.Result);
-            return true;
-        }
-        catch
-        {
-            return false;
-        }
-    }
-    public Club getClubById(int id)
-    {
+
+                var APIResponse = httpClient.PostAsJsonAsync<Club>(Statics.baseAddress + "admingarten/addClub/"+club.CategoryId,
+                    club).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
+                        System.Diagnostics.Debug.WriteLine(APIResponse.Result);
+                        return true;
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                }
+        public Club getClubById(int id)
+         {
         Club Club = null;
         var response = httpClient.GetAsync(Statics.baseAddress + "admingarten/getClubById/" + id).Result;
         if (response.IsSuccessStatusCode)
@@ -50,14 +52,19 @@ namespace Service
         {
             var APIResponse = httpClient.PutAsJsonAsync<Club>(Statics.baseAddress + "admingarten/updateClub/" + id, club).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
             System.Diagnostics.Debug.WriteLine(APIResponse.Result);
-            return true;
+                var Response = httpClient.PutAsJsonAsync<Club>(Statics.baseAddress + "admingarten/affecterClubACategory/"+id+"/"+club.CategoryId, club).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
+                System.Diagnostics.Debug.WriteLine(APIResponse.Result);
+                return true;
         }
         catch
         {
             return false;
         }
     }
-    public bool deleteClubById(int id)
+
+
+
+        public bool deleteClubById(int id)
     {
         try
         {
