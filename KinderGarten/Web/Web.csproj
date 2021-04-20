@@ -1224,11 +1224,8 @@
     <Content Include="Views\SessionVote\Create.cshtml" />
     <Content Include="Views\SessionVote\Edit.cshtml" />
     <Content Include="Views\SessionVote\Delete.cshtml" />
-<<<<<<< Updated upstream
     <Content Include="Views\PayementEnLigneSubscriptionChild\Index.cshtml" />
-=======
     <Content Include="Views\Vote\Index.cshtml" />
->>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
