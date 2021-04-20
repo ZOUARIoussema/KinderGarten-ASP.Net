@@ -59,6 +59,7 @@
     <Compile Include="KinderGartenService.cs" />
     <Compile Include="MedicalVisitService.cs" />
     <Compile Include="MeetingService.cs" />
+    <Compile Include="PayementService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionVoteService.cs" />
     <Compile Include="SpentService.cs" />

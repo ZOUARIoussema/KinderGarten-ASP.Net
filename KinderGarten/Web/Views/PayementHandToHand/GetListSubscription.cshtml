@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Model.SubscriptionChild>
+
+@{
+    ViewBag.Title = "List Subscription Child";
+}
+
+<h2>GetListSubscription</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DateC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateEnd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalPay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RestPay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Discount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Child)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.DateC)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DateStart)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DateEnd)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Total)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TotalPay)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.RestPay)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Discount)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.Child.Name)
+    </td>
+    <td>
+        @Html.ActionLink("Payer", "Create", new { id = item.Id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+
+    </td>
+</tr>
+}
+
+</table>

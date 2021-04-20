@@ -155,6 +155,7 @@
     <Compile Include="Controllers\KinderGartenController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
     <Compile Include="Controllers\PayementEnLigneSubscriptionChildController.cs" />
+    <Compile Include="Controllers\PayementHandToHandController.cs" />
     <Compile Include="Controllers\SessionVoteController.cs" />
     <Compile Include="Controllers\SpentController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -1226,6 +1227,10 @@
     <Content Include="Views\SessionVote\Delete.cshtml" />
     <Content Include="Views\PayementEnLigneSubscriptionChild\Index.cshtml" />
     <Content Include="Views\Vote\Index.cshtml" />
+    <Content Include="Views\PayementHandToHand\Index.cshtml" />
+    <Content Include="Views\PayementHandToHand\GetListSubscription.cshtml" />
+    <Content Include="Views\PayementHandToHand\Details.cshtml" />
+    <Content Include="Views\PayementHandToHand\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
