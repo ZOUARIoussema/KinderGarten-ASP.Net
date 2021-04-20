@@ -12,6 +12,7 @@ namespace Web.Controllers
     public class EventController : Controller
     {
         EventService eventService = new EventService();
+        CategoryService categoryService = new CategoryService();
         // GET: Event
         public ActionResult Index()
         {
@@ -32,12 +33,13 @@ namespace Web.Controllers
         // GET: Event/Create
         public ActionResult Create()
         {
+            ViewBag.CategoryId = new SelectList(categoryService.GetAll(), "Id", "Description");
             return View();
         }
 
         // POST: Event/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Description,Date,Price,Object,Category")] Event e)
+        public ActionResult Create([Bind(Include = "Description,Date,Price,Object,CategoryId")] Event e)
         {
             if (eventService.Add(e))
             {
@@ -50,12 +52,13 @@ namespace Web.Controllers
         // GET: Event/Edit/5
         public ActionResult Edit(int id)
         {
+            ViewBag.CategoryId = new SelectList(categoryService.GetAll(), "Id", "Description");
             return View();
         }
 
         // POST: Event/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, [Bind(Include = "Description,Date,Price,Object,Category")] Event e)
+        public ActionResult Edit(int id, [Bind(Include = "Description,Date,Price,Object,CategoryId")] Event e)
         {
             try
             {

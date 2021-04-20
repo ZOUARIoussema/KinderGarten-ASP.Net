@@ -11,6 +11,9 @@ namespace Service
 
         public static string baseAddress = "http://localhost:8081/";
 
-        public static string _AccessToken = " eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0cGFyZW50QHVzZXIuY29tIiwiYXV0aCI6IlJPTEVfcGFyZW50IiwiaWF0IjoxNjE4ODcyNDA4LCJleHAiOjE2MTk3MzY0MDh9.hgJHOMrvDco_3hzuhcovvqfiF-zxKq8E9FiyHRz7_DE";
+
+        public static string _AccessToken = " eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0YWdlbnRjYXNoaWVyQHVzZXIuY29tIiwiYXV0aCI6IlJPTEVfYWdlbnRDYXNoaWVyIiwiaWF0IjoxNjE4OTE5MzIzLCJleHAiOjE2MTk3ODMzMjN9.WXa7laNzJ28WEmSFK1Ge08wzu3ziyybosBSI4_m0a10";
+
+
     }
 }

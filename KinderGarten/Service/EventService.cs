@@ -23,7 +23,7 @@ namespace Service
         {
             try
             {
-                var APIResponse = httpClient.PostAsJsonAsync<Event>(Statics.baseAddress + "admingarten/addEvent/",
+                var APIResponse = httpClient.PostAsJsonAsync<Event>(Statics.baseAddress + "admingarten/addEvent/" + e.CategoryId,
                     e).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
                 System.Diagnostics.Debug.WriteLine(APIResponse.Result);
                 return true;
@@ -49,6 +49,8 @@ namespace Service
             try
             {
                 var APIResponse = httpClient.PutAsJsonAsync<Event>(Statics.baseAddress + "admingarten/updateEvent/" + id, e).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
+                System.Diagnostics.Debug.WriteLine(APIResponse.Result);
+                var Response = httpClient.PutAsJsonAsync<Event>(Statics.baseAddress + "admingarten/affecterEventACategory/" + id + "/" + e.CategoryId, e).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
                 System.Diagnostics.Debug.WriteLine(APIResponse.Result);
                 return true;
             }

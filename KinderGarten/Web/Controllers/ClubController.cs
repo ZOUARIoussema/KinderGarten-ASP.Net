@@ -11,6 +11,7 @@ namespace Web.Controllers
     public class ClubController : Controller
     {
         ClubService clubService = new ClubService();
+        CategoryService categoryService = new CategoryService();
         // GET: Club
         public ActionResult Index()
         {
@@ -31,12 +32,13 @@ namespace Web.Controllers
         // GET: Club/Create
         public ActionResult Create()
         {
+            ViewBag.CategoryId = new SelectList(categoryService.GetAll(), "Id", "Description");
             return View();
         }
 
         // POST: Club/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Description")] Club club)
+        public ActionResult Create([Bind(Include = "Description,CategoryId")] Club club)
         {
             if (clubService.Add(club))
             {
@@ -49,12 +51,13 @@ namespace Web.Controllers
         // GET: Club/Edit/5
         public ActionResult Edit(int id)
         {
+            ViewBag.CategoryId = new SelectList(categoryService.GetAll(), "Id", "Description");
             return View();
         }
 
         // POST: Club/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, [Bind(Include = "Description")] Club club)
+        public ActionResult Edit(int id, [Bind(Include = "Description,CategoryId")] Club club)
         {
             try
             {

@@ -27,6 +27,7 @@ namespace Model
         public double Latitude { get; set; }
         [JsonProperty("longitude")]
         public double Longitude { get; set; }
+
         public List<User> ListParent { get; set; }
         public List<Activity> ListActivity { get; set; }
         public List<Extra> ListExtra { get; set; }

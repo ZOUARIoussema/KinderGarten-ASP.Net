@@ -15,6 +15,7 @@ namespace Model
         public String Description { get; set; }
         [JsonProperty("category")]
         public Category Category { get; set; }
+        public int? CategoryId { get; set; }
 
     }
 }
