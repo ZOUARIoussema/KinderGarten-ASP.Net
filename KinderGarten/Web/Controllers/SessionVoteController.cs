@@ -38,9 +38,12 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include = "DateStart,DateEnd")] SessionVote sessionVote)
         {
-            if (sessionVoteService.Add(sessionVote))
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index");
+                if (sessionVoteService.Add(sessionVote))
+                {
+                    return RedirectToAction("Index");
+                }
             }
             return View();
 
@@ -58,9 +61,12 @@ namespace Web.Controllers
         {
             try
             {
-                if (sessionVoteService.Update(id, sessionVote))
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction("Index");
+                    if (sessionVoteService.Update(id, sessionVote))
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
                 return View();
             }

@@ -54,6 +54,7 @@
     <Compile Include="ClubService.cs" />
     <Compile Include="CommentService.cs" />
     <Compile Include="ConsultationService.cs" />
+    <Compile Include="EstimateService.cs" />
     <Compile Include="EventService.cs" />
     <Compile Include="ExtraService.cs" />
     <Compile Include="FolderMedicalService.cs" />

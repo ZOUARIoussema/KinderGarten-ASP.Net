@@ -40,9 +40,12 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include = "Description,CategoryId")] Club club)
         {
-            if (clubService.Add(club))
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index");
+                if (clubService.Add(club))
+                {
+                    return RedirectToAction("Index");
+                }
             }
             return View();
 
@@ -61,9 +64,12 @@ namespace Web.Controllers
         {
             try
             {
-                if (clubService.Update(id, club))
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction("Index");
+                    if (clubService.Update(id, club))
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
                 return View();
             }

@@ -38,9 +38,12 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include = "DateStart,DateEnd")] Meeting meeting)
         {
-            if (meetingService.Add(meeting))
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index");
+                if (meetingService.Add(meeting))
+                {
+                    return RedirectToAction("Index");
+                }
             }
             return View();
 
@@ -58,9 +61,12 @@ namespace Web.Controllers
         {
             try
             {
-                if (meetingService.Update(id, meeting))
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction("Index");
+                    if (meetingService.Update(id, meeting))
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
                 return View();
             }

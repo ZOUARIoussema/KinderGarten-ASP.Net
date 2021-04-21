@@ -14,7 +14,9 @@ namespace Model
         public int Id { get; set; }
         [DataType(DataType.Date)]
         [JsonProperty("dateStart")]
+        [Required(ErrorMessage = "Required fields")]
         public DateTime DateStart { get; set; }
+        [Required(ErrorMessage = "Required fields")]
         [JsonProperty("dateEnd")]
         [DataType(DataType.Date)]
         public DateTime DateEnd { get; set; }

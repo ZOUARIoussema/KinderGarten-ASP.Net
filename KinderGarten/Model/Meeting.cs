@@ -14,10 +14,12 @@ namespace Model
         public int Id { get; set; }
         
         [DataType(DataType.Date)]
+        [Required(ErrorMessage = "Required fields")]
         [JsonProperty("dateStart")]
         public DateTime DateStart { get; set; }
         [JsonProperty("dateEnd")]
         [DataType(DataType.Date)]
+        [Required(ErrorMessage = "Required fields")]
         public DateTime DateEnd { get; set; }
         [JsonProperty("kinderGarten")]
         public KinderGarten KinderGarten { get; set; }  

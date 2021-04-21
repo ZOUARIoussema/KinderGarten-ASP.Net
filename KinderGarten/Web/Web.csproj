@@ -149,24 +149,19 @@
     <Compile Include="Controllers\ClubController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ConsultationMedicalController.cs" />
+    <Compile Include="Controllers\EstimateController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\ExtraController.cs" />
     <Compile Include="Controllers\FolderMedicalController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-
     <Compile Include="Controllers\MedicalController.cs" />
-
     <Compile Include="Controllers\JustificationAbsenceController.cs" />
-
     <Compile Include="Controllers\MedicalVisitController.cs" />
     <Compile Include="Controllers\KinderGartenController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
-
     <Compile Include="Controllers\PublicationController.cs" />
-
     <Compile Include="Controllers\PayementEnLigneSubscriptionChildController.cs" />
     <Compile Include="Controllers\PayementHandToHandController.cs" />
-
     <Compile Include="Controllers\SessionVoteController.cs" />
     <Compile Include="Controllers\SpentController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -1245,7 +1240,6 @@
     <Content Include="Views\Comment\Create.cshtml" />
     <Content Include="Views\Comment\Edit.cshtml" />
     <Content Include="Views\JustificationAbsence\Create.cshtml" />
-
     <Content Include="Views\PayementEnLigneSubscriptionChild\Index.cshtml" />
     <Content Include="Views\Vote\Index.cshtml" />
     <Content Include="Views\PayementHandToHand\Index.cshtml" />
@@ -1253,11 +1247,14 @@
     <Content Include="Views\PayementHandToHand\Details.cshtml" />
     <Content Include="Views\PayementHandToHand\Create.cshtml" />
     <Content Include="Views\PayementHandToHand\Edit.cshtml" />
-
     <Content Include="Views\Medical\Index.cshtml" />
     <Content Include="Views\Accounting\Index.cshtml" />
     <Content Include="Views\Shared\_AccountingLayout.cshtml" />
-
+    <Content Include="Views\Estimate\Create.cshtml" />
+    <Content Include="Views\Estimate\Edit.cshtml" />
+    <Content Include="Views\Estimate\Index.cshtml" />
+    <Content Include="Views\Estimate\EstimateFilter.cshtml" />
+    <Content Include="Views\Estimate\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

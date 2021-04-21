@@ -38,9 +38,12 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include = "Description,Price")] CategorySubscription categorySubscription)
         {
-            if (categorySubscriptionService.Add(categorySubscription))
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index");
+                if (categorySubscriptionService.Add(categorySubscription))
+                {
+                    return RedirectToAction("Index");
+                }
             }
             return View();
 
@@ -58,9 +61,12 @@ namespace Web.Controllers
         {
             try
             {
-                if (categorySubscriptionService.Update(id, categorySubscription))
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction("Index");
+                    if (categorySubscriptionService.Update(id, categorySubscription))
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
                 return View();
             }

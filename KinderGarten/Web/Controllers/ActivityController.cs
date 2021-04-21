@@ -39,9 +39,11 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include = "Description,Photo")] Activity activity)
         {
-            if (activityService.Add(activity))
+            if (ModelState.IsValid) { 
+                if (activityService.Add(activity))
             {
                 return RedirectToAction("Index");
+            }
             }
             return View();
 
@@ -59,9 +61,12 @@ namespace Web.Controllers
         {
             try
             {
-                if (activityService.Update(id, activity))
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction("Index");
+                    if (activityService.Update(id, activity))
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
                 return View();
             }

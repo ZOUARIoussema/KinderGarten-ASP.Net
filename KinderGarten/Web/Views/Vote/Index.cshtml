@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Actif Parents</h2>
 
 <table class="table">
     <tr>
@@ -47,7 +47,7 @@
         </td>
 
         <td>
-          
+            @Html.ActionLink("Vote", "", new { id = item.Id })
         </td>
     </tr>
 }

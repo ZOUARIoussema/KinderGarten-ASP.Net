@@ -58,7 +58,7 @@ namespace Model
         [JsonProperty("kinderGartenResponsible")]
         public KinderGarten KinderGartenResponsible { get; set; }
         [JsonProperty("kinderGartenDelegate")]
-        public KinderGarten kinderGartenDelegate { get; set; }
+        public KinderGarten KinderGartenDelegate { get; set; }
         public List<Consultation> ListConsultations { get; set; }
         public List<MedicalVisitKinderGarten> ListMedicalVisitKinderGartens { get; set; }
         public List<Spent> LisSpents { get; set; }
