@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from eduzone.dexignzone.com/xhtml/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 09 Apr 2021 22:26:39 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <meta name="robots" content="" />
+    <meta name="description" content="EduZone - Education Collage & School HTML5 Template" />
+    <meta property="og:title" content="EduZone - Education Collage & School HTML5 Template" />
+    <meta property="og:description" content="EduZone - Education Collage & School HTML5 Template" />
+    <meta property="og:image" content="" />
+    <meta name="format-detection" content="telephone=no">
+
+
+    <!-- FAVICONS ICON -->
+    <link rel="icon" href="~/Content/images/favicon.ico" type="C" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/images/favicon.png" />
+
+    <!-- PAGE TITLE HERE -->
+    <title>KinderGarten KIDSPRO</title>
+
+    <!-- MOBILE SPECIFIC -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    @Styles.Render("~/template/css")
+
+
+
+
+</head>
+<body id="bg">
+    <div class="page-wraper">
+
+
+
+        <!-- header -->
+        <header class="site-header mo-left header">
+            <!-- main header -->
+            <div class="sticky-header main-bar-wraper header-curve navbar-expand-lg">
+                <div class="main-bar clearfix bg-primary">
+
+                    <!-- website logo -->
+                    <div class="logo-header mostion" style="margin-left: 20px;">
+                        <a href="@Url.Action("Index", "Home")"><img src="~/Content/images/logo.png" alt=""></a>
+                    </div>
+                    <!-- nav toggle button -->
+                    <button class="navbar-toggler collapsed navicon justify-content-end" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <!-- extra nav -->
+                    <!-- Quik search -->
+                    <div class="dlab-quik-search ">
+                        <form action="#">
+                            <input name="search" value="" type="text" class="form-control" placeholder="Type to search">
+                            <span id="quik-search-remove"><i class="ti-close"></i></span>
+                        </form>
+                    </div>
+                    <!-- main nav -->
+                    <div class="header-nav navbar-collapse collapse justify-content-end" id="navbarNavDropdown" style="margin-right: 422px;">
+                        <div class="logo-header d-md-block d-lg-none">
+                            <a href="@Url.Action("Index", "Home")"> <img src="~/Content/images/logo.png" alt=""></a>
+                        </div>
+                        <ul class="nav navbar-nav">
+                            <li class="active">
+                                <a href="@Url.Action("Index", "FolderMedical")">Folder Medical</a>
+
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "ConsultationMedical")">Consultation Medical</a>
+                            </li>
+                            <li class="has-mega-menu">
+                                <a href="@Url.Action("Index", "MedicalVisit")">Medical Visit</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "VaccineChild")">Child Vaccine</a>
+                            </li>
+                            
+                             
+                            <li style="    position: absolute;
+						right: 26px;">
+                                <a href="@Url.Action("Index","Home")">Log out </a>
+                                
+                                
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <!-- main header END -->
+        </header>
+        <!-- header END -->
+        <!-- header END -->
+
+        <div class="container body-content">
+
+            @RenderBody()
+
+         </div>
+
+
+            <footer class="site-footer footer-full">
+                <div class="p-tb60 bg-black">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 text-md-left text-center footer-logo">
+                                <img src="~/Content/images/logo.png" alt="" width="100" style="height: 50px;width: 200px;">
+                                <p class="m-b0 m-t10">Copyright © 2021 </p>
+                            </div>
+                            <div class="col-md-6 text-md-right text-center">
+                                <div class="widget-link ">
+                                    <ul>
+                                        <li><a href="javascript:void(0);">Home</a></li>
+                                        <li><a href="javascript:void(0);">About us</a></li>
+                                        <li><a href="javascript:void(0);">Help Desk</a></li>
+                                        <li><a href="javascript:void(0);">Privacy Policy</a></li>
+                                        <li><a href="javascript:void(0);">Contact Us</a></li>
+                                    </ul>
+                                </div>
+                                <ul class="list-inline m-b0 m-t10">
+                                    <li><a href="javascript:void(0);" class="site-button-link facebook hover"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="javascript:void(0);" class="site-button-link google-plus hover"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="javascript:void(0);" class="site-button-link linkedin hover"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="javascript:void(0);" class="site-button-link instagram hover"><i class="fa fa-instagram"></i></a></li>
+                                    <li><a href="javascript:void(0);" class="site-button-link twitter hover"><i class="fa fa-twitter"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- Footer END -->
+            <button class="scroltop style1 radius" type="button" style="display: inline-block;"><i class="fa fa-arrow-up"></i></button>
+        </div>
+
+        @**  <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
+        *@
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        @RenderSection("Scripts", false)
+</body>
+</html>

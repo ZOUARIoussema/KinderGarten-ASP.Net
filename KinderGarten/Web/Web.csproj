@@ -140,6 +140,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountingController.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Controllers\ExtraController.cs" />
     <Compile Include="Controllers\FolderMedicalController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MedicalController.cs" />
     <Compile Include="Controllers\MedicalVisitController.cs" />
     <Compile Include="Controllers\KinderGartenController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
@@ -1203,7 +1205,7 @@
     <Content Include="Views\ConsultationMedical\Edit.cshtml" />
     <Content Include="Views\ConsultationMedical\Delete.cshtml" />
     <Content Include="Views\MedicalVisit\Index.cshtml" />
-    <Content Include="Views\Shared\_LayoutMedicalVisitC.cshtml" />
+    <Content Include="Views\Shared\_LayoutMedical.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Event\Create.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
@@ -1232,6 +1234,9 @@
     <Content Include="Views\PayementHandToHand\Details.cshtml" />
     <Content Include="Views\PayementHandToHand\Create.cshtml" />
     <Content Include="Views\PayementHandToHand\Edit.cshtml" />
+    <Content Include="Views\Medical\Index.cshtml" />
+    <Content Include="Views\Accounting\Index.cshtml" />
+    <Content Include="Views\Shared\_AccountingLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
