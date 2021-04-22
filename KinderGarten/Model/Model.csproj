@@ -55,6 +55,7 @@
     <Compile Include="ChildVaccine.cs" />
     <Compile Include="Claim.cs" />
     <Compile Include="Club.cs" />
+    <Compile Include="CodeVerifPass.cs" />
     <Compile Include="Comment.cs" />
     <Compile Include="Consultation.cs" />
     <Compile Include="Dictionary.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="SubscriptionChild.cs" />
     <Compile Include="SwitchAccount.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="userauthenticated.cs" />
     <Compile Include="Vote.cs" />
     <Compile Include="VoteForm.cs" />
   </ItemGroup>

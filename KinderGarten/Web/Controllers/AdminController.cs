@@ -12,16 +12,17 @@ using Service;
 
 namespace Web.Controllers
 {
-  
+
     public class AdminController : Controller
     {
         private ClaimsService claimservice = new ClaimsService();
         private UserService userservice = new UserService();
-       
 
-      
+
+
 
         // GET: Admin
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
@@ -40,7 +41,7 @@ namespace Web.Controllers
 
             return View(userservice.GetAll());
         }
-    
+
 
         // GET: Admin/Details/5
         public ActionResult Details(int id)

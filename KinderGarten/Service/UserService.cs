@@ -1,4 +1,5 @@
 ﻿using Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-   public  class UserService
+    public class UserService
     {
         HttpClient httpClient;
         public UserService()
@@ -18,9 +19,12 @@ namespace Service
             httpClient.BaseAddress = new Uri(Statics.baseAddress);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", Statics._AccessToken));
+            //httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", Statics._AccessToken));
 
         }
+
+
+
 
         public String authenticate(User u)
         {
@@ -36,7 +40,7 @@ namespace Service
                     String user = APIResponse.Content.ReadAsStringAsync().ToString();
                     return user;
                 }
-               
+
             }
             catch
             {
@@ -48,7 +52,7 @@ namespace Service
 
         public IEnumerable<User> GetAll()
         {
-           
+
             var response = httpClient.GetAsync(Statics.baseAddress + "useradmin/findAll").Result;
 
 
@@ -87,6 +91,7 @@ namespace Service
             try
             {
                 var APIResponse = httpClient.DeleteAsync(Statics.baseAddress + "useradmin/delete/" + id);
+
 
                 return true;
             }

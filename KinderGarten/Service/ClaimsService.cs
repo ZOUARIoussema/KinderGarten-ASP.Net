@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-   public  class ClaimsService
+    public class ClaimsService
     {
         HttpClient httpClient;
         public ClaimsService()
@@ -22,22 +22,22 @@ namespace Service
 
         }
 
-      
 
 
-        public IEnumerable<Claim>GetAll()
+
+        public IEnumerable<Claim> GetAll()
         {
-          
-            var  response = httpClient.GetAsync(Statics.baseAddress+"admin/getAllClaims").Result;
-          
+
+            var response = httpClient.GetAsync(Statics.baseAddress + "admin/getAllClaims").Result;
+
 
             if (response.IsSuccessStatusCode)
             {
 
-               var claims = response.Content.ReadAsAsync<IEnumerable<Claim>>().Result;
-            return claims;
+                var claims = response.Content.ReadAsAsync<IEnumerable<Claim>>().Result;
+                return claims;
             }
-        return new List<Claim>();
+            return new List<Claim>();
         }
 
     }
