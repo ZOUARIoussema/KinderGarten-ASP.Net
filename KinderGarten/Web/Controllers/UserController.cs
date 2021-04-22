@@ -183,22 +183,32 @@ namespace Web.Controllers
 
                 FormsAuthentication.SetAuthCookie(s.username, false);
 
-                System.Diagnostics.Debug.WriteLine("user authenticated  :" + s);
+                Session["token"] = s.token;
 
-                //foreach (string role in s.authorities)
-                //{
-                //    System.Diagnostics.Debug.WriteLine(role);
+                 System.Diagnostics.Debug.WriteLine("user authenticated  :" + s);
 
-                //    if (role.Equals("ROLE_admin"))
+                System.Diagnostics.Debug.WriteLine("user authenticated  :" + s.token);
 
-                //        return RedirectToAction("Index", "Admin");
-                //    if (role.Equals("ROLE_visitor"))
 
-                //        return RedirectToAction("Index", "Home");
-                //}
-                //   System.Diagnostics.Debug.WriteLine(s.authorities.ToString());
+                foreach (string role in s.authorities)
+                {
+                    System.Diagnostics.Debug.WriteLine(role);
 
-                return RedirectToAction("Index", "Home");
+                    var rolesplitted  =  role.Split('_');
+
+                    Session["role"] = rolesplitted;
+
+                    if (role.Equals("ROLE_admin"))
+
+                        return RedirectToAction("Index", "Admin");
+
+                    if (role.Equals("ROLE_visitor"))
+
+                        return RedirectToAction("Index", "Home");
+                }
+                System.Diagnostics.Debug.WriteLine(s.authorities.ToString());
+
+              //  return RedirectToAction("Index", "Home");
 
 
             }

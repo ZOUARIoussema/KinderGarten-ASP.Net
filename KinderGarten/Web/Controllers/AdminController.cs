@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Mvc;
 using Service;
-
+using System.Web.Security;
 
 namespace Web.Controllers
 {
@@ -26,6 +26,7 @@ namespace Web.Controllers
         public ActionResult Index()
         {
             return View();
+           
         }
 
 
@@ -33,7 +34,28 @@ namespace Web.Controllers
 
         public ActionResult Claims()
         {
-            return View(claimservice.GetAll());
+            FormsIdentity id = (FormsIdentity)User.Identity;
+            FormsAuthenticationTicket ticket = id.Ticket;
+            System.Diagnostics.Debug.WriteLine("token :" + ticket.ToString());
+
+            string token = Session["token"].ToString();
+
+            HttpClient httpclientclaims = new HttpClient();
+            httpclientclaims.BaseAddress = new Uri(Statics.baseAddress);
+            httpclientclaims.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            httpclientclaims.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", ticket.UserData));
+
+            var response = httpclientclaims.GetAsync(Statics.baseAddress + "admin/getAllClaims").Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                IEnumerable<Claim> claims = response.Content.ReadAsAsync<IEnumerable<Claim>>().Result;
+
+                return View(claims);
+
+            }
+
+            return View(new List<Claim>());
         }
 
         public ActionResult Users()

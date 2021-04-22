@@ -9,11 +9,14 @@ using Service;
 
 namespace Web.Controllers
 {
+    [Authorize]
     public class EventController : Controller
     {
         EventService eventService = new EventService();
         CategoryService categoryService = new CategoryService();
         // GET: Event
+
+        
         public ActionResult Index()
         {
             return View(eventService.GetAll());
