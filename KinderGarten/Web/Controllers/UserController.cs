@@ -215,34 +215,45 @@ namespace Web.Controllers
                             return RedirectToAction("Index", "Home");
                         }
 
-                        //if (u.Role.Equals("ROLE_adminGarten"))
-                        //{
-                        //    return RedirectToAction("Index", "Admin");
+                         if (u.Role.ToString().Equals("ROLE_doctor"))
+                         {
+                         return RedirectToAction("Index", "Medical");
+                         }
 
-                        //}
+                        if (u.Role.ToString().Equals("ROLE_agentCashier"))
+                         {
+                        return RedirectToAction("Index", "Accounting");
+                        }
 
-                        //if (u.Role.Equals("ROLE_doctor"))
-                        //{
-                        //    return RedirectToAction("Index", "Admin");
 
-                        //}
+                    //if (u.Role.Equals("ROLE_adminGarten"))
+                    //{
+                    //    return RedirectToAction("Index", "Admin");
 
-                        //if (u.Role.Equals("ROLE_futurParent"))
-                        //{
+                    //}
 
-                        //}
+                    //if (u.Role.Equals("ROLE_doctor"))
+                    //{
+                    //    return RedirectToAction("Index", "Admin");
 
-                        //if (u.Role.Equals("ROLE_agentCashier"))
-                        //{
+                    //}
 
-                        //}
-                        //if (u.Role.Equals("ROLE_provider"))
-                        //{
+                    //if (u.Role.Equals("ROLE_futurParent"))
+                    //{
 
-                        //}
+                    //}
 
-                    }
+                    //if (u.Role.Equals("ROLE_agentCashier"))
+                    //{
+
+                    //}
+                    //if (u.Role.Equals("ROLE_provider"))
+                    //{
+
+                    //}
+
                 }
+            }
             
            
 

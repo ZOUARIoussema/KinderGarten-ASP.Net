@@ -14,15 +14,18 @@ namespace Web.Controllers
     public class SpentController : Controller
     {
 
-       
 
-        SpentService spentService = new SpentService();
+
+        SpentService spentService;
         
 
         public SpentController()
         {
 
-             
+            
+
+            String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
+            spentService = new SpentService(token);
 
         }
 
@@ -30,13 +33,7 @@ namespace Web.Controllers
         // GET: Spent
         public ActionResult Index()
         {
-
-
-
             
-
-
-             
 
 
             return View(spentService.getAll());

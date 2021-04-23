@@ -1269,7 +1269,6 @@
     <Content Include="Views\Medical\Index.cshtml" />
     <Content Include="Views\Accounting\Index.cshtml" />
     <Content Include="Views\Shared\_AccountingLayout.cshtml" />
- 
     <Content Include="Views\Estimate\Create.cshtml" />
     <Content Include="Views\Estimate\Edit.cshtml" />
     <Content Include="Views\Estimate\Index.cshtml" />
@@ -1280,7 +1279,6 @@
     <Content Include="Views\User\SuccessPage.cshtml" />
     <Content Include="Views\User\VerifyCodeAndChangePassword.cshtml" />
     <Content Include="Views\Meeting\IndexAdminGarten.cshtml" />
- 
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

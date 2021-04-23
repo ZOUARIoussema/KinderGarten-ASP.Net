@@ -15,14 +15,14 @@ namespace Service
 
         HttpClient httpClient;
 
-        public VaccineChildService()
+        public VaccineChildService(String accessToken)
         {
 
             httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(Statics.baseAddress);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", Statics._AccessToken));
+            httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", " "+ accessToken));
 
         }
 

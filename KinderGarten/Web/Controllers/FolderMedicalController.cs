@@ -15,12 +15,12 @@ namespace Web.Controllers
     {
      
 
-        FolderMedicalService folderMedicalService = new FolderMedicalService();
+        FolderMedicalService folderMedicalService ;
 
         public FolderMedicalController()
         {
-
-             
+             String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
+            folderMedicalService = new FolderMedicalService(token);
 
         }
 
