@@ -38,9 +38,12 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include = "Description,Price")] Extra extra)
         {
-            if (extraService.Add(extra))
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index");
+                if (extraService.Add(extra))
+                {
+                    return RedirectToAction("Index");
+                }
             }
             return View();
 
@@ -58,9 +61,12 @@ namespace Web.Controllers
         {
             try
             {
-                if (extraService.Update(id, extra))
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction("Index");
+                    if (extraService.Update(id, extra))
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
                 return View();
             }

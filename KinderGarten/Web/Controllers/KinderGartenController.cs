@@ -38,9 +38,12 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include = "Name,Email,Adress,Tel,Logo,Latitude,Longitude")] KinderGarten kinder)
         {
-            if (kinderGartenService.AddKinder(kinder))
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index");
+                if (kinderGartenService.AddKinder(kinder))
+                {
+                    return RedirectToAction("Index");
+                }
             }
             return View();
 
@@ -58,9 +61,12 @@ namespace Web.Controllers
         {
             try
             {
-                if (kinderGartenService.UpdateKinder(id, kinderGarten))
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction("Index");
+                    if (kinderGartenService.UpdateKinder(id, kinderGarten))
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
                 return View();
             }

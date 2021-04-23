@@ -34,9 +34,6 @@
 <body id="bg">
     <div class="page-wraper">
 
-
-
-        <!-- header -->
         <header class="site-header mo-left header">
             <!-- main header -->
             <div class="sticky-header main-bar-wraper header-curve navbar-expand-lg">
@@ -91,12 +88,62 @@
                                 <a href="contact-3.html">Contact Us</a>
 
                             </li>
-                            <li style="    position: absolute;
-						right: 26px;">
+                            <style>
+                                .username {
+                                    border-radius: 0;
+                                    color: #fff;
+                                    font-size: 15px;
+                                    padding: 24px 10px 24px 10px;
+                                    font-weight: 600;
+                                    display: inline-block;
+                                    position: absolute;
+                                    border-width: 0 0 0 1px;
+                                    right: 26px;
+                                    text-transform: uppercase;
+                                }
+                            </style>
+
+                            @if (@Session["User"] != null)
+                            {
+                                <li class="has-mega-menu">
+                                    <p class="username">Welcome @Session["username"]</p>
+
+
+
+                                    @*<a href="#" style="position: absolute;right: 9px;"></a>*@
+                                    <!--<i class="fa fa-sign-out fa-lg"></i>-->
+                                    <a href="@Url.Action("SignOut","User")" style="left:422px;"> <i class="fa fa-sign-out" style="font-size:18px;" aria-hidden="true"></i></a>
+
+
+
+
+                                </li>
+
+                            }
+                            else
+                            {
+
+
+                                <li style="    position: absolute;right: 26px;">
+
+                                    <a href="@Url.Action("Login","User")">Login </a>
+
+                                    <a href="@Url.Action("Register","User")">Register </a>
+
+                                    <i class="fa fa-user-plus" style="font-size: 18px;"></i>
+                                </li>
+                            }
+
+                            @*<li style="    position: absolute;
+                            right: 26px;">
                                 <a href="@Url.Action("Login","User")">Login </a>
                                 <a href="shop-register.html">Register </a>
                                 <i class="fa fa-user-plus" style="font-size: 18px;"></i>
-                            </li>
+                            </li>*@
+
+
+
+
                         </ul>
                     </div>
 
@@ -105,8 +152,6 @@
             <!-- main header END -->
         </header>
         <!-- header END -->
-        <!-- header END -->
-
 
         @RenderBody()
 

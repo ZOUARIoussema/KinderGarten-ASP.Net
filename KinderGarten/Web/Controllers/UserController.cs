@@ -7,53 +7,250 @@ using System.Web.Mvc;
 using Service;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Newtonsoft.Json;
+using System.Web.Security;
 
 namespace Web.Controllers
 {
     public class UserController : Controller
     {
 
-        private UserService userservice = new UserService();
+        UserService userservice = new UserService();
+
+
+
+        [Authorize]
+        public ActionResult SignOut()
+        {
+           // FormsAuthentication.SignOut();
+            Session["User"] = null;
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        [HttpPost]
+
+        public ActionResult Register([Bind(Include = "Role,FirstName,LastName,Email,Password,ConfirmPassword,Address,Tel")] User user)
+        {
+
+            if (ModelState.IsValid)
+            {
+                HttpClient httpclient = new HttpClient();
+                httpclient.BaseAddress = new Uri("http://localhost:8081/");
+                httpclient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var responseadduser = httpclient.PostAsJsonAsync(Statics.baseAddress + "user/add", user).Result;
+
+                if (responseadduser.IsSuccessStatusCode)
+                {
+                    ViewBag.Message = "registration successfully completed !";
+
+                    return View();
+
+                }
+            }
+            return View();
+        }
+
+
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+
+        public ActionResult SuccessPage()
+        {
+            return View();
+        }
+
+
+        public ActionResult VerifyCodeAndChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult VerifyCodeAndChangePassword([Bind(Include = "Code,Password,confirmpassword,email")] CodeVerifPass cvp)
+        {
+            if (ModelState.IsValid)
+            {
+                string email = cvp.email;
+
+
+                System.Diagnostics.Debug.WriteLine("email  " + email);
+
+                var httpc = new HttpClient();
+
+                httpc.BaseAddress = new Uri("http://localhost:8081/user");
+
+                httpc.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var responseuseremail = httpc.GetAsync(Statics.baseAddress + "user/findUserByEmail/" + email).Result;
+
+                var useremail = responseuseremail.Content.ReadAsStringAsync().Result;
+
+                User u = JsonConvert.DeserializeObject<User>(useremail);
+
+
+
+                System.Diagnostics.Debug.WriteLine("user : " + u.Id);
+
+                int id = u.Id;
+
+                var httpClient = new HttpClient();
+
+                httpClient.BaseAddress = new Uri("http://localhost:8081/user/");
+
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var response = httpClient.PutAsJsonAsync<CodeVerifPass>("changepwd/" + id + "/" + cvp.Password + "/" + cvp.Code, cvp).Result;
+
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("SuccessPage", "User");
+                }
+            }
+
+
+            return View();
+
+        }
+
+
+        public ActionResult ForgetPassword()
+        {
+            return View();
+
+        }
+
+        [HttpPost]
+        public ActionResult ForgetPassword(FormCollection form)
+        {
+            string email = form["dzName"];
+
+            Session["Email"] = email;
+
+            System.Diagnostics.Debug.WriteLine("********email : ************:" + email);
+
+            var httpClient = new HttpClient();
+
+            httpClient.BaseAddress = new Uri("http://localhost:8081/");
+
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var response = httpClient.PostAsync(Statics.baseAddress + "user/sendSecretKey/" + email, null).Result;
+
+            var result = response.Content.ReadAsStringAsync().Result.ToString();
+
+            System.Diagnostics.Debug.WriteLine("response" + result);
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                // return RedirectToAction("ChangePassword", "User");
+                return RedirectToAction("VerifyCodeAndChangePassword", "User");
+            }
+            return View();
+        }
+
+
 
         public ActionResult Login()
         {
 
-
             return View();
-        } 
-        [HttpPost]
-        public ActionResult Login([Bind(Include = "Email,Password")] User user)
-        {
-
-            var httpClient = new HttpClient();
-
-            httpClient.BaseAddress = new Uri("http://localhost:8081/user/");
-
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            var response = httpClient.PostAsJsonAsync<User>("authenticate", user);
-
-
-            response.Wait();
-            var result = response.Result;
-               
-            if (ModelState.IsValid)
-            {
-                if (result.IsSuccessStatusCode)
-                {
-                    String userauthenticated = result.Content.ToString();
-
-                    Console.WriteLine(userauthenticated);
-
-                    System.Diagnostics.Debug.WriteLine(userauthenticated);
-
-                    return RedirectToAction("Index", "Home");
-                }
-            }
-
-            ModelState.AddModelError(string.Empty, "error in login , try again");
-            return View(user);
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login([Bind(Include = "Email,Password")] User userlogin)
+        {
+            System.Diagnostics.Debug.WriteLine("email :" + userlogin.Email + ",password :" + userlogin.Password);
+
+            HttpClient httpuserauth = new HttpClient();
+            httpuserauth.BaseAddress = new Uri("http://localhost:8081/");
+            httpuserauth.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var responseloginuser = httpuserauth.PostAsJsonAsync(Statics.baseAddress + "user/authenticate", userlogin).Result;
+
+                if (responseloginuser.IsSuccessStatusCode)
+                {
+                    var userauth = responseloginuser.Content.ReadAsStringAsync().Result;
+
+                    var s = JsonConvert.DeserializeObject<userauthenticated>(userauth);
+
+                    FormsAuthentication.SetAuthCookie(s.username, false);
+
+
+                    Session["AccessToken"] = s.token;
+
+
+
+                    System.Diagnostics.Debug.WriteLine("token :   :" + Session["AccessToken"]);
+
+                    if (userservice.findUSerByEmail(userlogin.Email) != null)
+                    {
+                        User u = userservice.findUSerByEmail(userlogin.Email);
+
+                        Session["User"] = u;
+
+                        Session["username"] = u.FirstName;
+
+                        System.Diagnostics.Debug.WriteLine(u.ToString());
+
+
+
+                        if (u.Role.ToString().Equals("ROLE_admin"))
+
+                        {
+                            return RedirectToAction("Index", "Admin");
+
+                        }
+
+                        if (u.Role.ToString().Equals("ROLE_visitor"))
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+
+                        //if (u.Role.Equals("ROLE_adminGarten"))
+                        //{
+                        //    return RedirectToAction("Index", "Admin");
+
+                        //}
+
+                        //if (u.Role.Equals("ROLE_doctor"))
+                        //{
+                        //    return RedirectToAction("Index", "Admin");
+
+                        //}
+
+                        //if (u.Role.Equals("ROLE_futurParent"))
+                        //{
+
+                        //}
+
+                        //if (u.Role.Equals("ROLE_agentCashier"))
+                        //{
+
+                        //}
+                        //if (u.Role.Equals("ROLE_provider"))
+                        //{
+
+                        //}
+
+                    }
+                }
+            
+           
+
+            ModelState.AddModelError("Error", "please verify your credentials !");
+            return View();
+        }
+
+
 
         // GET: User
         public ActionResult Index()
@@ -71,6 +268,7 @@ namespace Web.Controllers
         public ActionResult Create()
         {
             return View();
+
         }
 
         // POST: User/Create

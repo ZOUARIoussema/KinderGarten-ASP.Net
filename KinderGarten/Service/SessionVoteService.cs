@@ -71,7 +71,7 @@ namespace Service
         }
         public IEnumerable<SessionVote> GetAll()
         {
-            var response = httpClient.GetAsync(Statics.baseAddress + "admingarten/getAllsessionVote").Result;
+            var response = httpClient.GetAsync(Statics.baseAddress + "admingarten/getAllSessionVote").Result;
             if (response.IsSuccessStatusCode)
             {
                 var sessionVote = response.Content.ReadAsAsync<IEnumerable<SessionVote>>().Result;

@@ -11,12 +11,20 @@ namespace Web.Controllers
     public class MeetingController : Controller
     {
         MeetingService meetingService = new MeetingService();
-        // GET: Meeting
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        // GET: Meeting
+        public JsonResult Meetings()
+        {
+            return new JsonResult { Data = meetingService.GetAll().ToList(), JsonRequestBehavior = JsonRequestBehavior.AllowGet }; 
+        }
+        public ActionResult IndexAdminGarten()
         {
             return View(meetingService.GetAll());
         }
-
         // GET: Meeting/Details/5
         public ActionResult Details(int id)
         {
@@ -38,9 +46,12 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include = "DateStart,DateEnd")] Meeting meeting)
         {
-            if (meetingService.Add(meeting))
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index");
+                if (meetingService.Add(meeting))
+                {
+                    return RedirectToAction("Index");
+                }
             }
             return View();
 
@@ -58,9 +69,12 @@ namespace Web.Controllers
         {
             try
             {
-                if (meetingService.Update(id, meeting))
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction("Index");
+                    if (meetingService.Update(id, meeting))
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
                 return View();
             }

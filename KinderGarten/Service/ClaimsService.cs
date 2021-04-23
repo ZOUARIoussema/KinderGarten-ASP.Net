@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-   public  class ClaimsService
+    public class ClaimsService
     {
         HttpClient httpClient;
         public ClaimsService()
@@ -18,26 +18,26 @@ namespace Service
             httpClient.BaseAddress = new Uri(Statics.baseAddress);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", Statics._AccessToken));
+           // httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", Statics._AccessToken));
 
         }
 
-      
 
 
-        public IEnumerable<Claim>GetAll()
+
+        public IEnumerable<Claim> GetAll()
         {
-          
-            var  response = httpClient.GetAsync(Statics.baseAddress+"admin/getAllClaims").Result;
-          
+
+            var response = httpClient.GetAsync(Statics.baseAddress + "admin/getAllClaims").Result;
+
 
             if (response.IsSuccessStatusCode)
             {
 
-               var claims = response.Content.ReadAsAsync<IEnumerable<Claim>>().Result;
-            return claims;
+                var claims = response.Content.ReadAsAsync<IEnumerable<Claim>>().Result;
+                return claims;
             }
-        return new List<Claim>();
+            return new List<Claim>();
         }
 
     }

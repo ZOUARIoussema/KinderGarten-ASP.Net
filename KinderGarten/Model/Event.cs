@@ -13,21 +13,24 @@ namespace Model
         [JsonProperty("id")]
         public int Id { get; set; }
         [JsonProperty("description")]
+        [Required(ErrorMessage = "Required fields")]
         [DataType(DataType.MultilineText)]
-        [Required]
         public String Description { get; set; }
         [JsonProperty("date")]
         [DataType(DataType.Date)]
-        [Required]
+        [Required(ErrorMessage = "Required fields")]
         public DateTime Date { get; set; }
         [JsonProperty("nParticipate")]
         public int NParticipate { get; set; }
         [JsonProperty("price")]
-        [Required]
+        [Required(ErrorMessage = "Required fields")]
         [DataType(DataType.Currency)]
         public double Price { get; set; }
         [JsonProperty("object")]
-        [Required, MaxLength(50, ErrorMessage = "length not respected"), StringLength(25, ErrorMessage = "string length not respected"), Display(Name = "Produit")]
+        [StringLength(25, ErrorMessage = "taille max=25")]
+        [MaxLength(50)]
+        [Required(ErrorMessage = "Required fields")]
+        [Display(Name = "Product Need It")]
         public String Object { get; set; }
         [JsonProperty("category")]
         public Category Category { get; set; }

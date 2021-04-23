@@ -13,7 +13,9 @@ namespace Model
         [JsonProperty("id")]
         public int Id { get; set; }
         [Display(Name = "Categorie")]
-        [Required]
+        [Required(ErrorMessage = "Required fields")]
+        [StringLength(25, ErrorMessage = "taille max=25")]
+        [MaxLength(50)]
         [JsonProperty("description")]
         public String Description { get; set; }
         [JsonProperty("kinderGarten")]

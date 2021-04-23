@@ -38,9 +38,12 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include = "Description")] Category category)
         {
-            if (categoryService.Add(category))
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index");
+                if (categoryService.Add(category))
+                {
+                    return RedirectToAction("Index");
+                }
             }
             return View();
 
@@ -58,9 +61,12 @@ namespace Web.Controllers
         {
             try
             {
-                if (categoryService.Update(id, category))
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction("Index");
+                    if (categoryService.Update(id, category))
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
                 return View();
             }

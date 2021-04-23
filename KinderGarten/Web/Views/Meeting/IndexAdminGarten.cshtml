@@ -1,11 +1,11 @@
-﻿@model IEnumerable<Model.CategorySubscription>
+﻿@model IEnumerable<Model.Meeting>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "IndexAdminGarten";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Category Subscription</h2>
+<h2>Meeting</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -13,10 +13,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.DateStart)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.DateEnd)
         </th>
         <th></th>
     </tr>
@@ -24,10 +24,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            @Html.DisplayFor(modelItem => item.DateStart)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Price)
+            @Html.DisplayFor(modelItem => item.DateEnd)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

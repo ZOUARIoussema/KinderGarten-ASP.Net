@@ -9,11 +9,14 @@ using Service;
 
 namespace Web.Controllers
 {
+    [Authorize]
     public class EventController : Controller
     {
         EventService eventService = new EventService();
         CategoryService categoryService = new CategoryService();
         // GET: Event
+
+        
         public ActionResult Index()
         {
             return View(eventService.GetAll());
@@ -41,9 +44,12 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include = "Description,Date,Price,Object,CategoryId")] Event e)
         {
-            if (eventService.Add(e))
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index");
+                if (eventService.Add(e))
+                {
+                    return RedirectToAction("Index");
+                }
             }
             return View();
 
@@ -62,9 +68,12 @@ namespace Web.Controllers
         {
             try
             {
-                if (eventService.Update(id, e))
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction("Index");
+                    if (eventService.Update(id, e))
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
                 return View();
             }
