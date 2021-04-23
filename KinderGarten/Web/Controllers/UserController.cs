@@ -15,14 +15,15 @@ namespace Web.Controllers
     public class UserController : Controller
     {
 
-
+        UserService userservice = new UserService();
 
 
 
         [Authorize]
         public ActionResult SignOut()
         {
-            FormsAuthentication.SignOut();
+           // FormsAuthentication.SignOut();
+            Session["User"] = null;
             return RedirectToAction("Index", "Home");
         }
 
@@ -175,43 +176,77 @@ namespace Web.Controllers
 
             var responseloginuser = httpuserauth.PostAsJsonAsync(Statics.baseAddress + "user/authenticate", userlogin).Result;
 
-            if (responseloginuser.IsSuccessStatusCode)
-            {
-                var userauth = responseloginuser.Content.ReadAsStringAsync().Result;
-
-                var s = JsonConvert.DeserializeObject<userauthenticated>(userauth);
-
-                FormsAuthentication.SetAuthCookie(s.username, false);
-
-                Session["token"] = s.token;
-
-                 System.Diagnostics.Debug.WriteLine("user authenticated  :" + s);
-
-                System.Diagnostics.Debug.WriteLine("user authenticated  :" + s.token);
-
-
-                foreach (string role in s.authorities)
+                if (responseloginuser.IsSuccessStatusCode)
                 {
-                    System.Diagnostics.Debug.WriteLine(role);
+                    var userauth = responseloginuser.Content.ReadAsStringAsync().Result;
 
-                    var rolesplitted  =  role.Split('_');
+                    var s = JsonConvert.DeserializeObject<userauthenticated>(userauth);
 
-                    Session["role"] = rolesplitted;
+                    FormsAuthentication.SetAuthCookie(s.username, false);
 
-                    if (role.Equals("ROLE_admin"))
 
-                        return RedirectToAction("Index", "Admin");
+                    Session["AccessToken"] = s.token;
 
-                    if (role.Equals("ROLE_visitor"))
 
-                        return RedirectToAction("Index", "Home");
+
+                    System.Diagnostics.Debug.WriteLine("token :   :" + Session["AccessToken"]);
+
+                    if (userservice.findUSerByEmail(userlogin.Email) != null)
+                    {
+                        User u = userservice.findUSerByEmail(userlogin.Email);
+
+                        Session["User"] = u;
+
+                        Session["username"] = u.FirstName;
+
+                        System.Diagnostics.Debug.WriteLine(u.ToString());
+
+
+
+                        if (u.Role.ToString().Equals("ROLE_admin"))
+
+                        {
+                            return RedirectToAction("Index", "Admin");
+
+                        }
+
+                        if (u.Role.ToString().Equals("ROLE_visitor"))
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+
+                        //if (u.Role.Equals("ROLE_adminGarten"))
+                        //{
+                        //    return RedirectToAction("Index", "Admin");
+
+                        //}
+
+                        //if (u.Role.Equals("ROLE_doctor"))
+                        //{
+                        //    return RedirectToAction("Index", "Admin");
+
+                        //}
+
+                        //if (u.Role.Equals("ROLE_futurParent"))
+                        //{
+
+                        //}
+
+                        //if (u.Role.Equals("ROLE_agentCashier"))
+                        //{
+
+                        //}
+                        //if (u.Role.Equals("ROLE_provider"))
+                        //{
+
+                        //}
+
+                    }
                 }
-                System.Diagnostics.Debug.WriteLine(s.authorities.ToString());
+            
+           
 
-              //  return RedirectToAction("Index", "Home");
-
-
-            }
+            ModelState.AddModelError("Error", "please verify your credentials !");
             return View();
         }
 

@@ -82,7 +82,10 @@ namespace Model
 
 
 
-
+        public override string ToString()
+        {
+            return "User : {" + Id + "," + Email + "," + Password + "," + Role + "}";
+        }
 
 
 

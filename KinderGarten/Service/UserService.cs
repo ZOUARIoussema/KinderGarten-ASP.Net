@@ -19,37 +19,28 @@ namespace Service
             httpClient.BaseAddress = new Uri(Statics.baseAddress);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            //httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", Statics._AccessToken));
+          
 
         }
 
 
-
-
-        public String authenticate(User u)
+        public User findUSerByEmail(string email)
         {
-            try
+            User u = null;
+            var response = httpClient.GetAsync(Statics.baseAddress + "user/findUserByEmail/"+email).Result;
+
+            if (response.IsSuccessStatusCode)
             {
-                var APIResponse = httpClient.PostAsJsonAsync<User>(Statics.baseAddress + "user/authenticate/", u).Result;
+                var user = response.Content.ReadAsAsync<User>().Result;
 
-
-
-                if (APIResponse.IsSuccessStatusCode)
-                {
-
-                    String user = APIResponse.Content.ReadAsStringAsync().ToString();
-                    return user;
-                }
-
+               
+                return user;
             }
-            catch
-            {
-                return "user non authenticated";
-            }
-            return "u";
+
+            return u;
         }
 
-
+      
         public IEnumerable<User> GetAll()
         {
 
@@ -66,24 +57,7 @@ namespace Service
 
         }
 
-        public User GetById(int id)
-        {
-
-            User user = null;
-
-            var response = httpClient.GetAsync(Statics.baseAddress + "useradmin/findUser/" + id).Result;
-
-            if (response.IsSuccessStatusCode)
-            {
-                var u = response.Content.ReadAsAsync<User>().Result;
-
-                return u;
-            }
-
-
-            return user;
-
-        }
+      
 
         public bool DeleteUser(int id)
         {

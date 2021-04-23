@@ -14,6 +14,8 @@ namespace Web.Controllers
         public ActionResult Index()
         {
 
+            string iduserrrr = User.Identity.GetUserId();
+            System.Diagnostics.Debug.WriteLine("****username :*****" + HttpContext.User.Identity.GetUserId());
 
             return View();
         }
