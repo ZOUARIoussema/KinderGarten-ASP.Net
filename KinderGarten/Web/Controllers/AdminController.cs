@@ -1,14 +1,12 @@
 ﻿using Model;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Mvc;
 using Service;
 using System.Web.Security;
+using Microsoft.AspNet.Identity;
 
 namespace Web.Controllers
 {
@@ -34,18 +32,45 @@ namespace Web.Controllers
 
         public ActionResult Claims()
         {
-            FormsIdentity id = (FormsIdentity)User.Identity;
-            FormsAuthenticationTicket ticket = id.Ticket;
-            System.Diagnostics.Debug.WriteLine("token :" + ticket.ToString());
+            //FormsIdentity id = (FormsIdentity)User.Identity;
+            //FormsAuthenticationTicket ticket = id.Ticket;
 
-            string token = Session["token"].ToString();
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    string iduser = User.Identity.GetUserId();
+
+            //    System.Diagnostics.Debug.WriteLine("****id user :*****" + iduser);
+
+            //}
+
+            //string iduserrrr = HttpContext.User.Identity.GetUserId();
+            //System.Diagnostics.Debug.WriteLine("****id user 2 :*****" + iduserrrr);
+
+            //System.Diagnostics.Debug.WriteLine("token :" + ticket.ToString());
+
+            //string token = Session["token"].ToString();
+            //var context = new HttpContextAccessor().HttpContext;
+            //var accessToken = await context.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
+
+            // string accessToken =   HttpContext.GetTokenAsyc
+
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    string accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            //    string accesstoken = User.Identity.
+            //}
 
             HttpClient httpclientclaims = new HttpClient();
             httpclientclaims.BaseAddress = new Uri(Statics.baseAddress);
             httpclientclaims.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            httpclientclaims.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", ticket.UserData));
+            httpclientclaims.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}"," "+Session["AccessToken"]));
+
+
 
             var response = httpclientclaims.GetAsync(Statics.baseAddress + "admin/getAllClaims").Result;
+
+            System.Diagnostics.Debug.WriteLine(response.StatusCode);
 
             if (response.IsSuccessStatusCode)
             {
@@ -118,7 +143,7 @@ namespace Web.Controllers
         // GET: Admin/Delete/5
         public ActionResult Delete(int id)
         {
-            return View(userservice.GetById(id));
+            return View();
         }
 
         // POST: Admin/Delete/5

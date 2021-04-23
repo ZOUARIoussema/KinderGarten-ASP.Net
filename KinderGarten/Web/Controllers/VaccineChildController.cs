@@ -13,13 +13,14 @@ namespace Web.Controllers
 {
     public class VaccineChildController : Controller
     {
-       
 
-        VaccineChildService vaccineChildService = new VaccineChildService();
+
+        VaccineChildService vaccineChildService;
 
         public VaccineChildController()
         {
-
+            String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
+            vaccineChildService = new VaccineChildService(token);
              
         }
 

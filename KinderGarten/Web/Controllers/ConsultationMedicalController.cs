@@ -11,16 +11,31 @@ namespace Web.Controllers
     public class ConsultationMedicalController : Controller
     {
 
-        private ConsultationService consultationService = new ConsultationService();
-        private FolderMedicalService folderMedicalService = new FolderMedicalService();
+
+
+        private ConsultationService consultationService;
+        private FolderMedicalService folderMedicalService;
         private static FolderMedical folderMedical = new FolderMedical();
         private static User doctor = new User();
+
+        public ConsultationMedicalController()
+        {
+
+            String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
+
+            consultationService = new ConsultationService(token);
+             folderMedicalService = new FolderMedicalService(token);
+
+
+        }
 
         
 
         // GET: ConsultationMedical
         public ActionResult Index()
         {
+            
+
             return View(consultationService.GetAll());
         }
 

@@ -38,6 +38,8 @@ namespace Web
                         "~/Content/css/templete.min.css",
                         "~/Content/css/skin/skin-2.css",
                           "~/Content/css/font.css"
+
+
                       ));
 
 

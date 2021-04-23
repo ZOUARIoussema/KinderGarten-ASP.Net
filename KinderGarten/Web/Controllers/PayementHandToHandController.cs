@@ -11,7 +11,13 @@ namespace Web.Controllers
     public class PayementHandToHandController : Controller
     {
 
-        PayementService payementService = new PayementService();
+        PayementService payementService;
+
+        public PayementHandToHandController()
+        {
+           String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
+            payementService = new PayementService(token);
+        }
 
        private  static int idSubscription;
 

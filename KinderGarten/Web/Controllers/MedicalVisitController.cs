@@ -11,7 +11,14 @@ namespace Web.Controllers
     public class MedicalVisitController : Controller
     {
 
-        MedicalVisitService medicalVisitService = new MedicalVisitService();
+        MedicalVisitService medicalVisitService ;
+
+        public MedicalVisitController()
+        {
+            String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
+            medicalVisitService = new MedicalVisitService(token);
+
+        }
 
         // GET: MedicalVisit
         public ActionResult Index()
