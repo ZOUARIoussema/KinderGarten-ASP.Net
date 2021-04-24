@@ -10,8 +10,17 @@ namespace Web.Controllers
 {
     public class ClubController : Controller
     {
-        ClubService clubService = new ClubService();
-        CategoryService categoryService = new CategoryService();
+        CategoryService categoryService;
+        ClubService clubService;
+        public ClubController()
+        {
+            String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
+
+            User usergarten = (User)System.Web.HttpContext.Current.Session["User"];
+
+            categoryService = new CategoryService(token);
+            clubService = new ClubService(token);
+        }
         // GET: Club
         public ActionResult Index()
         {
@@ -21,10 +30,10 @@ namespace Web.Controllers
         // GET: Club/Details/5
         public ActionResult Details(int id)
         {
-            Club club = clubService.getClubById(id);
-            if (club != null)
+            Club Club = clubService.getClubById(id);
+            if (Club != null)
             {
-                return View(club);
+                return View(Club);
             }
             return View();
         }
@@ -55,6 +64,7 @@ namespace Web.Controllers
         public ActionResult Edit(int id)
         {
             ViewBag.CategoryId = new SelectList(categoryService.GetAll(), "Id", "Description");
+         //   Club club = clubService.getClubById(id);
             return View();
         }
 

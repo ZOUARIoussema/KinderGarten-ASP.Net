@@ -114,6 +114,14 @@
 /*--------------------------------------------------------------
 1. GENERAL
 ---------------------------------------------------------------*/
+
+
+.inputprofilestyle {
+    padding: 6px;
+    width: 99%;
+    border: 1px solid #ccc;
+}
+
 body, html {
      -moz-osx-font-smoothing: grayscale;
 }

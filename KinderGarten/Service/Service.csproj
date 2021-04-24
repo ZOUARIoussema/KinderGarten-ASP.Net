@@ -50,6 +50,7 @@
     <Compile Include="ActivityService.cs" />
     <Compile Include="CategoryService.cs" />
     <Compile Include="CategorySubscriptionService.cs" />
+    <Compile Include="ChildService.cs" />
     <Compile Include="ClaimsService.cs" />
     <Compile Include="ClubService.cs" />
     <Compile Include="CommentService.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="PublicationService.cs" />
     <Compile Include="SessionVoteService.cs" />
     <Compile Include="SpentService.cs" />
+    <Compile Include="SubscriptionChildService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="Utils\Statics.cs" />
     <Compile Include="VaccineChildService.cs" />

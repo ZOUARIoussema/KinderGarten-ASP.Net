@@ -105,10 +105,11 @@ namespace Web.Controllers
 
 
             FolderMedical folderMedical = folderMedicalService.GetById(id);
+ 
 
             listG.Clear();
             listG.AddRange(folderMedical.LisChildVaccines);
-
+ 
             idF = id;
 
 

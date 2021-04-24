@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -39,11 +40,20 @@ namespace Web.Controllers
 
         // POST: Publication/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Description,Attachement")] Publication publication)
+        public ActionResult Create([Bind(Include = "Description,Attachement")] Publication publication, HttpPostedFileBase file)
         {
-            if (publicationService.Add(publication))
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index");
+                publication.Attachment = file.FileName;
+                if (file.ContentLength > 0)
+                {
+                    var path = Path.Combine(Server.MapPath("~/Content/Upload/"), file.FileName);
+                    file.SaveAs(path);
+                }
+                if (publicationService.Add(publication))
+                {
+                    return RedirectToAction("Index");
+                }
             }
             return View();
         }
@@ -64,11 +74,20 @@ namespace Web.Controllers
 
         // POST: Publication/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, [Bind(Include = "Id,Description,Attachement,NumberLike,NumberDislike")]Publication publication)
+        public ActionResult Edit(int id, [Bind(Include = "Id,Description,Attachement,NumberLike,NumberDislike")]Publication publication, HttpPostedFileBase file)
         {
-            if (publicationService.UpdatePublication(publication))
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index");
+                publication.Attachment = file.FileName;
+                if (file.ContentLength > 0)
+                {
+                    var path = Path.Combine(Server.MapPath("~/Content/Upload/"), file.FileName);
+                    file.SaveAs(path);
+                }
+                if (publicationService.UpdatePublication(publication))
+                {
+                    return RedirectToAction("Index");
+                }
             }
             return View();
         }

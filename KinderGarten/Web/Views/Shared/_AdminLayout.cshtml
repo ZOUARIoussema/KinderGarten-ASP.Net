@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>AdminLTE | Dashboard</title>
+    <title>Admin | Dashboard</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- bootstrap 3.0.2 -->
     @Styles.Render("~/admin/css")
@@ -24,7 +24,7 @@
     <header class="header">
         <a href="index.html" class="logo">
             <!-- Add the class icon to your logo image or logo icon to add the margining -->
-            AdminLTE
+            Admin
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -234,33 +234,25 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-user"></i>
-                            <span> @(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest") <i class="caret"></i></span>
+                            <span> @Session["firstname"] <i class="caret"></i></span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header bg-light-blue">
-                                <img src="~/Content/admin/img/avatar3.png" class="img-circle" alt="User Image" />
+                                <img src="~/Content/images/avatar_admin.jpg" class="img-circle" alt="User Image" />
                                 <p>
-                                    @(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest") - @Session["role"]
-                                    <small>Member since Nov. 2012</small>
+                                    @Session["firstname"] @Session["lastname"]
+                                    <small>Member since @Session["datecreation"]</small>
                                 </p>
                             </li>
-                            <!-- Menu Body -->
-                            <li class="user-body">
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Followers</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Sales</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Friends</a>
-                                </div>
-                            </li>
+                           
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                    @*@Html.ActionLink("Edit", "Edit", new { id = item.Id })*@
+
+                                    @Html.ActionLink("Profile", "EditProfile", "Admin", new { id = @Session["id"] }, new { @class= "btn btn-default btn-flat" } )
+                                    @*<a href="@Html.ActionLink("Profile",new { id = @Session["id"] }) class="btn btn-default btn-flat">Profile</a>*@
                                 </div>
                                 <div class="pull-right">
                                     <a href="@Url.Action("SignOut","User")" class="btn btn-default btn-flat">Sign out</a>
@@ -280,10 +272,10 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="~/Content/admin/img/avatar3.png" class="img-circle" alt="User Image" />
+                        <img src="~/Content/images/avatar_admin.jpg" class="img-circle" alt="User Image" />
                     </div>
                     <div class="pull-left info">
-                        <p>Hello, Jane</p>
+                        <p>Hello, @Session["firstname"]</p>
 
                         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>

@@ -167,6 +167,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CategorySubscriptionController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
+    <Compile Include="Controllers\ChildController.cs" />
     <Compile Include="Controllers\ClubController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ConsultationMedicalController.cs" />
@@ -185,6 +186,7 @@
     <Compile Include="Controllers\PayementHandToHandController.cs" />
     <Compile Include="Controllers\SessionVoteController.cs" />
     <Compile Include="Controllers\SpentController.cs" />
+    <Compile Include="Controllers\SubscriptionChildController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\VaccineChildController.cs" />
     <Compile Include="Controllers\VoteController.cs" />
@@ -1279,9 +1281,21 @@
     <Content Include="Views\User\SuccessPage.cshtml" />
     <Content Include="Views\User\VerifyCodeAndChangePassword.cshtml" />
     <Content Include="Views\Meeting\IndexAdminGarten.cshtml" />
+    <Content Include="Views\Child\Index.cshtml" />
+    <Content Include="Views\Child\Create.cshtml" />
+    <Content Include="Views\SubscriptionChild\Details.cshtml" />
+    <Content Include="Views\SubscriptionChild\Create.cshtml" />
+    <Content Include="Views\SubscriptionChild\Edit.cshtml" />
+    <Content Include="Views\SubscriptionChild\Delete.cshtml" />
+
+    <Content Include="Views\Admin\EditProfile.cshtml" />
+    <Content Include="Views\Vote\Create.cshtml" />
+    <Content Include="Views\Vote\Validate.cshtml" />
+    <Content Include="Views\SessionVote\Winner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Upload\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Checkout\" />
   </ItemGroup>

@@ -10,7 +10,15 @@ namespace Web.Controllers
 {
     public class ExtraController : Controller
     {
-        ExtraService extraService = new ExtraService();
+        ExtraService extraService ;
+        public ExtraController()
+        {
+            String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
+
+            User usergarten = (User)System.Web.HttpContext.Current.Session["User"];
+
+            extraService = new ExtraService(token);
+        }
         // GET: Extra
         public ActionResult Index()
         {
@@ -52,7 +60,8 @@ namespace Web.Controllers
         // GET: Extra/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Extra extra = extraService.getExtraById(id);
+            return View(extra);
         }
 
         // POST: Extra/Edit/5
