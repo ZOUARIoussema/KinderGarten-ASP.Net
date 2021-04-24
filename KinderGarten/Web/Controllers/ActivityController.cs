@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,7 +12,16 @@ namespace Web.Controllers
 {
     public class ActivityController : Controller
     {
-        ActivityService activityService = new ActivityService();
+        ActivityService activityService;
+        public ActivityController()
+        {
+            String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
+
+            User usergarten = (User)System.Web.HttpContext.Current.Session["User"];
+
+            activityService = new ActivityService(token);
+        }
+        
         // GET: Activity
         public ActionResult Index()
         {
@@ -37,9 +47,15 @@ namespace Web.Controllers
 
         // POST: Activity/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Description,Photo")] Activity activity)
+        public ActionResult Create([Bind(Include = "Description,Photo")] Activity activity, HttpPostedFileBase file)
         {
-            if (ModelState.IsValid) { 
+            if (ModelState.IsValid) {
+                activity.Photo = file.FileName;
+                if (file.ContentLength > 0)
+                {
+                    var path = Path.Combine(Server.MapPath("~/Content/Upload/"), file.FileName);
+                    file.SaveAs(path);
+                }
                 if (activityService.Add(activity))
             {
                 return RedirectToAction("Index");
@@ -52,17 +68,24 @@ namespace Web.Controllers
         // GET: Activity/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Activity activity = activityService.getActivityById(id);
+            return View(activity);
         }
 
         // POST: Activity/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, [Bind(Include = "Description,Photo")] Activity activity)
+        public ActionResult Edit(int id, [Bind(Include = "Description,Photo")] Activity activity, HttpPostedFileBase file)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    activity.Photo = file.FileName;
+                    if (file.ContentLength > 0)
+                    {
+                        var path = Path.Combine(Server.MapPath("~/Content/Upload/"), file.FileName);
+                        file.SaveAs(path);
+                    }
                     if (activityService.Update(id, activity))
                     {
                         return RedirectToAction("Index");

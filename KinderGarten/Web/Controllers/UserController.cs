@@ -192,7 +192,7 @@ namespace Web.Controllers
 
                     Session["AccessToken"] = s.token;
 
-
+                
 
                     System.Diagnostics.Debug.WriteLine("token :   :" + Session["AccessToken"]);
 
@@ -201,7 +201,7 @@ namespace Web.Controllers
                         User u = userservice.findUSerByEmail(userlogin.Email);
 
                         Session["User"] = u;
-
+                    Session["Id"] = u.Id;
                         Session["firstname"] = u.FirstName;
 
                     Session["id"] = u.Id;
@@ -211,7 +211,7 @@ namespace Web.Controllers
                     Session["lastname"] = u.LastName; 
 
                     Session["datecreation"] = u.DateC.ToLongDateString();
-
+                    Session["username"] = u.FirstName;
                     System.Diagnostics.Debug.WriteLine(u.ToString());
 
 
@@ -238,34 +238,34 @@ namespace Web.Controllers
                         return RedirectToAction("Index", "Accounting");
                         }
 
+                       
+                    if (u.Role.ToString().Equals("ROLE_adminGarten"))
+                    {
+                        return RedirectToAction("Index", "Admin");
 
-                    //if (u.Role.Equals("ROLE_adminGarten"))
-                    //{
-                    //    return RedirectToAction("Index", "Admin");
+                        }
 
-                    //}
+                        //if (u.Role.Equals("ROLE_doctor"))
+                        //{
+                        //    return RedirectToAction("Index", "Admin");
 
-                    //if (u.Role.Equals("ROLE_doctor"))
-                    //{
-                    //    return RedirectToAction("Index", "Admin");
+                        //}
 
-                    //}
+                        //if (u.Role.Equals("ROLE_futurParent"))
+                        //{
 
-                    //if (u.Role.Equals("ROLE_futurParent"))
-                    //{
+                        //}
 
-                    //}
+                        //if (u.Role.Equals("ROLE_agentCashier"))
+                        //{
 
-                    //if (u.Role.Equals("ROLE_agentCashier"))
-                    //{
+                        //}
+                        //if (u.Role.Equals("ROLE_provider"))
+                        //{
 
-                    //}
-                    //if (u.Role.Equals("ROLE_provider"))
-                    //{
+                        //}
 
-                    //}
-
-                }
+                    }
             }
             
            

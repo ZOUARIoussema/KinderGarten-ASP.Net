@@ -10,7 +10,15 @@ namespace Web.Controllers
 {
     public class EstimateController : Controller
     {
-        EstimateService estimateService = new EstimateService();
+        EstimateService estimateService ;
+        public EstimateController()
+        {
+            String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
+
+            User usergarten = (User)System.Web.HttpContext.Current.Session["User"];
+
+            estimateService = new EstimateService(token);
+        }
         // GET: Estimate
         public ActionResult Index()
         {

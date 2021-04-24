@@ -12,12 +12,12 @@ namespace Service
     public class SessionVoteService
     {
         HttpClient httpClient;
-        public SessionVoteService()
+        public SessionVoteService(string token)
         {
             httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(Statics.baseAddress);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", Statics._AccessToken));
+            httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", " " + token));
         }
         public Boolean Add(SessionVote sessionVote)
         {
@@ -79,5 +79,17 @@ namespace Service
             }
             return new List<SessionVote>();
         }
+        public User delegatorsWinner(int idkinder,int sessionVoteId)
+        {
+            User u = null;
+            var response = httpClient.GetAsync(Statics.baseAddress + "admingarten/kinder_garden/" + idkinder + "/delegators/"+ sessionVoteId + "/Winner/").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var user = response.Content.ReadAsAsync<User>().Result;
+                return user;
+            }
+            return u;
+        }
+
     }
 }

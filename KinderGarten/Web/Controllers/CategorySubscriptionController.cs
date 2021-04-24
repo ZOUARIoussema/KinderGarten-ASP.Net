@@ -10,7 +10,16 @@ namespace Web.Controllers
 {
     public class CategorySubscriptionController : Controller
     {
-        CategorySubscriptionService categorySubscriptionService = new CategorySubscriptionService();
+        CategorySubscriptionService categorySubscriptionService ;
+       
+        public CategorySubscriptionController()
+        {
+            String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
+
+            User usergarten = (User)System.Web.HttpContext.Current.Session["User"];
+
+            categorySubscriptionService = new CategorySubscriptionService(token);
+        }
         // GET: CategorySubscription
         public ActionResult Index()
         {
@@ -52,7 +61,8 @@ namespace Web.Controllers
         // GET: CategorySubscription/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            CategorySubscription categorySubscription = categorySubscriptionService.getCategorySubscriptionById(id);
+            return View(categorySubscription);
         }
 
         // POST: CategorySubscription/Edit/5

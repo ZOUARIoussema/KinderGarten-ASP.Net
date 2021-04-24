@@ -1281,7 +1281,6 @@
     <Content Include="Views\User\SuccessPage.cshtml" />
     <Content Include="Views\User\VerifyCodeAndChangePassword.cshtml" />
     <Content Include="Views\Meeting\IndexAdminGarten.cshtml" />
-
     <Content Include="Views\Child\Index.cshtml" />
     <Content Include="Views\Child\Create.cshtml" />
     <Content Include="Views\SubscriptionChild\Details.cshtml" />
@@ -1290,7 +1289,9 @@
     <Content Include="Views\SubscriptionChild\Delete.cshtml" />
 
     <Content Include="Views\Admin\EditProfile.cshtml" />
-
+    <Content Include="Views\Vote\Create.cshtml" />
+    <Content Include="Views\Vote\Validate.cshtml" />
+    <Content Include="Views\SessionVote\Winner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
