@@ -1287,6 +1287,7 @@
     <Content Include="Views\SubscriptionChild\Create.cshtml" />
     <Content Include="Views\SubscriptionChild\Edit.cshtml" />
     <Content Include="Views\SubscriptionChild\Delete.cshtml" />
+    <Content Include="Views\Shared\_LayoutParent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

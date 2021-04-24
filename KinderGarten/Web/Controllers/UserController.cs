@@ -226,11 +226,11 @@ namespace Web.Controllers
                         }
 
 
-                    //if (u.Role.Equals("ROLE_adminGarten"))
-                    //{
-                    //    return RedirectToAction("Index", "Admin");
+                    if (u.Role.ToString().Equals("ROLE_parent"))
+                    {
+                        return RedirectToAction("Index", "Publication");
 
-                    //}
+                    }
 
                     //if (u.Role.Equals("ROLE_doctor"))
                     //{

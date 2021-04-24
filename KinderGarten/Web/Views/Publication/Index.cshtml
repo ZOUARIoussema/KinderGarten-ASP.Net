@@ -2,6 +2,7 @@
 
 @{
 	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_LayoutParent.cshtml";
 }
 
 <h2>Index</h2>
@@ -17,13 +18,18 @@
 
 
 			&nbsp;&nbsp;&nbsp;&nbsp;<img class="k-card-image" src="@Url.Content("~/Content/Upload/"+item.Attachment)" height="100" width="250" alt="Image" />
-			<div class="k-card-body">
-				@Html.DisplayFor(modelItem => item.Description)
-			</div>
-			<div class="k-card-footer">
-				<p>Number of Likes : @Html.DisplayFor(modelItem => item.NumberLike)</p>
-				<p>Number of Dislikes: @Html.DisplayFor(modelItem => item.NumberDislike)</p>
-			</div>
+									<div class="k-card-body">
+										@Html.DisplayFor(modelItem => item.Description) at @Html.DisplayFor(modelItem => item.Date)<br/>
+									</div>
+									<div class="k-card-footer">
+										@Html.DisplayFor(modelItem => item.NumberLike) Likes<br />
+										@Html.ActionLink("Like", "Like", new { id = item.Id })
+
+									<p>
+										@Html.DisplayFor(modelItem => item.NumberDislike) Dislikes <br />
+										@Html.ActionLink("DisLike", "DisLike", new { id = item.Id })
+									</p>
+									</div>
 			<div class="k-card-actions k-card-actions-stretched">
 				@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
 				@Html.ActionLink("Details", "Details", new { id = item.Id }) |

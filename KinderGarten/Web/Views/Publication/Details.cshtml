@@ -1,7 +1,8 @@
 ﻿@model Model.Publication
 
 @{
-    ViewBag.Title = "Details";
+	ViewBag.Title = "Details";
+	Layout = "~/Views/Shared/_LayoutParent.cshtml";
 }
 
 <h2>Details</h2>
@@ -10,6 +11,9 @@
     <h4>Publication</h4>
     <hr />
 	<dl class="dl-horizontal">
+		<dd>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="@Url.Content("~/Content/Upload/"+ @Html.DisplayFor(model => model.Attachment))" height="250" width="250" alt="Image" />
+		</dd>
 		<dt>
 			@Html.DisplayNameFor(model => model.Date)
 		</dt>
@@ -42,13 +46,9 @@
 			@Html.DisplayFor(model => model.NumberDislike)
 		</dd>
 
-		<dt>
-			@Html.DisplayNameFor(model => model.Attachment)
-		</dt>
 
-		<dd>
-			<img src="@Url.Content("~/Content/Upload/"+ @Html.DisplayFor(model => model.Attachment))" height="50" width="50" alt="Image" />
-		</dd>
+
+
 	</dl>
 </div>
 <p>

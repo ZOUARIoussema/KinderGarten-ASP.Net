@@ -18,7 +18,7 @@ namespace Web.Controllers
         // GET: Publication
         public ActionResult Index()
         {
-            return View(publicationService.getAllPublicationDesc());
+            return View(publicationService.getAllPublicationDESC());
         }
 
         // GET: Publication/Details/5
@@ -50,10 +50,36 @@ namespace Web.Controllers
                     var path = Path.Combine(Server.MapPath("~/Content/Upload/"), file.FileName);
                     file.SaveAs(path);
                 }
+                publication.NumberLike = 0;
+                publication.Date = DateTime.Now;
                 if (publicationService.Add(publication))
                 {
                     return RedirectToAction("Index");
                 }
+            }
+            return View();
+        }
+
+        public ActionResult Like(int id, [Bind(Include = "NumberLike")] Publication publication)
+        {
+
+            publication.Id = id;
+            if (publicationService.AddLike(id, publication))
+            {
+               
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        public ActionResult DisLike(int id, [Bind(Include = "NumberDisLike")] Publication publication)
+        {
+
+            publication.Id = id;
+            if (publicationService.AddDisLike(id, publication))
+            {
+                
+                return RedirectToAction("Index");
             }
             return View();
         }
@@ -108,11 +134,11 @@ namespace Web.Controllers
             }
             return View();
         }
-        // GET: Publication
-        public ActionResult AddComment()
-        {
-            return View(@"/Views/Comment/Create.cshtml");
-        }
+        //// GET: Publication
+        //public ActionResult AddComment()
+        //{
+        //    return View(@"/Views/Comment/Create.cshtml");
+        //}
 
     }
 }
