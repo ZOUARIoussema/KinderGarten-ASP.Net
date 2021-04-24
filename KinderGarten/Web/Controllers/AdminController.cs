@@ -10,57 +10,84 @@ using Microsoft.AspNet.Identity;
 
 namespace Web.Controllers
 {
-
+    [Authorize]
     public class AdminController : Controller
     {
         private ClaimsService claimservice = new ClaimsService();
-        private UserService userservice = new UserService();
+        private UserService userservice;
+
+        public AdminController()
+        {
+            String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
+            userservice = new UserService(token);
+        }
 
 
 
 
         // GET: Admin
-        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
            
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile([Bind(Include = "Id,FirstName,LastName,Email,Password,ConfirmPassword,Address,Tel")] User usertomodify)
+        {
+            if (ModelState.IsValid)
+            {
+                HttpClient httpclientprofile = new HttpClient();
+                httpclientprofile.BaseAddress = new Uri("http://localhost:8081/");
+
+                httpclientprofile.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var APIResponse = httpclientprofile.PutAsJsonAsync<User>(Statics.baseAddress + "user/update",
+                 usertomodify).Result;
 
 
+                System.Diagnostics.Debug.WriteLine("email user to modify " + usertomodify.Email);
+
+                if (APIResponse.IsSuccessStatusCode)
+                {
+                    System.Diagnostics.Debug.WriteLine(usertomodify.ToString());
+
+                    ViewBag.Message = "Account updated  successfully !";
+
+                    return View();
+                }
+            }
+
+            return View();
+        }
+
+
+        public ActionResult EditProfile(int id)
+        {
+            System.Diagnostics.Debug.WriteLine("******iduserprofile" + id);
+
+            User userp = userservice.findUserById(id);
+
+            System.Diagnostics.Debug.WriteLine(userp.ToString());
+
+            if (userp != null)
+            {
+
+                return View(userp);
+            }
+
+
+            return View();
+        }
+
+
+   
 
         public ActionResult Claims()
         {
-            //FormsIdentity id = (FormsIdentity)User.Identity;
-            //FormsAuthenticationTicket ticket = id.Ticket;
-
-            //if (User.Identity.IsAuthenticated)
-            //{
-            //    string iduser = User.Identity.GetUserId();
-
-            //    System.Diagnostics.Debug.WriteLine("****id user :*****" + iduser);
-
-            //}
-
-            //string iduserrrr = HttpContext.User.Identity.GetUserId();
-            //System.Diagnostics.Debug.WriteLine("****id user 2 :*****" + iduserrrr);
-
-            //System.Diagnostics.Debug.WriteLine("token :" + ticket.ToString());
-
-            //string token = Session["token"].ToString();
-            //var context = new HttpContextAccessor().HttpContext;
-            //var accessToken = await context.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
-
-            // string accessToken =   HttpContext.GetTokenAsyc
-
-            //if (User.Identity.IsAuthenticated)
-            //{
-            //    string accessToken = await HttpContext.GetTokenAsync("access_token");
-
-            //    string accesstoken = User.Identity.
-            //}
-
+            
+           
             HttpClient httpclientclaims = new HttpClient();
             httpclientclaims.BaseAddress = new Uri(Statics.baseAddress);
             httpclientclaims.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -118,27 +145,7 @@ namespace Web.Controllers
             }
         }
 
-        // GET: Admin/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Admin/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
 
         // GET: Admin/Delete/5
         public ActionResult Delete(int id)

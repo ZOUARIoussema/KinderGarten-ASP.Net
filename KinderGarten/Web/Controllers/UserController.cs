@@ -15,9 +15,14 @@ namespace Web.Controllers
     public class UserController : Controller
     {
 
-        UserService userservice = new UserService();
+        UserService userservice;
 
+        public UserController()
+        {
 
+            String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
+            userservice = new UserService(token);
+        }
 
         [Authorize]
         public ActionResult SignOut()
@@ -197,9 +202,17 @@ namespace Web.Controllers
 
                         Session["User"] = u;
 
-                        Session["username"] = u.FirstName;
+                        Session["firstname"] = u.FirstName;
 
-                        System.Diagnostics.Debug.WriteLine(u.ToString());
+                    Session["id"] = u.Id;
+
+                    System.Diagnostics.Debug.WriteLine("********id*******" + Session["id"]);
+
+                    Session["lastname"] = u.LastName; 
+
+                    Session["datecreation"] = u.DateC.ToLongDateString();
+
+                    System.Diagnostics.Debug.WriteLine(u.ToString());
 
 
 

@@ -90,7 +90,7 @@ namespace Web.Controllers
 
 
             FolderMedical folderMedical = folderMedicalService.GetById(id);
-
+                
 
 
 
