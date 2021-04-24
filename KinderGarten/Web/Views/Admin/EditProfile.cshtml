@@ -1,0 +1,86 @@
+﻿@model Model.User
+
+@{
+    ViewBag.Title = "EditProfile";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content-header">
+    <h1>
+        Profile
+        <small>Edit</small>
+    </h1>
+</section>
+
+
+<section class="content-header">
+
+    <div class="box box-info">
+
+        <div class="box-body">
+
+            @using (Html.BeginForm("EditProfile", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+              
+                @Html.HiddenFor(model => model.Id)
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                        @Html.TextBoxFor(model => model.FirstName, new { Style = "padding:6px;width:99%;border: 1px solid #ccc;" })
+                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+
+                    </div>
+                    <br />
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                        @Html.TextBoxFor(model => model.LastName, new { Style = "padding:6px;width:99%;border: 1px solid #ccc;" })
+                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                    </div>
+                    <br />
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                        @Html.TextBoxFor(model => model.Email, new { Style = "padding:6px;width:99%;border: 1px solid #ccc;" })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-map-marker" style="padding-bottom: 83px;"></i></span>
+                        @Html.TextAreaFor(model => model.Address, new { Style = "padding:6px;width:99%;border: 1px solid #ccc;", placeholder = "Address", rows = "5", cols = "33" })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
+                        @Html.TextBoxFor(model => model.Tel, new { Style = "padding:6px;width:99%;border: 1px solid #ccc;" })
+                        @Html.ValidationMessageFor(model => model.Tel, "", new { @class = "text-danger" })
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                        @Html.PasswordFor(model => model.Password, new { Style = "padding:6px;width:99%;border: 1px solid #ccc;", placeholder = "Password" })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-check"></i></span>
+                        @Html.PasswordFor(model => model.ConfirmPassword, new { Style = "padding:6px;width:99%;border: 1px solid #ccc;", placeholder = "Confirm Password" })
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                    <br>
+                    <input type="submit" value="Confirm" class="btn btn-primary" />
+            }
+            @if (ViewBag.Message != null)
+            {
+                <script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+                </script>
+
+            }
+
+        </div>
+    </div>
+</section>
+

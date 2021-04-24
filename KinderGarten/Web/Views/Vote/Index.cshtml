@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<Model.User>
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -7,6 +6,10 @@
 
 <h2>Actif Parents</h2>
 
+
+<p>
+    @Html.ActionLink("Validate Delegate", "Validate")
+</p>
 <table class="table">
     <tr>
         <th>
@@ -24,32 +27,35 @@
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
-  
+
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            @*@if (item.Role.Equals("ROLE_parent"))*@
+                <td>
+                    @Html.ActionLink("Vote", "Create", new { idVotedFor = item.Id })
+                </td>
+            
 
-        <td>
-            @Html.ActionLink("Vote", "", new { id = item.Id })
-        </td>
-    </tr>
-}
+        </tr>
+    }
 
 </table>

@@ -55,12 +55,15 @@ namespace Model
 
         [JsonProperty("password")]
         [Required(ErrorMessage = "Password is required ")]
+        [StringLength(int.MaxValue, MinimumLength = 6)]
+        [DataType(DataType.Password)]
         public String Password { get; set; }
 
         [NotMapped()]
         [Required(ErrorMessage = "Confirm Password is required")]
         [Compare("Password", ErrorMessage = "Confirm password and password doesn't match, Type again !")]
         [StringLength(int.MaxValue, MinimumLength = 6)]
+        [DataType(DataType.Password)]
         public String ConfirmPassword { get; set; }
 
 

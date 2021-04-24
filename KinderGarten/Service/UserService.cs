@@ -13,14 +13,54 @@ namespace Service
     public class UserService
     {
         HttpClient httpClient;
-        public UserService()
+        public UserService(string access)
         {
             httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(Statics.baseAddress);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-          
+            httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", " " + access));
 
+        }
+
+
+        public bool UpdateUSer(User userToModify)
+        {
+
+
+            try
+            {
+                var APIResponse = httpClient.PutAsJsonAsync<User>(Statics.baseAddress + "/user/update",
+                 userToModify).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
+
+                System.Diagnostics.Debug.WriteLine(APIResponse.Result);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+
+
+        public User findUserById(int id)
+        {
+             
+                User u = null;
+          
+            var response = httpClient.GetAsync(Statics.baseAddress + "user/findUser/" + id).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                var user = response.Content.ReadAsAsync<User>().Result;
+
+
+                return user;
+            }
+
+            return u;
         }
 
 

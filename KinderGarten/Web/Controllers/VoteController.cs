@@ -10,7 +10,15 @@ namespace Web.Controllers
 {
     public class VoteController : Controller
     {
-        VoteService voteService = new VoteService();
+        VoteService voteService;
+        public VoteController()
+        {
+            String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
+
+            User usergarten = (User)System.Web.HttpContext.Current.Session["User"];
+
+            voteService = new VoteService(token);
+        }
         // GET: Vote/Create
         public ActionResult Create()
         {
@@ -19,9 +27,11 @@ namespace Web.Controllers
 
         // POST: Vote/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Voter,VotedFor")] VoteForm vote,int id, int idsession)
+        public ActionResult Create([Bind(Include = "Voter,VotedFor")] VoteForm vote, int idVotedFor)
         {
-            if (voteService.Add(vote,id,idsession))
+            vote.Voter = 7;
+            vote.VotedFor = idVotedFor;
+            if (voteService.Add(vote,idVotedFor))
             {
                 return RedirectToAction("Index");
             }
@@ -32,6 +42,15 @@ namespace Web.Controllers
         {
             return View(voteService.GetAll());
         }
-
+        public ActionResult Validate()
+        {
+            User u = voteService.delegatorsElection(3);
+            if (u != null)
+            {
+                return View(u);
+            }
+            return View();
+        }
     }
 }
+;

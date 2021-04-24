@@ -12,12 +12,12 @@ namespace Service
     public class EstimateService
     {
         HttpClient httpClient;
-        public EstimateService()
+        public EstimateService(string token)
         {
             httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(Statics.baseAddress);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", Statics._AccessToken));
+            httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", " " + token));
         }
         public Boolean Add(Estimate e)
         {

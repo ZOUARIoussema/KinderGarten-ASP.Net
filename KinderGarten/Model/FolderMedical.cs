@@ -20,9 +20,16 @@ namespace Model
         [JsonProperty("child")]
         public Child Child { get; set; }
         public int? ChildId { get; set; }
+        public int VaccineId { get; set; }
+        [JsonProperty("lisConsultations")]
         public List<Consultation> LisConsultations { get; set; }
+        [JsonProperty("lisChildVaccines")]
         public List<ChildVaccine> LisChildVaccines { get; set; }
+        [JsonProperty("listVaccinesToDo")]
         public List<ChildVaccine> ListVaccinesToDo { get; set; }
+
+
+        
 
     }
 }

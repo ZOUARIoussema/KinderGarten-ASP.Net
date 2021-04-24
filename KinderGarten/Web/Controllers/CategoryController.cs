@@ -10,7 +10,16 @@ namespace Web.Controllers
 {
     public class CategoryController : Controller
     {
-        CategoryService categoryService = new CategoryService();
+        CategoryService categoryService;
+        public CategoryController()
+        {
+            String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
+
+            User usergarten = (User)System.Web.HttpContext.Current.Session["User"];
+
+            categoryService = new CategoryService(token);
+        }
+
         // GET: Category
         public ActionResult Index()
         {
@@ -52,7 +61,8 @@ namespace Web.Controllers
         // GET: Category/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Category category = categoryService.getCategoryById(id);
+            return View(category);
         }
 
         // POST: Category/Edit/5

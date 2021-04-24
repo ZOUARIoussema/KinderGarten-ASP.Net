@@ -2,6 +2,7 @@
 using Service;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,8 +11,18 @@ namespace Web.Controllers
 {
     public class KinderGartenController : Controller
     {
-        KinderGartenService kinderGartenService = new KinderGartenService();
+        KinderGartenService kinderGartenService;
         // GET: KinderGarten
+
+
+        public KinderGartenController()
+        {
+            String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
+
+            User usergarten = (User)System.Web.HttpContext.Current.Session["User"];
+
+            kinderGartenService = new KinderGartenService(token);
+        }
         public ActionResult Index()
         {
             return View(kinderGartenService.GetAllKinder());
@@ -36,10 +47,17 @@ namespace Web.Controllers
 
         // POST: KinderGarten/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Name,Email,Adress,Tel,Logo,Latitude,Longitude")] KinderGarten kinder)
+        public ActionResult Create([Bind(Include = "Name,Email,Adress,Tel,Logo,Latitude,Longitude")] KinderGarten kinder, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                kinder.Logo = file.FileName;
+              
+                if (file.ContentLength > 0)
+                {
+                    var path = Path.Combine(Server.MapPath("~/Content/Upload/"), file.FileName);
+                    file.SaveAs(path);
+                }
                 if (kinderGartenService.AddKinder(kinder))
                 {
                     return RedirectToAction("Index");
@@ -52,17 +70,25 @@ namespace Web.Controllers
         // GET: KinderGarten/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            KinderGarten kinderGarten = kinderGartenService.getKindergartenById(id);
+
+            return View(kinderGarten);
         }
 
         // POST: KinderGarten/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, [Bind(Include = "Name,Email,Adress,Tel,Logo,Latitude,Longitude")] KinderGarten kinderGarten)
+        public ActionResult Edit(int id, [Bind(Include = "Name,Email,Adress,Tel,Logo,Latitude,Longitude")] KinderGarten kinderGarten, HttpPostedFileBase file)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    kinderGarten.Logo = file.FileName;
+                    if (file.ContentLength > 0)
+                    {
+                        var path = Path.Combine(Server.MapPath("~/Content/Upload/"), file.FileName);
+                        file.SaveAs(path);
+                    }
                     if (kinderGartenService.UpdateKinder(id, kinderGarten))
                     {
                         return RedirectToAction("Index");

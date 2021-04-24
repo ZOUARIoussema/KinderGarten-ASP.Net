@@ -17,10 +17,16 @@ namespace Web.Controllers
 
         FolderMedicalService folderMedicalService ;
 
+        VaccineChildService vaccineChildService;
+
+        private static List<ChildVaccine>  listG= new List<ChildVaccine>();
+        private static int idF;
+
         public FolderMedicalController()
         {
              String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
             folderMedicalService = new FolderMedicalService(token);
+            vaccineChildService = new VaccineChildService(token);
 
         }
 
@@ -39,15 +45,22 @@ namespace Web.Controllers
         {
             FolderMedical folderMedical = folderMedicalService.GetById(id);
 
+            
+
+           
+
             if (folderMedical != null)
                 {
 
-                    return View(folderMedical);
+               
+                return View(folderMedical);
                 }
             
 
             return View();
         }
+
+       
 
         // GET: FolderMedical/Create
         public ActionResult Create()
@@ -88,10 +101,16 @@ namespace Web.Controllers
 
             ViewBag.ChildId = new SelectList(folderMedicalService.getAllChild(), "Id", "Name");
 
+            ViewBag.VaccineId = new SelectList(vaccineChildService.GetAll(), "Id", "Description");
+
 
             FolderMedical folderMedical = folderMedicalService.GetById(id);
+ 
 
-
+            listG.Clear();
+            listG.AddRange(folderMedical.LisChildVaccines);
+ 
+            idF = id;
 
 
                 if (folderMedical != null)
@@ -108,9 +127,25 @@ namespace Web.Controllers
 
         // POST: FolderMedical/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, [Bind(Include = "Id,Allergy,Particularity,ChildId,DateC")] FolderMedical folderMedical)
+        public ActionResult Edit(int id, [Bind(Include = "Id,Allergy,Particularity,ChildId,DateC,VaccineId,LisChildVaccines")] FolderMedical folderMedical)
         {
-            
+
+
+            ChildVaccine childVaccine = vaccineChildService.GetById(folderMedical.VaccineId);
+
+            if (childVaccine != null)
+            {
+
+                listG.Add(childVaccine);
+
+                folderMedical.LisChildVaccines = listG;
+
+               
+
+            }
+
+
+
                 if (folderMedicalService.UpdateFolder(folderMedical))
                 {
                     return RedirectToAction("Index");
@@ -119,6 +154,42 @@ namespace Web.Controllers
            
                 return View();
              
+        }
+
+       
+        public ActionResult DeleteVaccine(int? id, FormCollection collection)
+        {
+
+
+            ChildVaccine childVaccine = vaccineChildService.GetById(id);
+
+            ViewBag.ChildId = new SelectList(folderMedicalService.getAllChild(), "Id", "Name");
+
+            ViewBag.VaccineId = new SelectList(vaccineChildService.GetAll(), "Id", "Description");
+
+
+
+            listG.Remove(childVaccine);
+
+
+
+
+            FolderMedical folderMedical = folderMedicalService.GetById(idF);
+
+            
+
+
+            if (folderMedical != null)
+            {
+
+                folderMedical.LisChildVaccines = listG;
+
+                folderMedicalService.UpdateFolder(folderMedical);
+
+                return View("~/Views/FolderMedical/Edit.cshtml",folderMedical);
+            }
+
+            return RedirectToAction("Index");
         }
 
         // GET: FolderMedical/Delete/5

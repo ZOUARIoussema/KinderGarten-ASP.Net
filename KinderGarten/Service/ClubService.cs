@@ -12,14 +12,14 @@ namespace Service
     public class ClubService
     { 
   HttpClient httpClient;
-    public ClubService()
+    public ClubService(string token)
     {
         httpClient = new HttpClient();
         httpClient.BaseAddress = new Uri(Statics.baseAddress);
         httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", Statics._AccessToken));
-    }
-     
+            httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", " " + token));
+        }
+
         public Boolean Add(Club club)
     {
         try
@@ -36,17 +36,17 @@ namespace Service
                     }
                 }
         public Club getClubById(int id)
-         {
-        Club Club = null;
-        var response = httpClient.GetAsync(Statics.baseAddress + "admingarten/getClubById/" + id).Result;
-        if (response.IsSuccessStatusCode)
         {
-            var club = response.Content.ReadAsAsync<Club>().Result;
-            return club;
+            Club c = null;
+            var response = httpClient.GetAsync(Statics.baseAddress + "admingarten/getClubById/" + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var e = response.Content.ReadAsAsync<Club>().Result;
+                return e;
+            }
+            return c;
         }
-        return Club;
-    }
-    public bool Update(int id, Club club)
+        public bool Update(int id, Club club)
     {
         try
         {

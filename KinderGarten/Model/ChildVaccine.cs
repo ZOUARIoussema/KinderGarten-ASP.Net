@@ -18,6 +18,10 @@ namespace Model
         [JsonProperty("lisFolderMedicals")]
         public List<FolderMedical> LisFolderMedicals { get; set; }
 
-
+        public override bool Equals(object obj)
+        {
+            return obj is ChildVaccine vaccine &&
+                   Id == vaccine.Id;
+        }
     }
 }

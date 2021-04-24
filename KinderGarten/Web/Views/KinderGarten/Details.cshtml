@@ -55,10 +55,10 @@
             @Html.DisplayNameFor(model => model.Logo)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Logo)
-        </dd>
 
+        <dd>
+            <img src="@Url.Content("~/Content/Upload/"+ @Html.DisplayFor(model => model.Logo))" height="50" width="50" alt="Image" />
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Latitude)
         </dt>

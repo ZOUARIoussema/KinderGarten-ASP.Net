@@ -9,14 +9,22 @@ using Service;
 
 namespace Web.Controllers
 {
-    [Authorize]
     public class EventController : Controller
     {
-        EventService eventService = new EventService();
-        CategoryService categoryService = new CategoryService();
+        EventService eventService ;
+        CategoryService categoryService;
+        public EventController()
+        {
+            String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
+
+            User usergarten = (User)System.Web.HttpContext.Current.Session["User"];
+
+            categoryService = new CategoryService(token);
+            eventService = new EventService(token);
+        }
         // GET: Event
 
-        
+
         public ActionResult Index()
         {
             return View(eventService.GetAll());
@@ -59,7 +67,8 @@ namespace Web.Controllers
         public ActionResult Edit(int id)
         {
             ViewBag.CategoryId = new SelectList(categoryService.GetAll(), "Id", "Description");
-            return View();
+            Event e = eventService.getEventById(id);
+            return View(e);
         }
 
         // POST: Event/Edit/5

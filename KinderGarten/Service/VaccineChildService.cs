@@ -68,7 +68,7 @@ namespace Service
         } 
 
 
-        public ChildVaccine GetById(int id)
+        public ChildVaccine GetById(int? id)
         {
 
             var response = httpClient.GetAsync(Statics.baseAddress + "medical/getVaccineById/" + id).Result;

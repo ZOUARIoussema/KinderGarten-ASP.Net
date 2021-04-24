@@ -15,9 +15,14 @@ namespace Web.Controllers
     public class UserController : Controller
     {
 
-        UserService userservice = new UserService();
+        UserService userservice;
 
+        public UserController()
+        {
 
+            String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
+            userservice = new UserService(token);
+        }
 
         [Authorize]
         public ActionResult SignOut()
@@ -187,7 +192,7 @@ namespace Web.Controllers
 
                     Session["AccessToken"] = s.token;
 
-
+                
 
                     System.Diagnostics.Debug.WriteLine("token :   :" + Session["AccessToken"]);
 
@@ -196,10 +201,18 @@ namespace Web.Controllers
                         User u = userservice.findUSerByEmail(userlogin.Email);
 
                         Session["User"] = u;
+                    Session["Id"] = u.Id;
+                        Session["firstname"] = u.FirstName;
 
-                        Session["username"] = u.FirstName;
+                    Session["id"] = u.Id;
 
-                        System.Diagnostics.Debug.WriteLine(u.ToString());
+                    System.Diagnostics.Debug.WriteLine("********id*******" + Session["id"]);
+
+                    Session["lastname"] = u.LastName; 
+
+                    Session["datecreation"] = u.DateC.ToLongDateString();
+                    Session["username"] = u.FirstName;
+                    System.Diagnostics.Debug.WriteLine(u.ToString());
 
 
 
@@ -225,6 +238,11 @@ namespace Web.Controllers
                         return RedirectToAction("Index", "Accounting");
                         }
 
+                       
+                    if (u.Role.ToString().Equals("ROLE_adminGarten"))
+                    {
+                        return RedirectToAction("Index", "Admin");
+
 
                     if (u.Role.ToString().Equals("ROLE_parent"))
                     {
@@ -232,27 +250,30 @@ namespace Web.Controllers
 
                     }
 
-                    //if (u.Role.Equals("ROLE_doctor"))
-                    //{
-                    //    return RedirectToAction("Index", "Admin");
+                        }
 
-                    //}
 
-                    //if (u.Role.Equals("ROLE_futurParent"))
-                    //{
+                        //if (u.Role.Equals("ROLE_doctor"))
+                        //{
+                        //    return RedirectToAction("Index", "Admin");
 
-                    //}
+                        //}
 
-                    //if (u.Role.Equals("ROLE_agentCashier"))
-                    //{
+                        //if (u.Role.Equals("ROLE_futurParent"))
+                        //{
 
-                    //}
-                    //if (u.Role.Equals("ROLE_provider"))
-                    //{
+                        //}
 
-                    //}
+                        //if (u.Role.Equals("ROLE_agentCashier"))
+                        //{
 
-                }
+                        //}
+                        //if (u.Role.Equals("ROLE_provider"))
+                        //{
+
+                        //}
+
+                    }
             }
             
            

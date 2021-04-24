@@ -10,7 +10,15 @@ namespace Web.Controllers
 {
     public class MeetingController : Controller
     {
-        MeetingService meetingService = new MeetingService();
+        MeetingService meetingService;
+        public MeetingController()
+        {
+            String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
+
+            User usergarten = (User)System.Web.HttpContext.Current.Session["User"];
+
+            meetingService = new MeetingService(token);
+        }
         public ActionResult Index()
         {
             return View();
@@ -60,7 +68,8 @@ namespace Web.Controllers
         // GET: Meeting/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Meeting meeting = meetingService.getMeetingById(id);
+            return View(meeting);
         }
 
         // POST: Meeting/Edit/5

@@ -10,7 +10,15 @@ namespace Web.Controllers
 {
     public class SessionVoteController : Controller
     {
-        SessionVoteService sessionVoteService = new SessionVoteService();
+        SessionVoteService sessionVoteService;
+        public SessionVoteController()
+        {
+            String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
+
+            User usergarten = (User)System.Web.HttpContext.Current.Session["User"];
+
+            sessionVoteService = new SessionVoteService(token);
+        }
         // GET: SessionVote
         public ActionResult Index()
         {
@@ -52,7 +60,9 @@ namespace Web.Controllers
         // GET: SessionVote/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            SessionVote sessionVote = sessionVoteService.getSessionVoteById(id);
+
+            return View(sessionVote);
         }
 
         // POST: SessionVote/Edit/5
@@ -91,6 +101,21 @@ namespace Web.Controllers
                 return RedirectToAction("Index");
             }
             return View();
+        }
+        // GET: SessionVote/Create
+        public ActionResult Winner()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Winner(int sessionVoteId)
+        {
+
+           sessionVoteService.delegatorsWinner(3, sessionVoteId);
+           
+            return RedirectToAction("Index");
+            
+
         }
     }
 }
