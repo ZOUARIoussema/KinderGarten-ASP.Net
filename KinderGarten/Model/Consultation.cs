@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace Model
     {
         [JsonProperty("id")]
         public int Id { get; set; }
+        [DataType(DataType.Date)]
         [JsonProperty("dateC")]
         public DateTime DateC { get; set; }
         [JsonProperty("description")]
@@ -23,7 +25,8 @@ namespace Model
         public User Doctor { get; set; }
         [JsonProperty("folderMedical")]
         public FolderMedical FolderMedical { get; set; }
+        public int? FolderMedicalId { get; set; }
 
-         
+
     }
 }

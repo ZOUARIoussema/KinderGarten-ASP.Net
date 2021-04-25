@@ -161,7 +161,7 @@ namespace Web.Controllers
         {
 
 
-            ChildVaccine childVaccine = vaccineChildService.GetById(id);
+           // ChildVaccine childVaccine = vaccineChildService.GetById(id);
 
             ViewBag.ChildId = new SelectList(folderMedicalService.getAllChild(), "Id", "Name");
 
@@ -169,9 +169,9 @@ namespace Web.Controllers
 
 
 
-            listG.Remove(childVaccine);
+            // listG.Remove(childVaccine);
 
-
+            folderMedicalService.DeleteVaccineFolder(idF, id);
 
 
             FolderMedical folderMedical = folderMedicalService.GetById(idF);
@@ -182,15 +182,47 @@ namespace Web.Controllers
             if (folderMedical != null)
             {
 
-                folderMedical.LisChildVaccines = listG;
+                //folderMedical.LisChildVaccines = listG;
 
-                folderMedicalService.UpdateFolder(folderMedical);
+                //folderMedicalService.UpdateFolder(folderMedical);
 
                 return View("~/Views/FolderMedical/Edit.cshtml",folderMedical);
             }
 
             return RedirectToAction("Index");
         }
+
+       
+       /*  public ActionResult AddVaccine(int? id, [Bind(Include = "Id,Allergy,Particularity,ChildId,DateC,VaccineId,LisChildVaccines")] FolderMedical f)
+        {
+            
+
+            System.Diagnostics.Debug.WriteLine(f.VaccineId);
+             
+            ViewBag.ChildId = new SelectList(folderMedicalService.getAllChild(), "Id", "Name");
+
+            ViewBag.VaccineId = new SelectList(vaccineChildService.GetAll(), "Id", "Description");
+
+             
+
+            folderMedicalService.AddVaccineFolder(idF, id);
+
+
+            FolderMedical folderMedical = folderMedicalService.GetById(idF);
+
+
+
+
+            if (folderMedical != null)
+            {
+
+                 
+
+                return View("~/Views/FolderMedical/Edit.cshtml", folderMedical);
+            }
+
+            return RedirectToAction("Index");
+        }*/
 
         // GET: FolderMedical/Delete/5
         public ActionResult Delete(int id)

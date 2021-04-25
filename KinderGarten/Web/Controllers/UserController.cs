@@ -34,7 +34,6 @@ namespace Web.Controllers
 
 
         [HttpPost]
-
         public ActionResult Register([Bind(Include = "Role,FirstName,LastName,Email,Password,ConfirmPassword,Address,Tel")] User user)
         {
 

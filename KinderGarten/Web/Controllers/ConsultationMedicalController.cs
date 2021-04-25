@@ -15,8 +15,7 @@ namespace Web.Controllers
 
         private ConsultationService consultationService;
         private FolderMedicalService folderMedicalService;
-        private static FolderMedical folderMedical = new FolderMedical();
-        private static User doctor = new User();
+        
 
         public ConsultationMedicalController()
         {
@@ -58,17 +57,20 @@ namespace Web.Controllers
         public ActionResult Create()
         {
 
-            ViewBag.folder = new SelectList(folderMedicalService.GetAll(), "Id", "Id");
+            ViewBag.FolderMedicalId = new SelectList(folderMedicalService.GetAll(), "Id", "Id");
 
             return View();
         }
 
         // POST: ConsultationMedical/Create
         [HttpPost]
-        public ActionResult Create([Bind (Include =("Description,Weight,Height"))]Consultation consultation)
+        public ActionResult Create([Bind (Include =("Description,Weight,Height,FolderMedicalId"))]Consultation consultation)
         {
-            
-                if (consultationService.Add(consultation))
+
+
+            consultation.FolderMedical = folderMedicalService.GetById((int)consultation.FolderMedicalId);
+            consultation.Doctor = (User)Session["User"];
+            if (consultationService.Add(consultation))
                 {
 
                     return RedirectToAction("Index");
@@ -87,9 +89,8 @@ namespace Web.Controllers
 
             if (consultation != null)
             {
-                folderMedical = consultation.FolderMedical;
-                doctor = consultation.Doctor;
-               
+                 
+                ViewBag.FolderMedicalId = new SelectList(folderMedicalService.GetAll(), "Id", "Id");
 
                 return View(consultation);
             }
@@ -100,16 +101,11 @@ namespace Web.Controllers
 
         // POST: ConsultationMedical/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, [Bind(Include = ("Description,Weight,Height,DateC,Id"))] Consultation consultation)
+        public ActionResult Edit(int id, [Bind(Include = ("Description,Weight,Height,DateC,Id,FolderMedicalId"))] Consultation consultation)
         {
 
-             
-            consultation.Doctor=doctor;
-            consultation.FolderMedical=folderMedical;
-            
 
-            System.Diagnostics.Debug.WriteLine("edit d" + consultation.FolderMedical.Id);
-            System.Diagnostics.Debug.WriteLine("edit f" + consultation.FolderMedical.Id);
+            consultation.Doctor =(User) Session["User"];
 
             if (consultationService.Update(consultation))
             {

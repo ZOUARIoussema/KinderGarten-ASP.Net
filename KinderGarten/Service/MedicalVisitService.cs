@@ -21,7 +21,7 @@ namespace Service
             httpClient.BaseAddress = new Uri(Statics.baseAddress);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}",  accessToken));
+            httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}"," "+ accessToken));
 
         }
 

@@ -25,12 +25,17 @@ namespace Web.Controllers
         }
 
         // GET: VaccineChild
-        public ActionResult Index()
+        public ActionResult Index(String filtre)
         {
 
+            if (String.IsNullOrEmpty(filtre))
+            {
 
-            
-            return View(vaccineChildService.GetAll());
+                return View(vaccineChildService.GetAll());
+            }
+
+            return View(vaccineChildService.GetAll().Where(v=>v.Description.ToLower().Contains(filtre.ToLower())));
+
         }
 
         // GET: VaccineChild/Details/5
@@ -67,7 +72,7 @@ namespace Web.Controllers
 
 
 
-            if (vaccineChildService.AddVaccine(childVaccine))
+            if (ModelState.IsValid && vaccineChildService.AddVaccine(childVaccine))
             {
 
                 return RedirectToAction("Index");
@@ -101,7 +106,7 @@ namespace Web.Controllers
         {
 
 
-            if (vaccineChildService.UpdateVaccine(childVaccine))
+            if (ModelState.IsValid && vaccineChildService.UpdateVaccine(childVaccine))
             {
                 return RedirectToAction("Index");
             }
@@ -113,6 +118,16 @@ namespace Web.Controllers
         // GET: VaccineChild/Delete/5
         public ActionResult Delete(int id)
         {
+
+            ChildVaccine vaccine = vaccineChildService.GetById(id);
+
+
+            if (vaccine != null)
+            {
+
+                return View(vaccine);
+            }
+
             return View();
         }
 

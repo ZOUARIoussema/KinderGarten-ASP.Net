@@ -54,7 +54,7 @@ namespace Service
             {
 
 
-                var APIResponse = httpClient.PostAsJsonAsync<Consultation>(Statics.baseAddress + "medical/addMedicalConsultation",
+                var APIResponse = httpClient.PostAsJsonAsync<Consultation>(Statics.baseAddress + "medical/addMedicalConsultation/"+consultation.FolderMedicalId,
                consultation).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
 
                 System.Diagnostics.Debug.WriteLine(APIResponse.Result);
@@ -89,11 +89,11 @@ namespace Service
 
         public bool Update(Consultation consultation)
         {
-            System.Diagnostics.Debug.WriteLine(consultation.FolderMedical.Id);
+             
 
             try
             {
-                var APIResponse = httpClient.PutAsJsonAsync<Consultation>(Statics.baseAddress + "medical/updateConsultationMedical/" ,
+                var APIResponse = httpClient.PutAsJsonAsync<Consultation>(Statics.baseAddress + "medical/updateConsultationMedical/" +consultation.FolderMedicalId,
                  consultation).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
 
                 System.Diagnostics.Debug.WriteLine(APIResponse.Result);

@@ -5,12 +5,46 @@
     Layout = "~/Views/Shared/_LayoutMedical.cshtml";
 }
 
-<h2>Index</h2>
+<h2>List Vaccine Child</h2>
+
+@using (Html.BeginForm())
+{
+
+
+
+
+    <table class="table">
+
+        <tr>
+            <td>
+
+                <div>
+
+
+                    Recherche par Nom : @Html.TextBox("filtre");
+
+                </div>
+
+                <div>
+                    <input type="submit" value="Search" id="submit" />
+                </div>
+                
+            </td>
+             
+
+             
+
+        </tr>
+    </table>
+
+
+
+}
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-bordered table-hover table-striped table-checkable table-highlight-head mb-4">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.MonthNumber)
@@ -18,29 +52,31 @@
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Id)
-        </th>
+
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.MonthNumber)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Description)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Id)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-    </td>
-</tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonthNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+
+            <td class="text-center">
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+
+
+
+            </td>
+
+
+        </tr>
+    }
 
 </table>

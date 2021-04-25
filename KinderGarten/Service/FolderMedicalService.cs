@@ -129,6 +129,41 @@ namespace Service
 
         }
 
+        public bool DeleteVaccineFolder(int idF,int ? idV)
+        {
+
+            try
+            {
+                var APIResponse = httpClient.PutAsJsonAsync<FolderMedical>(Statics.baseAddress + "medical/deleteVaccineFolder/"+idF+"/"+idV,new FolderMedical());
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+
+        }
+
+        public bool AddVaccineFolder(int idF, int? idV)
+        {
+
+            try
+            {
+                var APIResponse = httpClient.PutAsJsonAsync<FolderMedical>(Statics.baseAddress + "medical/addVaccineFolder/" + idF + "/" + idV, new FolderMedical());
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+
+        }
+
+
         public IEnumerable<FolderMedical> GetAll()
         {
 
