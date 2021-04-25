@@ -1295,6 +1295,11 @@
     <Content Include="Views\Vote\Validate.cshtml" />
     <Content Include="Views\SessionVote\Winner.cshtml" />
     <Content Include="Views\SubscriptionChild\Index.cshtml" />
+    <Content Include="Views\Event\EventForChild.cshtml" />
+    <Content Include="Views\Event\GetEventToday.cshtml" />
+    <Content Include="Views\Activity\deleteAllActivity.cshtml" />
+    <Content Include="Views\KinderGarten\getKindergartenByResponsible.cshtml" />
+    <Content Include="Views\Activity\ActivityByKinderGarten.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

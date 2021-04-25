@@ -28,6 +28,13 @@ namespace Web.Controllers
             return View(kinderGartenService.GetAllKinder());
         }
 
+        public ActionResult getKindergartenByResponsible()
+        {
+            int responsibleId = 2;
+            return View(kinderGartenService.getKindergartenByResponsible(responsibleId));
+        }
+
+
         // GET: KinderGarten/Details/5
         public ActionResult Details(int id)
         {

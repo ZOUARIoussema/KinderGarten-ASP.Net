@@ -28,6 +28,13 @@ namespace Web.Controllers
             return View(activityService.GetAll());
         }
 
+        public ActionResult ActivityByKinderGarten()
+        {
+            int kinderId = 3;
+            return View(activityService.ActivityByKinderGarten(kinderId));
+        }
+
+
         // GET: Activity/Details/5
         public ActionResult Details(int id)
         {
@@ -110,6 +117,21 @@ namespace Web.Controllers
         public ActionResult Delete(int id, FormCollection collection)
         {
             if (activityService.deleteActivityById(id))
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+        // GET: Activity/Delete/5
+        public ActionResult deleteAllActivity()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult deleteAllActivity([Bind(Include = "Description,Photo")] Activity activity)
+        {
+            int idKinder = 3;
+            if (activityService.deleteAllActivity(idKinder,activity))
             {
                 return RedirectToAction("Index");
             }
