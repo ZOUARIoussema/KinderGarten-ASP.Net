@@ -35,7 +35,7 @@ namespace Web.Controllers
         {
             if (commentService.Add(comment))
             {
-                return RedirectToAction("Index");
+                return View();
             }
             return View();
         }

@@ -35,22 +35,21 @@ namespace Service
                 return false;
             }
         }
-        public IEnumerable<Publication> getAllPublicationDesc()
+        public IEnumerable<Publication> getAllPublicationDESC()
         {
 
             var response = httpClient.GetAsync(Statics.baseAddress + "parent/getAllPublicationDesc").Result;
 
 
-            System.Diagnostics.Debug.WriteLine(response.StatusCode);
 
             if (response.IsSuccessStatusCode)
             {
-                var pub = response.Content.ReadAsAsync<IEnumerable<Publication>>().Result;
-
-                return pub;
+                 var pub = response.Content.ReadAsAsync<IEnumerable<Publication>>().Result;
+                 return pub;
+              
             }
 
-            return new List<Publication>();
+            return (new List<Publication>());
 
         }
         public Publication GetById(int id)
@@ -105,6 +104,35 @@ namespace Service
             }
 
 
+        }
+        public Boolean AddLike(int id, Publication publication)
+        {
+            try
+            {
+                var APIResponse = httpClient.PutAsJsonAsync<Publication>(Statics.baseAddress + "parent/addLike/"+id,
+                    publication).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
+                System.Diagnostics.Debug.WriteLine(APIResponse.Result);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public Boolean AddDisLike(int id, Publication publication)
+        {
+            try
+            {
+                var APIResponse = httpClient.PutAsJsonAsync<Publication>(Statics.baseAddress + "parent/addDisLike/" + id,
+                    publication).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
+                System.Diagnostics.Debug.WriteLine(APIResponse.Result);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
 

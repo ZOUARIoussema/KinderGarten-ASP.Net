@@ -15,15 +15,10 @@ namespace Web.Controllers
     public class UserController : Controller
     {
 
-        UserService userservice;
+        UserService userservice = new UserService();
 
-        public UserController()
-        {
-
-            String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
-            userservice = new UserService(token);
-        }
-
+      
+      
         [Authorize]
         public ActionResult SignOut()
         {
@@ -237,12 +232,20 @@ namespace Web.Controllers
                         return RedirectToAction("Index", "Accounting");
                         }
 
-                       
+
                     if (u.Role.ToString().Equals("ROLE_adminGarten"))
                     {
                         return RedirectToAction("Index", "Admin");
+                    }
+
+                    if (u.Role.ToString().Equals("ROLE_parent"))
+                    {
+                        return RedirectToAction("Index", "Publication");
+
+                    }
 
                         }
+
 
                         //if (u.Role.Equals("ROLE_doctor"))
                         //{
@@ -265,7 +268,7 @@ namespace Web.Controllers
                         //}
 
                     }
-            }
+            
             
            
 

@@ -17,6 +17,7 @@ namespace Web.Controllers
         {
             return View(childService.getAllChild());
         }
+       
 
         // GET: Child/Details/5
         public ActionResult Details(int id)
@@ -44,7 +45,7 @@ namespace Web.Controllers
                 }
                 if (childService.Add(child))
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Create","SubscriptionChild") ;
                 }
             }
             return View();

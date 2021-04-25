@@ -37,18 +37,20 @@ namespace Service
             }
         }
 
-        public KinderGarten getKindergartenByResponsible(int responsibleId)
+        public IEnumerable<KinderGarten> getKindergartenByResponsible(int responsibleId)
         {
-            KinderGarten kinderGarten = null;
-            var response = httpClient.GetAsync(Statics.baseAddress + "admingarten/getKindergartenByResponsible/" + responsibleId).Result;
-            if (response.IsSuccessStatusCode)
-            {
-                var kinder = response.Content.ReadAsAsync<KinderGarten>().Result;
-                return kinder;
-            }
-            return kinderGarten;
-        }
 
+            {
+                var response = httpClient.GetAsync(Statics.baseAddress + "admingarten/getKindergartenByResponsible/" + responsibleId).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var kinder = response.Content.ReadAsAsync<IEnumerable<KinderGarten>>().Result;
+                    return kinder;
+                }
+                return new List<KinderGarten>();
+            }
+
+        }
         public KinderGarten getKindergartenById(int id)
         {
             KinderGarten kinderGarten = null;

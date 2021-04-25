@@ -81,5 +81,47 @@ namespace Service
             }
             return new List<Event>();
         }
+        public static bool isNumeric(string s)
+        {
+            return int.TryParse(s, out int n);
+        }
+        public IEnumerable<Event> getAllEventbyprice(string price)
+        {
+            if (isNumeric(price))
+            {
+                int prix = int.Parse(price);
+                var response = httpClient.GetAsync(Statics.baseAddress + "admingarten/getAllEventbyprice/" + prix).Result;
+                if (response.IsSuccessStatusCode)
+                {
+
+                    var Event = response.Content.ReadAsAsync<IEnumerable<Event>>().Result;
+                    return Event;
+                }
+            }
+           
+        
+            return new List<Event>();
+        }
+
+        public IEnumerable<Event> getEventForChild(int idChild)
+        {
+            var response = httpClient.GetAsync(Statics.baseAddress + "admingarten/getEventForChild/"+idChild).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var Event = response.Content.ReadAsAsync<IEnumerable<Event>>().Result;
+                return Event;
+            }
+            return new List<Event>();
+        }
+        public IEnumerable<Event> GetEventToday()
+        {
+            var response = httpClient.GetAsync(Statics.baseAddress + "admingarten/getAllEventForToday").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var Event = response.Content.ReadAsAsync<IEnumerable<Event>>().Result;
+                return Event;
+            }
+            return new List<Event>();
+        }
     }
 }

@@ -32,12 +32,14 @@ namespace Model
         public double Discount { get; set; }
         [JsonProperty("categorySubscription")]
         public CategorySubscription CategorySubscription { get; set; }
+        public int ? CategoryId { get; set; }
         [JsonProperty("lisExtras")]
         public List<Extra> LisExtras { get; set; }
         [JsonProperty("child")]
         public Child Child { get; set; }
         [JsonProperty("listPayementSubscriptions")]
         public List<PayementSubscription> ListPayementSubscriptions { get; set; }
+         
 
 
     }

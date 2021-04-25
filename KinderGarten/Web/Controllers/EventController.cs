@@ -25,9 +25,30 @@ namespace Web.Controllers
         // GET: Event
 
 
-        public ActionResult Index()
+        public ActionResult Index(string price)
         {
-            return View(eventService.GetAll());
+            if (String.IsNullOrEmpty(price))
+            {
+                return View(eventService.GetAll());
+            }
+            return View(eventService.getAllEventbyprice(price));
+        }
+
+
+        public ActionResult EventForChild()
+        {
+            int idChild = 1;
+                return View(eventService.getEventForChild(idChild));
+            
+           
+        }
+
+        public ActionResult GetEventToday()
+        {
+          
+            return View(eventService.GetEventToday());
+
+
         }
 
         // GET: Event/Details/5
