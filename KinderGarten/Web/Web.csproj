@@ -1289,17 +1289,23 @@
     <Content Include="Views\SubscriptionChild\Create.cshtml" />
     <Content Include="Views\SubscriptionChild\Edit.cshtml" />
     <Content Include="Views\SubscriptionChild\Delete.cshtml" />
+
     <Content Include="Views\Shared\_LayoutParent.cshtml" />
+
     <Content Include="Views\Admin\EditProfile.cshtml" />
     <Content Include="Views\Vote\Create.cshtml" />
     <Content Include="Views\Vote\Validate.cshtml" />
     <Content Include="Views\SessionVote\Winner.cshtml" />
+
     <Content Include="Views\SubscriptionChild\Index.cshtml" />
     <Content Include="Views\Event\EventForChild.cshtml" />
     <Content Include="Views\Event\GetEventToday.cshtml" />
     <Content Include="Views\Activity\deleteAllActivity.cshtml" />
     <Content Include="Views\KinderGarten\getKindergartenByResponsible.cshtml" />
     <Content Include="Views\Activity\ActivityByKinderGarten.cshtml" />
+
+    <Content Include="Views\Admin\DetailsClaim.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -13,13 +13,13 @@ namespace Service
     public class UserService
     {
         HttpClient httpClient;
-        public UserService(string access)
+        public UserService()
         {
             httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(Statics.baseAddress);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", " " + access));
+           // httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", " " + access));
 
         }
 

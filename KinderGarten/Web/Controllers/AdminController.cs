@@ -13,13 +13,15 @@ namespace Web.Controllers
     [Authorize]
     public class AdminController : Controller
     {
-        private ClaimsService claimservice = new ClaimsService();
-        private UserService userservice;
+        private ClaimsService claimservice;
+        private UserService userservice = new UserService();
 
         public AdminController()
         {
             String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
-            userservice = new UserService(token);
+            // userservice = new UserService(token);
+
+            claimservice = new ClaimsService(token);
         }
 
 
@@ -83,31 +85,23 @@ namespace Web.Controllers
 
 
    
-
-        public ActionResult Claims()
+        [Authorize]
+        public ActionResult Claims(String searchbyparent )
         {
-            
-           
-            HttpClient httpclientclaims = new HttpClient();
-            httpclientclaims.BaseAddress = new Uri(Statics.baseAddress);
-            httpclientclaims.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            httpclientclaims.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}"," "+Session["AccessToken"]));
 
 
 
-            var response = httpclientclaims.GetAsync(Statics.baseAddress + "admin/getAllClaims").Result;
-
-            System.Diagnostics.Debug.WriteLine(response.StatusCode);
-
-            if (response.IsSuccessStatusCode)
+            if (String.IsNullOrEmpty(searchbyparent))
             {
-                IEnumerable<Claim> claims = response.Content.ReadAsAsync<IEnumerable<Claim>>().Result;
 
-                return View(claims);
-
+                return View(claimservice.GetAll());
             }
-
-            return View(new List<Claim>());
+         else
+            {
+           
+                return View(claimservice.getClaimsByParent(searchbyparent));
+            }
+             
         }
 
         public ActionResult Users()
@@ -116,11 +110,23 @@ namespace Web.Controllers
             return View(userservice.GetAll());
         }
 
+      
+
+        [HttpPost]
+        public ActionResult ChangeState(int idclaim)
+        {
+            String response = claimservice.ChangeStateClaim(idclaim);
+
+           // ViewBag.message = response;
+
+            return RedirectToAction("Claims", "Admin");
+        }
+
 
         // GET: Admin/Details/5
-        public ActionResult Details(int id)
+        public ActionResult DetailsClaim(int id)
         {
-            return View();
+            return View(claimservice.getClaimById(id));
         }
 
         // GET: Admin/Create

@@ -15,15 +15,10 @@ namespace Web.Controllers
     public class UserController : Controller
     {
 
-        UserService userservice;
+        UserService userservice = new UserService();
 
-        public UserController()
-        {
-
-            String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
-            userservice = new UserService(token);
-        }
-
+      
+      
         [Authorize]
         public ActionResult SignOut()
         {
