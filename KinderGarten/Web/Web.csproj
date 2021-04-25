@@ -196,6 +196,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app.js" />
     <Content Include="global.css" />
     <Content Include="Content\admin\css\AdminLTE.css" />
     <Content Include="Content\admin\css\bootstrap-slider\slider.css" />
@@ -702,6 +703,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\stripe\global.css" />
+    <Content Include="index.html" />
     <Content Include="Scripts\admin\js\AdminLTE\app.js" />
     <Content Include="Scripts\admin\js\AdminLTE\dashboard.js" />
     <Content Include="Scripts\admin\js\bootstrap.js" />
@@ -1287,15 +1289,12 @@
     <Content Include="Views\SubscriptionChild\Create.cshtml" />
     <Content Include="Views\SubscriptionChild\Edit.cshtml" />
     <Content Include="Views\SubscriptionChild\Delete.cshtml" />
-
     <Content Include="Views\Shared\_LayoutParent.cshtml" />
-
-
     <Content Include="Views\Admin\EditProfile.cshtml" />
     <Content Include="Views\Vote\Create.cshtml" />
     <Content Include="Views\Vote\Validate.cshtml" />
     <Content Include="Views\SessionVote\Winner.cshtml" />
-
+    <Content Include="Views\SubscriptionChild\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

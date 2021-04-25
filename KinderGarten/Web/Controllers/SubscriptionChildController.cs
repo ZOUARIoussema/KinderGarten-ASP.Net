@@ -33,22 +33,29 @@ namespace Web.Controllers
         // GET: SubscriptionChild/Create
         public ActionResult Create()
         {
-            ViewBag.CategorySubscription = new SelectList(subscriptionChildService.GetAllCategorySubscription(), "Id", "Description");
+            ViewBag.CategoryId = new SelectList(subscriptionChildService.GetAllCategorySubscription(), "Id","Description");
             
-            ViewBag.LisExtras = new SelectList(subscriptionChildService.GetAllExtra(), "Id", "Description");
+            ViewBag.LisExtras = new SelectList(subscriptionChildService.GetAllExtra(), "Id", "Description","Price");
             return View();
         }
 
         // POST: SubscriptionChild/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "DateC,DateStart,DateEnd,categorySubscription,lisExtras")]SubscriptionChild subscriptionChild)
+        public ActionResult Create([Bind(Include = "DateC,DateStart,DateEnd,categorySubscription,lisExtras,CategoryId")]SubscriptionChild subscriptionChild)
         {
+
+
+
             if (subscriptionChildService.Add(subscriptionChild))
             {
                 return RedirectToAction("Index");
             }
             return View();
         }
+
+
+
+
 
         // GET: SubscriptionChild/Edit/5
         public ActionResult Edit(int id)
