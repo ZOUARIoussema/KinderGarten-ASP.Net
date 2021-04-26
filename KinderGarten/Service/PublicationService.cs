@@ -135,6 +135,17 @@ namespace Service
             }
         }
 
+        public Publication getPublicationById(int id)
+        {
+            Publication Publication = null;
+            var response = httpClient.GetAsync(Statics.baseAddress + "parent/getPublicationById/" + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var publication = response.Content.ReadAsAsync<Publication>().Result;
+                return publication;
+            }
+            return Publication;
+        }
 
 
 

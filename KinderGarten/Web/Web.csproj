@@ -166,6 +166,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CategorySubscriptionController.cs" />
+    <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\ChildController.cs" />
     <Compile Include="Controllers\ClubController.cs" />
@@ -196,7 +197,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app.js" />
+    <Content Include="Views\Chat\app.js" />
     <Content Include="global.css" />
     <Content Include="Content\admin\css\AdminLTE.css" />
     <Content Include="Content\admin\css\bootstrap-slider\slider.css" />
@@ -703,7 +704,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\stripe\global.css" />
-    <Content Include="index.html" />
+    <Content Include="Views\Chat\index.html" />
     <Content Include="Scripts\admin\js\AdminLTE\app.js" />
     <Content Include="Scripts\admin\js\AdminLTE\dashboard.js" />
     <Content Include="Scripts\admin\js\bootstrap.js" />
@@ -1289,25 +1290,20 @@
     <Content Include="Views\SubscriptionChild\Create.cshtml" />
     <Content Include="Views\SubscriptionChild\Edit.cshtml" />
     <Content Include="Views\SubscriptionChild\Delete.cshtml" />
- 
-
     <Content Include="Views\Shared\_LayoutParent.cshtml" />
-
- 
     <Content Include="Views\Admin\EditProfile.cshtml" />
     <Content Include="Views\Vote\Create.cshtml" />
     <Content Include="Views\Vote\Validate.cshtml" />
     <Content Include="Views\SessionVote\Winner.cshtml" />
-
     <Content Include="Views\SubscriptionChild\Index.cshtml" />
     <Content Include="Views\Event\EventForChild.cshtml" />
     <Content Include="Views\Event\GetEventToday.cshtml" />
     <Content Include="Views\Activity\deleteAllActivity.cshtml" />
     <Content Include="Views\KinderGarten\getKindergartenByResponsible.cshtml" />
     <Content Include="Views\Activity\ActivityByKinderGarten.cshtml" />
-
     <Content Include="Views\Admin\DetailsClaim.cshtml" />
-
+    <Content Include="Views\Chat\Index.cshtml" />
+    <Content Include="Views\Comment\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
