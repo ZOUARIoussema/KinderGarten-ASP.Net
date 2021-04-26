@@ -34,6 +34,19 @@ namespace Web.Controllers
             return View(eventService.getAllEventbyprice(price));
         }
 
+        [HttpGet]
+        public ActionResult GetEstimateByEvent(int id)
+        {
+        
+            {
+                var lists = eventService.GetEstimateByEvent(id);
+
+                ViewBag.List = lists;
+
+                return View();
+            }
+
+        }
 
         public ActionResult EventForChild()
         {
@@ -91,6 +104,25 @@ namespace Web.Controllers
             Event e = eventService.getEventById(id);
             return View(e);
         }
+
+        public ActionResult Sms()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Sms([Bind(Include = " ")] Event e, int id_event)
+        {
+                if (eventService.smsSubmit(e,id_event))
+                {
+                    return RedirectToAction("Index");
+                }
+            
+            return View();
+
+        }
+
+
 
         // POST: Event/Edit/5
         [HttpPost]

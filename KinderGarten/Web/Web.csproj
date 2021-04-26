@@ -1304,6 +1304,9 @@
     <Content Include="Views\Admin\DetailsClaim.cshtml" />
     <Content Include="Views\Chat\Index.cshtml" />
     <Content Include="Views\Comment\Index.cshtml" />
+    <Content Include="Views\Shared\_AdminGartenLayout.cshtml" />
+    <Content Include="Views\Event\GetEstimateByEvent.cshtml" />
+    <Content Include="Views\Event\Sms.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

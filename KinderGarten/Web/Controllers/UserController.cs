@@ -235,7 +235,7 @@ namespace Web.Controllers
 
                     if (u.Role.ToString().Equals("ROLE_adminGarten"))
                     {
-                        return RedirectToAction("Index", "Admin");
+                        return RedirectToAction("Index", "KinderGarten");
                     }
 
                     if (u.Role.ToString().Equals("ROLE_parent"))
