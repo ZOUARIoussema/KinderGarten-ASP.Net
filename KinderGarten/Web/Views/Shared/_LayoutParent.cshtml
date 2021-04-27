@@ -65,29 +65,36 @@
 						<div class="logo-header d-md-block d-lg-none">
 							<a href="@Url.Action("Index", "Home")"> <img src="~/Content/images/logo.png" alt=""></a>
 						</div>
-						<ul class="nav navbar-nav">
-							<li class="active">
-								<a href="@Url.Action("Create", "Child")">Add your Child</a>
+                        <ul class="nav navbar-nav">
+                            <li class="active">
+                                <a href="@Url.Action("Create", "Child")">Add your Child</a>
 
-							</li>
-							<li>
-								<a href="@Url.Action("Create", "JustificationAbsence")">Add an absence justification</a>
-							</li>
-							<li class="has-mega-menu">
-								<a href="@Url.Action("Index", "Publication")">Publication</a>
-							</li>
-							<li>
-								<a href="@Url.Action("Index", "Chat")">Chat</a>
-							</li>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Create", "JustificationAbsence")">Add an absence justification</a>
+                            </li>
+                            <li class="has-mega-menu">
+                                <a href="@Url.Action("Index", "Publication")">Publication</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Chat")">Chat</a>
+                            </li>
+
+                            <li>
+                                <a href="@Url.Action("ListSubscriptionChild", "PayementEnLigneSubscriptionChild")">Payement</a>
+                            </li>
 
 
-							<li style="    position: absolute;
-						right: 26px;">
-								<a href="@Url.Action("Index","Home")">Log out </a>
+                            <li style="    position: absolute;
+						   right: 26px;">
+                                <a href="@Url.Action("Index","Home")">Log out </a>
 
 
-							</li>
-						</ul>
+                            </li>
+
+
+
+                        </ul>
 					</div>
 
 				</div>
