@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Mvc;
 using Model;
@@ -14,7 +16,7 @@ namespace Web.Controllers
         // GET: JustificationAbsence
         public ActionResult Index()
         {
-            return View();
+            return View(@"/Views/Publication/Index.cshtml");
         }
 
         // GET: JustificationAbsence/Details/5
@@ -33,6 +35,17 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include ="Description")]JustificationAbsence justificationAbsence)
         {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:8081");
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = client.GetAsync("/user/findUser/" + Session["id"]).Result;
+            User user = new User();
+            if (response.IsSuccessStatusCode)
+            {
+
+                user = response.Content.ReadAsAsync<User>().Result;
+            }
+            justificationAbsence.Parent = user;
             if (justificationAbsenceService.Add(justificationAbsence))
             {
                 return RedirectToAction("Index");

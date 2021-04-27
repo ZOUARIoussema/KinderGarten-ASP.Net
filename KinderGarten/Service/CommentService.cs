@@ -34,12 +34,15 @@ namespace Service
                 return false;
             }
         }
-        public bool Update(int id, Comment comment)
+        public bool Update(Comment comment)
         {
             try
             {
-                var APIResponse = httpClient.PutAsJsonAsync<Comment>(Statics.baseAddress + "parent/updateComment/" + id, comment).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
+                var APIResponse = httpClient.PutAsJsonAsync<Comment>(Statics.baseAddress + "parent/updateComment",
+                 comment).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
+
                 System.Diagnostics.Debug.WriteLine(APIResponse.Result);
+
                 return true;
             }
             catch
@@ -65,6 +68,29 @@ namespace Service
 
         }
 
-        
+        public bool deleteCommentById(int id)
+        {
+            try
+            {
+                var APIResponse = httpClient.DeleteAsync(Statics.baseAddress + "parent/deleteComment/" + id);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public Comment getCommentById(int id)
+        {
+            Comment Comment = null;
+            var response = httpClient.GetAsync(Statics.baseAddress + "parent/getCommentById/" + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var c = response.Content.ReadAsAsync<Comment>().Result;
+                return c;
+            }
+            return Comment;
+        }
+
     }
 }

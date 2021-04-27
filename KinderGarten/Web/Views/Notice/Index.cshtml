@@ -1,0 +1,114 @@
+﻿@model IEnumerable<Model.Notice>
+
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_LayoutParent.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+	@Html.ActionLink("Create New", "Create")
+</p>
+
+
+@foreach (var item in Model)
+{
+	<div class="container mt-5">
+		<div class="row d-flex justify-content-center">
+			<div class="col-md-8">
+				<div class="headings d-flex justify-content-between align-items-center mb-3">
+					<h5>Unread Notice</h5>
+					
+				</div>
+				<div class="card p-3">
+					<div class="d-flex justify-content-between align-items-center">
+						<div class="user d-flex flex-row align-items-center">
+							<img src="@Url.Content("~/Content/Upload/notif.jpg")" width="30" class="user-img rounded-circle mr-2">
+							<span>
+								<small class="font-weight-bold text-primary"> @Html.DisplayFor(modelItem => item.Parent.FirstName)</small>
+								<small class="font-weight-bold"> @Html.DisplayFor(modelItem => item.Score)</small>
+							</span>
+						</div> <small>@Html.DisplayFor(modelItem => item.DateC)</small>
+					</div>
+					<div class="action d-flex justify-content-between mt-2 align-items-center">
+						<div class="reply px-4">
+							<small>@Html.ActionLink("Delete", "Delete", new { id = item.Id })</small> <span class="dots"></span>
+
+							<div class="icons align-items-center">
+								<i class="fa fa-star text-warning">
+								</i> <i class="fa fa-check-circle-o check-icon"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+<style>
+	body {
+		background-color: #f7f6f6
+	}
+
+	.card {
+		border: none;
+		box-shadow: 5px 6px 6px 2px #e9ecef;
+		border-radius: 4px
+	}
+
+	.dots {
+		height: 4px;
+		width: 4px;
+		margin-bottom: 2px;
+		background-color: #bbb;
+		border-radius: 50%;
+		display: inline-block
+	}
+
+	.badge {
+		padding: 7px;
+		padding-right: 9px;
+		padding-left: 16px;
+		box-shadow: 5px 6px 6px 2px #e9ecef
+	}
+
+	.user-img {
+		margin-top: 4px
+	}
+
+	.check-icon {
+		font-size: 17px;
+		color: #c3bfbf;
+		top: 1px;
+		position: relative;
+		margin-left: 3px
+	}
+
+	.form-check-input {
+		margin-top: 6px;
+		margin-left: -24px !important;
+		cursor: pointer
+	}
+
+		.form-check-input:focus {
+			box-shadow: none
+		}
+
+	.icons i {
+		margin-left: 8px
+	}
+
+	.reply {
+		margin-left: 12px
+	}
+
+		.reply small {
+			color: #b7b4b4
+		}
+
+			.reply small:hover {
+				color: green;
+				cursor: pointer
+			}
+</style>

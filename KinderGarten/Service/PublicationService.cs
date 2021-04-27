@@ -147,6 +147,24 @@ namespace Service
             return Publication;
         }
 
+        public IEnumerable<Publication> getAllPublication()
+        {
+
+            var response = httpClient.GetAsync(Statics.baseAddress + "parent/getAllPublication").Result;
+
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                var pub = response.Content.ReadAsAsync<IEnumerable<Publication>>().Result;
+                return pub;
+
+            }
+
+            return (new List<Publication>());
+
+        }
+
 
 
     }
