@@ -183,6 +183,7 @@
     <Compile Include="Controllers\MedicalVisitController.cs" />
     <Compile Include="Controllers\KinderGartenController.cs" />
     <Compile Include="Controllers\MeetingController.cs" />
+    <Compile Include="Controllers\NoticeController.cs" />
     <Compile Include="Controllers\PublicationController.cs" />
     <Compile Include="Controllers\PayementEnLigneSubscriptionChildController.cs" />
     <Compile Include="Controllers\PayementHandToHandController.cs" />
@@ -199,6 +200,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Upload\dislike.png" />
+    <Content Include="Content\Upload\like.png" />
+    <Content Include="Content\Upload\notif.jpg" />
     <Content Include="Views\Chat\app.js" />
     <Content Include="global.css" />
     <Content Include="Content\admin\css\AdminLTE.css" />
@@ -1304,20 +1308,20 @@
     <Content Include="Views\KinderGarten\getKindergartenByResponsible.cshtml" />
     <Content Include="Views\Activity\ActivityByKinderGarten.cshtml" />
     <Content Include="Views\Admin\DetailsClaim.cshtml" />
- 
     <Content Include="Views\Shared\_Notifications.cshtml" />
     <Content Include="Views\Accounting\Transfert.cshtml" />
- 
     <Content Include="Views\Chat\Index.cshtml" />
     <Content Include="Views\Comment\Index.cshtml" />
     <Content Include="Views\Shared\_AdminGartenLayout.cshtml" />
     <Content Include="Views\Event\GetEstimateByEvent.cshtml" />
     <Content Include="Views\Event\Sms.cshtml" />
- 
+    <Content Include="Views\Comment\Delete.cshtml" />
+    <Content Include="Views\JustificationAbsence\Index.cshtml" />
+    <Content Include="Views\Notice\Index.cshtml" />
+    <Content Include="Views\Notice\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Upload\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Checkout\" />
     <Folder Include="Views\FidelityPoint\" />

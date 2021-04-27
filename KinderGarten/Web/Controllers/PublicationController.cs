@@ -12,12 +12,15 @@ namespace Web.Controllers
     public class PublicationController : Controller
     {
         PublicationService publicationService = new PublicationService();
+      
         public PublicationController()
         {
         }
         // GET: Publication
         public ActionResult Index()
         {
+
+          
             return View(publicationService.getAllPublicationDESC());
         }
 

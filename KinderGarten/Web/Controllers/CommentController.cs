@@ -70,28 +70,45 @@ namespace Web.Controllers
         // GET: Comment/Edit/5
         public ActionResult Edit(int id)
         {
+
+            Comment comment = commentService.getCommentById(id);
+
+
+            if (comment != null)
+            {
+
+                return View(comment);
+            }
+
+
             return View();
         }
 
         // POST: Comment/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, [Bind(Include ="Description")]Comment comment)
+        public ActionResult Edit(int id, [Bind(Include = "Id,Description")]Comment comment)
         {
-            try
+            if (ModelState.IsValid && commentService.Update(comment))
             {
-                if (commentService.Update(id, comment)){
-                    return RedirectToAction("Index");
-                }
-                return View();
-            } catch
-            {
-                return View();
+                return RedirectToAction("Index","Comment");
             }
+
+            return View();
+
         }
 
         // GET: Comment/Delete/5
         public ActionResult Delete(int id)
         {
+            Comment comment = commentService.getCommentById(id);
+
+
+            if (comment != null)
+            {
+
+                return View(comment);
+            }
+
             return View();
         }
 
@@ -99,16 +116,12 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            try
+            if (commentService.deleteCommentById(id))
             {
-                // TODO: Add delete logic here
-
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
     }
-}
+    }
+
