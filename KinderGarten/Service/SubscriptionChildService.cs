@@ -9,8 +9,8 @@ using Model;
 
 namespace Service
 {
-	public class SubscriptionChildService
-	{
+    public class SubscriptionChildService
+    {
         HttpClient httpClient;
         public SubscriptionChildService()
         {
@@ -25,7 +25,7 @@ namespace Service
         {
             try
             {
-                var APIResponse = httpClient.PostAsJsonAsync<SubscriptionChild>(Statics.baseAddress + "parent/addSubscriptionChild/"+subscriptionChild.CategoryId,
+                var APIResponse = httpClient.PostAsJsonAsync<SubscriptionChild>(Statics.baseAddress + "parent/addSubscriptionChild/" + subscriptionChild.CategoryId,
                     subscriptionChild).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
                 System.Diagnostics.Debug.WriteLine(APIResponse.Result);
                 return true;

@@ -123,5 +123,29 @@ namespace Service
             }
             return new List<Event>();
         }
+        public List<String> GetEstimateByEvent(int idEvent)
+        {
+            var response = httpClient.GetAsync(Statics.baseAddress + "admingarten/getEstimateByEvent/" + idEvent).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var Event = response.Content.ReadAsAsync<List<String>>().Result;
+                return Event;
+            }
+            return new List<String>();
+        }
+        public Boolean smsSubmit(Event e,int id_event)
+        {
+            try
+            {
+                var APIResponse = httpClient.PostAsJsonAsync<Event>(Statics.baseAddress + "admingarten/sms/"+ id_event+"/8/3/",
+                    e).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
+                System.Diagnostics.Debug.WriteLine(APIResponse.Result);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

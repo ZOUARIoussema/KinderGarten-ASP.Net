@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Mvc;
 using Model;
@@ -11,10 +13,21 @@ namespace Web.Controllers
     public class CommentController : Controller
     {
         CommentService commentService = new CommentService();
+        public static int idp;
+        PublicationService publicationService = new PublicationService();
+
         // GET: Comment
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            return View();
+            List<Comment> comment = new List<Comment>();
+            idp = id; 
+            foreach (var item in commentService.getAllComment()) {
+                if (item.Publication.Id == id)
+                {
+                    comment.Add(item);
+                }
+            }
+            return View(comment);
         }
 
         // GET: Comment/Details/5
@@ -33,9 +46,23 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include = "Description")] Comment comment)
         {
+
+            Publication p = publicationService.getPublicationById(idp);
+            comment.Publication = p;
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:8081");
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = client.GetAsync("/user/findUser/"+Session["id"]).Result;
+            User user= new User();
+            if (response.IsSuccessStatusCode)
+            {
+
+                user = response.Content.ReadAsAsync<User>().Result;
+            }
+            comment.Parent = user;
             if (commentService.Add(comment))
             {
-                return View();
+                return RedirectToAction("Index",new {id = idp });
             }
             return View();
         }

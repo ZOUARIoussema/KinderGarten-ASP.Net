@@ -166,6 +166,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CategorySubscriptionController.cs" />
+    <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\ChildController.cs" />
     <Compile Include="Controllers\ClubController.cs" />
@@ -198,7 +199,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app.js" />
+    <Content Include="Views\Chat\app.js" />
     <Content Include="global.css" />
     <Content Include="Content\admin\css\AdminLTE.css" />
     <Content Include="Content\admin\css\bootstrap-slider\slider.css" />
@@ -705,7 +706,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\stripe\global.css" />
-    <Content Include="index.html" />
+    <Content Include="Views\Chat\index.html" />
     <Content Include="Scripts\admin\js\AdminLTE\app.js" />
     <Content Include="Scripts\admin\js\AdminLTE\dashboard.js" />
     <Content Include="Scripts\admin\js\bootstrap.js" />
@@ -1303,8 +1304,16 @@
     <Content Include="Views\KinderGarten\getKindergartenByResponsible.cshtml" />
     <Content Include="Views\Activity\ActivityByKinderGarten.cshtml" />
     <Content Include="Views\Admin\DetailsClaim.cshtml" />
+ 
     <Content Include="Views\Shared\_Notifications.cshtml" />
     <Content Include="Views\Accounting\Transfert.cshtml" />
+ 
+    <Content Include="Views\Chat\Index.cshtml" />
+    <Content Include="Views\Comment\Index.cshtml" />
+    <Content Include="Views\Shared\_AdminGartenLayout.cshtml" />
+    <Content Include="Views\Event\GetEstimateByEvent.cshtml" />
+    <Content Include="Views\Event\Sms.cshtml" />
+ 
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

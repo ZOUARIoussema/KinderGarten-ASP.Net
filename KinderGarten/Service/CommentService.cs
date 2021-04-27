@@ -23,7 +23,8 @@ namespace Service
         {
             try
             {
-                var APIResponse = httpClient.PostAsJsonAsync<Comment>(Statics.baseAddress + "parent/addComment/",
+                
+                var APIResponse = httpClient.PostAsJsonAsync<Comment>(Statics.baseAddress + "parent/addComment",
                     comment).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
                 System.Diagnostics.Debug.WriteLine(APIResponse.Result);
                 return true;
@@ -46,5 +47,24 @@ namespace Service
                 return false;
             }
         }
+        public IEnumerable<Comment> getAllComment()
+        {
+
+            var response = httpClient.GetAsync(Statics.baseAddress + "parent/getAllComment").Result;
+
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                var com = response.Content.ReadAsAsync<IEnumerable<Comment>>().Result;
+                return com;
+
+            }
+
+            return (new List<Comment>());
+
+        }
+
+        
     }
 }
