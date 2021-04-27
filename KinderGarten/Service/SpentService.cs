@@ -25,10 +25,10 @@ namespace Service
 
         }
 
-        public IEnumerable<Spent> getAll()
+        public IEnumerable<Spent> getAll(int id )
         {
 
-            var tokenResponse = httpClient.GetAsync(Statics.baseAddress + "accounting/getAllSpentByAgent/3").Result;
+            var tokenResponse = httpClient.GetAsync(Statics.baseAddress + "accounting/getAllSpentByAgent/"+id).Result;
 
             if (tokenResponse.IsSuccessStatusCode)
             {
@@ -41,13 +41,7 @@ namespace Service
 
         public bool AddSpent(Spent spent)
         {
-
-            //set user 
-
-            User u = new User();
-            u.Id = 3;
-
-            spent.AgentCashier = u;
+ 
 
             spent.DateC = new DateTime();
 
@@ -89,13 +83,7 @@ namespace Service
 
             try
             {
-
-                //set user 
-
-                User u = new User();
-                u.Id = 3;
-
-                spent.AgentCashier = u;
+                 
 
 
                 var APIResponse = httpClient.PutAsJsonAsync<Spent>(Statics.baseAddress + "accounting/updateSpent",

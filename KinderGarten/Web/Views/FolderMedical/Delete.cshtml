@@ -13,7 +13,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.DateC)
+            Creation date
         </dt>
 
         <dd>
@@ -34,6 +34,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.Particularity)
+        </dd>
+
+        <dt>
+           Child
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Child.Name)
         </dd>
 
     </dl>

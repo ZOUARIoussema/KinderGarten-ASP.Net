@@ -18,15 +18,22 @@ namespace Model
     {
         [JsonProperty("id")]
         public int Id { get; set; }
+        [DataType(DataType.Date)]
         [JsonProperty("dateC")]
         public DateTime DateC { get; set; }
+        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Only positive number allowed")]
         [JsonProperty("price")]
         public double Price { get; set; }
+
         [JsonProperty("typePayement")]
         public TypePayement TypePayement { get; set; }
+        
+        [Range(1, int.MaxValue, ErrorMessage = "Only positive number allowed")]
         [JsonProperty("checkNumber")]
         public int CheckNumber { get; set; }
         [JsonProperty("dateCheck")]
+        
         [DataType(DataType.Date)]
         public DateTime? DateCheck { get; set; }
         [JsonProperty("subscriptionChild")]

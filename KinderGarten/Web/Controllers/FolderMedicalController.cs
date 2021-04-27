@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Mvc;
+using Web.Extensions;
 
 
 namespace Web.Controllers
@@ -31,13 +32,21 @@ namespace Web.Controllers
         }
 
         // GET: FolderMedical
-        public ActionResult Index()
+        public ActionResult Index(String filtre)
         {
-             
 
             
 
-            return View(folderMedicalService.GetAll());
+           
+
+            if (String.IsNullOrEmpty(filtre))
+            {
+
+                return View(folderMedicalService.GetAll());
+            }
+
+
+            return View(folderMedicalService.GetAll().Where(f=>f.Child.Name.ToLower().Contains(filtre.ToLower())));
         }
 
         // GET: FolderMedical/Details/5
@@ -49,12 +58,15 @@ namespace Web.Controllers
 
            
 
-            if (folderMedical != null)
-                {
+                  if (folderMedical != null)
+                   {
+                      if (folderMedical.ListVaccinesToDo.Count() != 0)
+                      {
+                    this.AddNotification("Vaccine to do for child", NotificationType.WARNING);
+                          }
 
-               
-                return View(folderMedical);
-                }
+                  return View(folderMedical);
+                   }
             
 
             return View();
@@ -83,7 +95,7 @@ namespace Web.Controllers
            
 
 
-                if (folderMedicalService.Add(folder))
+                if (  folderMedicalService.Add(folder))
                 {
                     return RedirectToAction("Index");
                 }
@@ -116,6 +128,8 @@ namespace Web.Controllers
                 if (folderMedical != null)
                 {
 
+                    
+
                     return View(folderMedical);
                 }
              
@@ -136,7 +150,11 @@ namespace Web.Controllers
             if (childVaccine != null)
             {
 
-                listG.Add(childVaccine);
+                if (listG.Contains(childVaccine) == false)
+                {
+
+                    listG.Add(childVaccine);
+                }
 
                 folderMedical.LisChildVaccines = listG;
 
@@ -146,7 +164,7 @@ namespace Web.Controllers
 
 
 
-                if (folderMedicalService.UpdateFolder(folderMedical))
+                if (  folderMedicalService.UpdateFolder(folderMedical))
                 {
                     return RedirectToAction("Index");
                 }
@@ -227,6 +245,14 @@ namespace Web.Controllers
         // GET: FolderMedical/Delete/5
         public ActionResult Delete(int id)
         {
+
+            FolderMedical folderMedical = folderMedicalService.GetById(id);
+
+            if (folderMedical != null)
+            {
+                return View(folderMedical);
+            }
+
             return View();
         }
 

@@ -33,10 +33,25 @@ namespace Web.Controllers
         // GET: Spent
         public ActionResult Index()
         {
-            
 
+           
 
-            return View(spentService.getAll());
+            User u = (User)System.Web.HttpContext.Current.Session["User"];
+
+            if (u != null)
+            {
+
+                String dateS = DateTime.Now.ToString("d");
+                String date = dateS.Replace("/", "-");
+
+                ViewBag.LienXL = "http://localhost:8081/accounting/export/excel/" + date;
+
+                System.Diagnostics.Debug.WriteLine(date);
+
+                return View(spentService.getAll(u.Id));
+            }
+
+            return View(new List<Spent>());
         }
 
         // GET: Spent/Details/5
@@ -66,13 +81,18 @@ namespace Web.Controllers
         public ActionResult Create([Bind(Include = "Description,Total,TypeSepent")] Spent spent)
         {
 
+            User u = (User)System.Web.HttpContext.Current.Session["User"];
 
-
-
-            if (spentService.AddSpent(spent))
+            if (u != null)
             {
+                spent.AgentCashier = u;
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid && spentService.AddSpent(spent))
+                {
+
+                    return RedirectToAction("Index");
+                }
+
             }
              
                 return View();
@@ -97,14 +117,21 @@ namespace Web.Controllers
         // POST: Spent/Edit/5
         [HttpPost]
         public ActionResult Edit([Bind(Include = "Id,Description,Total,TypeSepent,DateC")] Spent spent)
-        { 
+        {
+            User u = (User)System.Web.HttpContext.Current.Session["User"];
 
+            if (u != null)
+            {
 
-                if (spentService.UpdateSpent(spent))
+                spent.AgentCashier = u;
+
+                if (ModelState.IsValid && spentService.UpdateSpent(spent))
                 {
 
                     return RedirectToAction("Index");
                 }
+
+            }
             
                 return View();
              
@@ -113,6 +140,14 @@ namespace Web.Controllers
         // GET: Spent/Delete/5
         public ActionResult Delete(int id)
         {
+
+            Spent spent = spentService.FindById(id);
+
+            if (spent != null)
+            {
+
+                return View(spent);
+            }
             return View();
         }
 

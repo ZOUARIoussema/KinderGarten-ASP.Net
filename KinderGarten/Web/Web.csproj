@@ -174,6 +174,7 @@
     <Compile Include="Controllers\EstimateController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\ExtraController.cs" />
+    <Compile Include="Controllers\FidelityPointController.cs" />
     <Compile Include="Controllers\FolderMedicalController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MedicalController.cs" />
@@ -190,6 +191,7 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\VaccineChildController.cs" />
     <Compile Include="Controllers\VoteController.cs" />
+    <Compile Include="Extensions\NotificationExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1289,31 +1291,27 @@
     <Content Include="Views\SubscriptionChild\Create.cshtml" />
     <Content Include="Views\SubscriptionChild\Edit.cshtml" />
     <Content Include="Views\SubscriptionChild\Delete.cshtml" />
- 
-
     <Content Include="Views\Shared\_LayoutParent.cshtml" />
-
- 
     <Content Include="Views\Admin\EditProfile.cshtml" />
     <Content Include="Views\Vote\Create.cshtml" />
     <Content Include="Views\Vote\Validate.cshtml" />
     <Content Include="Views\SessionVote\Winner.cshtml" />
-
     <Content Include="Views\SubscriptionChild\Index.cshtml" />
     <Content Include="Views\Event\EventForChild.cshtml" />
     <Content Include="Views\Event\GetEventToday.cshtml" />
     <Content Include="Views\Activity\deleteAllActivity.cshtml" />
     <Content Include="Views\KinderGarten\getKindergartenByResponsible.cshtml" />
     <Content Include="Views\Activity\ActivityByKinderGarten.cshtml" />
-
     <Content Include="Views\Admin\DetailsClaim.cshtml" />
-
+    <Content Include="Views\Shared\_Notifications.cshtml" />
+    <Content Include="Views\Accounting\Transfert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Upload\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Checkout\" />
+    <Folder Include="Views\FidelityPoint\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

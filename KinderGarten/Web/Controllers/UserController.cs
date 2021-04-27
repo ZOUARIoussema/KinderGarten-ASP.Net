@@ -224,7 +224,10 @@ namespace Web.Controllers
 
                          if (u.Role.ToString().Equals("ROLE_doctor"))
                          {
-                         return RedirectToAction("Index", "Medical");
+
+                        System.Diagnostics.Debug.WriteLine("doctor");
+
+                        return RedirectToAction("Index", "Medical");
                          }
 
                         if (u.Role.ToString().Equals("ROLE_agentCashier"))

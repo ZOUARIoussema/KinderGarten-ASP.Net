@@ -34,8 +34,15 @@ namespace Web.Controllers
         public ActionResult Index()
         {
             
+            User u = (User)Session["User"];
 
-            return View(consultationService.GetAll());
+            if (u != null)
+            {
+
+                return View(consultationService.GetAll());
+            }
+
+            return View(new List<Consultation>());
         }
 
         // GET: ConsultationMedical/Details/5
@@ -57,6 +64,7 @@ namespace Web.Controllers
         public ActionResult Create()
         {
 
+
             ViewBag.FolderMedicalId = new SelectList(folderMedicalService.GetAll(), "Id", "Id");
 
             return View();
@@ -70,7 +78,7 @@ namespace Web.Controllers
 
             consultation.FolderMedical = folderMedicalService.GetById((int)consultation.FolderMedicalId);
             consultation.Doctor = (User)Session["User"];
-            if (consultationService.Add(consultation))
+            if ( consultationService.Add(consultation))
                 {
 
                     return RedirectToAction("Index");
@@ -107,7 +115,7 @@ namespace Web.Controllers
 
             consultation.Doctor =(User) Session["User"];
 
-            if (consultationService.Update(consultation))
+            if (ModelState.IsValid && consultationService.Update(consultation))
             {
 
                 return RedirectToAction("Index");

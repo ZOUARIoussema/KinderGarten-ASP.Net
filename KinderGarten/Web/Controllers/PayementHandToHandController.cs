@@ -12,6 +12,7 @@ namespace Web.Controllers
     {
 
         PayementService payementService;
+        
 
         public PayementHandToHandController()
         {
@@ -32,7 +33,7 @@ namespace Web.Controllers
         {
 
 
-            ViewBag.Lien = "http://localhost:8081/accounting/detailSubscription/1";
+            ViewBag.Lien = "http://localhost:8081/accounting/detailSubscription/"+id;
 
 
             return View(payementService.GetAllPayementBySubscription(id));
@@ -49,9 +50,17 @@ namespace Web.Controllers
 
 
         // GET: PayementHandToHand/Create
-        public ActionResult GetListSubscription()
+        public ActionResult GetListSubscription(String filtre)
         {
-            return View(payementService.GetAllSubscription().Where(s=>s.RestPay!=0));
+
+            if (String.IsNullOrEmpty(filtre))
+            {
+
+                return View(payementService.GetAllSubscription().Where(s => s.RestPay != 0));
+            }
+
+            return View(payementService.GetAllSubscription().Where( s=> (s.RestPay!=0 && s.Child.Name.ToLower()
+            .Contains(filtre.ToLower()) )  ));
         }
 
         // GET: PayementHandToHand/Create
@@ -65,13 +74,19 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Create([ Bind(Include =("Price,TypePayement,CheckNumber,DateCheck"))]PayementSubscription payementSubscription)
         {
-            
-                if (payementService.AddPayementHandToHand(payementSubscription, "oussema.zouari@esprit.tn",idSubscription))
+            User u = (User)System.Web.HttpContext.Current.Session["User"];
+
+            if (u != null)
+            {
+
+                payementSubscription.User = u;
+
+                if (ModelState.IsValid && payementService.AddPayementHandToHand(payementSubscription, "oussema.zouari@esprit.tn", idSubscription))
                 {
                     return RedirectToAction("Index");
                 }
 
-                
+            }  
             
                 return View();
              
@@ -80,20 +95,39 @@ namespace Web.Controllers
         // GET: PayementHandToHand/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(payementService.FindById(id));
+
+            PayementSubscription payementSubscription = payementService.FindById(id);
+
+
+
+            if (payementSubscription != null)
+            {
+                idSubscription = payementSubscription.SubscriptionChild.Id;
+                return View(payementSubscription);
+            }
+
+            return View();
         }
 
         // POST: PayementHandToHand/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = ("Price,TypePayement,CheckNumber,DateCheck"))] PayementSubscription payementSubscription)
+        public ActionResult Edit([Bind(Include = ("Price,TypePayement,CheckNumber,DateCheck,Id"))] PayementSubscription payementSubscription)
         {
-             
-                if (payementService.UpdatePayementSubscription(payementSubscription))
+
+            User u = (User)System.Web.HttpContext.Current.Session["User"];
+
+            if (u != null)
+            {
+
+                payementSubscription.User = u;
+                payementSubscription.SubscriptionChild.Id = idSubscription;
+
+                if (ModelState.IsValid && payementService.UpdatePayementSubscription(payementSubscription))
                 {
                     return RedirectToAction("Index");
                 }
 
-                
+            }   
              
                 return View();
             
@@ -102,6 +136,14 @@ namespace Web.Controllers
         // GET: PayementHandToHand/Delete/5
         public ActionResult Delete(int id)
         {
+
+            PayementSubscription payement = payementService.FindById(id);
+
+            if (payement != null)
+            {
+                return View(payement);
+            }
+
             return View();
         }
 

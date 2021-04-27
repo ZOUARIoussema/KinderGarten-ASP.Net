@@ -59,13 +59,18 @@
 
         <div>
 
-            <table class="table">
+            <h4>Vaccine history</h4>
+
+            <table class="table table-bordered table-hover table-striped table-checkable table-highlight-head mb-4">
                 <tr>
                     <th>
                         Description
                     </th>
                     <th>
                         Month number
+                    </th>
+                    <th>
+                         
                     </th>
                 </tr>
 
@@ -80,7 +85,7 @@
                         </td>
                         <td>
                             @Html.ActionLink("DeleteVaccine", "DeleteVaccine", new { id = item.Id })
-                    </td>
+                        </td>
                     </tr>
                 }
             </table>

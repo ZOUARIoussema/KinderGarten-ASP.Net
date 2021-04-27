@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,37 @@ namespace Web.Controllers
 {
     public class AccountingController : Controller
     {
-        // GET: Accounting
-        public ActionResult Index()
+
+
+
+
+        PayementService payementService;
+
+
+        public AccountingController()
         {
-           ViewBag.LienXL = "http://localhost:8081/accounting/export/excel/"+DateTime.Now.ToString("d");
+            String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
+            payementService = new PayementService(token);
+        }
+
+
+        // GET: Accounting
+        public ActionResult Index(String filtre)
+        {
+
+            if (String.IsNullOrEmpty(filtre))
+            {
+
+                return View(payementService.GetAllSubscription().Where(s => s.RestPay != 0));
+            }
+
+            return View(payementService.GetAllSubscription().Where(s => (s.RestPay != 0 && s.Child.Name.ToLower()
+           .Contains(filtre.ToLower()))));
+        }
+
+
+        public ActionResult Transfert()
+        {
             return View();
         }
     }

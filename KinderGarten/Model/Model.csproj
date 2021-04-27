@@ -80,6 +80,7 @@
     <Compile Include="Spent.cs" />
     <Compile Include="SubscriptionChild.cs" />
     <Compile Include="SwitchAccount.cs" />
+    <Compile Include="TransfertModelView.cs" />
     <Compile Include="User.cs" />
     <Compile Include="userauthenticated.cs" />
     <Compile Include="Vote.cs" />
