@@ -199,7 +199,7 @@ namespace Web.Controllers
                         Session["firstname"] = u.FirstName;
 
                     Session["id"] = u.Id;
-
+                    Session["email"] = u.Email;
                     System.Diagnostics.Debug.WriteLine("********id*******" + Session["id"]);
 
                     Session["lastname"] = u.LastName; 
@@ -238,7 +238,7 @@ namespace Web.Controllers
 
                     if (u.Role.ToString().Equals("ROLE_adminGarten"))
                     {
-                        return RedirectToAction("Index", "KinderGarten");
+                        return RedirectToAction("getKindergartenByResponsible", "KinderGarten");
                     }
 
                     if (u.Role.ToString().Equals("ROLE_parent"))
@@ -246,31 +246,31 @@ namespace Web.Controllers
                         return RedirectToAction("Index", "Publication");
 
                     }
-
-                        }
-
-
-                        //if (u.Role.Equals("ROLE_doctor"))
-                        //{
-                        //    return RedirectToAction("Index", "Admin");
-
-                        //}
-
-                        //if (u.Role.Equals("ROLE_futurParent"))
-                        //{
-
-                        //}
-
-                        //if (u.Role.Equals("ROLE_agentCashier"))
-                        //{
-
-                        //}
-                        //if (u.Role.Equals("ROLE_provider"))
-                        //{
-
-                        //}
-
+                    if (u.Role.ToString().Equals("ROLE_provider"))
+                    {
+                        return RedirectToAction("Index", "Estimate");
                     }
+
+                }
+
+
+                //if (u.Role.Equals("ROLE_doctor"))
+                //{
+                //    return RedirectToAction("Index", "Admin");
+
+                //}
+
+                //if (u.Role.Equals("ROLE_futurParent"))
+                //{
+
+                //}
+
+                //if (u.Role.Equals("ROLE_agentCashier"))
+                //{
+
+                //}
+
+            }
             
             
            

@@ -19,20 +19,24 @@ namespace Service
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", " " + token));
         }
-        public Boolean Add(Activity activity)
+        public Boolean Add(Activity activity,int idk)
         {
+
             try
             {
-                var APIResponse = httpClient.PostAsJsonAsync<Activity>(Statics.baseAddress + "admingarten/addActivity/",
+                var APIResponse = httpClient.PostAsJsonAsync<Activity>(Statics.baseAddress + "admingarten/addActivity/"+idk+"/",
                     activity).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
                 System.Diagnostics.Debug.WriteLine(APIResponse.Result);
                 return true;
             }
+
+
             catch
             {
                 return false;
             }
         }
+     
         public Activity getActivityById(int id)
         {
             Activity Activity = null;

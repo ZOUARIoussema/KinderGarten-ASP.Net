@@ -145,14 +145,19 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="@Url.Action("Index","Category")">
-                            <i class="fa fa-book"></i><span>Manage Category</span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="@Url.Action("Index","Club")">
                             <i class="fa fa-book"></i><span>Manage Club</span>
                         </a>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <span> Manage Category</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("Index","Category") "><i class="fa fa-angle-double-right"></i>ALL Category</a> </li>
+                            <li><a href="@Url.Action("CategoryByKinderGarten","Category")"><i class="fa fa-angle-double-right"></i> My Category</a></li>
+                        </ul>
                     </li>
                     <li>
                         <a href="@Url.Action("Index","Vote")">
@@ -164,15 +169,26 @@
                             <i class="fa fa-book"></i><span>Manage SessionVote</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="@Url.Action("Index","Extra")">
-                            <i class="fa fa-book"></i><span>Manage Extra</span>
+                    <li class="treeview">
+                        <a href="#">
+                            <span> Manage Extra</span>
+                            <i class="fa fa-angle-left pull-right"></i>
                         </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("Index","Extra") "><i class="fa fa-angle-double-right"></i>ALL Extra</a> </li>
+                            <li><a href="@Url.Action("ExtraByKinderGarten","Extra")"><i class="fa fa-angle-double-right"></i> My Extra</a></li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="@Url.Action("Index","CategorySubscription")">
-                            <i class="fa fa-book"></i><span>Manage CategorySubscription</span>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <span> Manage CategorySubscription</span>
+                            <i class="fa fa-angle-left pull-right"></i>
                         </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("Index","CategorySubscription") "><i class="fa fa-angle-double-right"></i>ALL CategorySubscription</a> </li>
+                            <li><a href="@Url.Action("CategorySubscriptionByKinderGarten","CategorySubscription")"><i class="fa fa-angle-double-right"></i> My CategorySubscription</a></li>
+                        </ul>
                     </li>
                 </ul>
             </section>

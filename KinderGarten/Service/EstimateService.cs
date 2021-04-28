@@ -19,12 +19,12 @@ namespace Service
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", " " + token));
         }
-        public Boolean Add(Estimate e)
+        public Boolean Add(Estimate e,int idkinder)
         {
             //e.PkEstimate.DateC = new DateTime();
             try
             {
-                var APIResponse = httpClient.PostAsJsonAsync<Estimate>(Statics.baseAddress + "provider/addEstimate/8/3/"+e.Item+"/"+e.Qte+"/"+e.Total+"/",
+                var APIResponse = httpClient.PostAsJsonAsync<Estimate>(Statics.baseAddress + "provider/addEstimate/"+8+"/3/"+e.Item+"/"+e.Qte+"/"+e.Total+"/",
                     e).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
                 System.Diagnostics.Debug.WriteLine(APIResponse.Result);
                 return true;
@@ -70,9 +70,9 @@ namespace Service
             return new List<Estimate>();
         }
     
-    public IEnumerable<Estimate> EstimateFilter()
+    public IEnumerable<Estimate> EstimateFilter(int idkinder)
     {
-        var response = httpClient.GetAsync(Statics.baseAddress + "provider/getEstimateByKinderAndProvider/"+ 3 + "/"+ 8 + "/").Result;
+        var response = httpClient.GetAsync(Statics.baseAddress + "provider/getEstimateByKinderAndProvider/"+ 3 + "/"+ idkinder + "/").Result;
         if (response.IsSuccessStatusCode)
         {
             var Estimate = response.Content.ReadAsAsync<IEnumerable<Estimate>>().Result;

@@ -61,51 +61,28 @@
                         </form>
                     </div>
                     <!-- main nav -->
-                    <div class="header-nav navbar-collapse collapse justify-content-end" id="navbarNavDropdown" style="margin-right: 500px;">
+                    <div class="header-nav navbar-collapse collapse justify-content-end" id="navbarNavDropdown" style="margin-right: 422px;">
                         <div class="logo-header d-md-block d-lg-none">
                             <a href="@Url.Action("Index", "Home")"> <img src="~/Content/images/logo.png" alt=""></a>
                         </div>
                         <ul class="nav navbar-nav">
                             <li class="active">
-                                <a href="@Url.Action("Create", "Child")">Register your Child</a>
-                            </li>
-                            <li class="has-mega-menu">
-                                <a href="@Url.Action("Index", "Publication")">Publication</a>
-                            </li>
+                                <a href="@Url.Action("Index", "Estimate")">Products</a>
 
-                            <li>
-                                <a href="@Url.Action("Create", "JustificationAbsence")">Add an absence justification</a>
                             </li>
                             <li>
-                                <a href="@Url.Action("IndexFront", "Event")">Event</a>
+                                <a href="@Url.Action("Create", "Estimate")">Add Product</a>
                             </li>
                             <li>
-                                <a href="@Url.Action("ListSubscriptionChild", "PayementEnLigneSubscriptionChild")">Payement</a>
+                                <a href="@Url.Action("EstimateFilter", "Estimate")">Our Product</a>
                             </li>
-                            <li>
-                                <a href="@Url.Action("IndexParent", "Vote")">Vote</a>
-                            </li>
-
-                            <li>
-                                <a href="@Url.Action("Index", "Notice")"><img src="@Url.Content("~/Content/Upload/notice.png")" width="30" class="user-img rounded-circle mr-2"></a>
-                            </li>
-
-
-                            <li>
-                                <a href="@Url.Action("Index", "Chat")"><img src="@Url.Content("~/Content/Upload/chat.png")" width="60" class="user-img rounded-circle mr-2"></a>
-                            </li>
-
-
 
                             <li style="    position: absolute;
-						   right: 26px;">
+						right: 26px;">
                                 <a href="@Url.Action("Index","Home")">Log out </a>
 
 
                             </li>
-
-
-
                         </ul>
                     </div>
 

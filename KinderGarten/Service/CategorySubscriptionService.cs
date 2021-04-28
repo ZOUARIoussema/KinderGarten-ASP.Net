@@ -19,11 +19,11 @@ namespace Service
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", " " + token));
         }
-        public Boolean Add(CategorySubscription categorySubscription)
+        public Boolean Add(CategorySubscription categorySubscription, int idk)
         {
             try
             {
-                var APIResponse = httpClient.PostAsJsonAsync<CategorySubscription>(Statics.baseAddress + "admingarten/addCategorySubscription/",
+                var APIResponse = httpClient.PostAsJsonAsync<CategorySubscription>(Statics.baseAddress + "admingarten/addCategorySubscription/" + idk + "/",
                     categorySubscription).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
                 System.Diagnostics.Debug.WriteLine(APIResponse.Result);
                 return true;
@@ -79,5 +79,21 @@ namespace Service
             }
             return new List<CategorySubscription>();
         }
+
+
+        public IEnumerable<CategorySubscription> CategorySubscriptionByKinderGarten(int kinderId)
+        {
+            var response = httpClient.GetAsync(Statics.baseAddress + "admingarten/findAllCategorySubscriptionByKinderGarten/" + kinderId).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var categorySubscription = response.Content.ReadAsAsync<IEnumerable<CategorySubscription>>().Result;
+                return categorySubscription;
+            }
+            return new List<CategorySubscription>();
+        }
+
+
+
+
     }
 }

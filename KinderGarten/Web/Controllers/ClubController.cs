@@ -26,7 +26,7 @@ namespace Web.Controllers
         {
             return View(clubService.GetAll());
         }
-
+      
         // GET: Club/Details/5
         public ActionResult Details(int id)
         {

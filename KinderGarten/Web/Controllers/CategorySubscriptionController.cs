@@ -11,19 +11,27 @@ namespace Web.Controllers
     public class CategorySubscriptionController : Controller
     {
         CategorySubscriptionService categorySubscriptionService ;
-       
+        KinderGartenService kinderGartenService;
+
         public CategorySubscriptionController()
         {
             String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
 
             User usergarten = (User)System.Web.HttpContext.Current.Session["User"];
-
+            kinderGartenService = new KinderGartenService(token);
             categorySubscriptionService = new CategorySubscriptionService(token);
         }
         // GET: CategorySubscription
         public ActionResult Index()
         {
             return View(categorySubscriptionService.GetAll());
+        }
+
+        public ActionResult CategorySubscriptionByKinderGarten()
+        {
+            KinderGarten k = kinderGartenService.findUserByIdK((int)Session["id"]);
+
+            return View(categorySubscriptionService.CategorySubscriptionByKinderGarten(k.Id));
         }
 
         // GET: CategorySubscription/Details/5
@@ -49,7 +57,9 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (categorySubscriptionService.Add(categorySubscription))
+                KinderGarten k = kinderGartenService.findUserByIdK((int)Session["id"]);
+
+                if (categorySubscriptionService.Add(categorySubscription,k.Id))
                 {
                     return RedirectToAction("Index");
                 }

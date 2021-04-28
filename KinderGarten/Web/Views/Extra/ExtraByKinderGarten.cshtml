@@ -1,12 +1,15 @@
-﻿@model IEnumerable<Model.CategorySubscription>
+﻿@model IEnumerable<Model.Extra>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "ExtraByKinderGarten";
     Layout = "~/Views/Shared/_AdminGartenLayout.cshtml";
 }
 
-<h2>Category Subscription</h2>
+<h2>ExtraByKinderGarten</h2>
 
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 <table class="table">
     <tr>
         <th>
@@ -27,7 +30,9 @@
             @Html.DisplayFor(modelItem => item.Price)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) 
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

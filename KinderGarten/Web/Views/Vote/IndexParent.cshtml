@@ -1,15 +1,11 @@
 ﻿@model IEnumerable<Model.User>
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_AdminGartenLayout.cshtml";
+    ViewBag.Title = "IndexParent";
+    Layout = "~/Views/Shared/_LayoutParent.cshtml";
 }
 
 <h2>Actif Parents</h2>
 
-
-<p>
-    @Html.ActionLink("Validate Delegate", "Validate")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -49,12 +45,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
-            @if (item.Role.Equals("ROLE_parent")) { 
+           
                 <td>
                     @Html.ActionLink("Vote", "Create", new { idVotedFor = item.Id })
                 </td>
-            
-                }
+
         </tr>
     }
 

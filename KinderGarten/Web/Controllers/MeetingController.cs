@@ -11,12 +11,14 @@ namespace Web.Controllers
     public class MeetingController : Controller
     {
         MeetingService meetingService;
+        KinderGartenService kinderGartenService;
+
         public MeetingController()
         {
             String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
 
             User usergarten = (User)System.Web.HttpContext.Current.Session["User"];
-
+            kinderGartenService = new KinderGartenService(token);
             meetingService = new MeetingService(token);
         }
         public ActionResult Index()
@@ -31,7 +33,9 @@ namespace Web.Controllers
         }
         public ActionResult IndexAdminGarten()
         {
-            return View(meetingService.GetAll());
+            KinderGarten k = kinderGartenService.findUserByIdK((int)Session["id"]);
+
+            return View(meetingService.MeetingByKinderGarten(k.Id));
         }
         // GET: Meeting/Details/5
         public ActionResult Details(int id)
@@ -56,7 +60,8 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (meetingService.Add(meeting))
+                KinderGarten k = kinderGartenService.findUserByIdK((int)Session["id"]);
+                if (meetingService.Add(meeting,k.Id))
                 {
                     return RedirectToAction("Index");
                 }

@@ -5,7 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using Model;
 using Service;
-
+using PagedList;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace Web.Controllers
 {
@@ -25,13 +27,20 @@ namespace Web.Controllers
         // GET: Event
 
 
-        public ActionResult Index(string price)
+        public ActionResult Index(string price,int? Page_No)
         {
+            
+            IEnumerable<Event> listevents = eventService.GetAll();
+
+            int size_of_page = 4;
+            int No_Of_Page = (Page_No ?? 1);
+
+            
             if (String.IsNullOrEmpty(price))
             {
-                return View(eventService.GetAll());
+                return View(listevents.ToPagedList(No_Of_Page, size_of_page));
             }
-            return View(eventService.getAllEventbyprice(price));
+            return View(eventService.getAllEventbyprice(price).ToPagedList(No_Of_Page, size_of_page));
         }
 
         public ActionResult IndexFront(string price)
@@ -42,7 +51,6 @@ namespace Web.Controllers
             }
             return View();
         }
-
 
 
         [HttpGet]
@@ -121,14 +129,14 @@ namespace Web.Controllers
             return View();
         }
 
-        [HttpPost]
+            [HttpPost]
         public ActionResult Sms([Bind(Include = " ")] Event e, int id_event)
         {
                 if (eventService.smsSubmit(e,id_event))
                 {
                     return RedirectToAction("Index");
                 }
-            
+
             return View();
 
         }
@@ -184,6 +192,9 @@ namespace Web.Controllers
             }
             return View();
         }
+  
+
+
     }
 }
 

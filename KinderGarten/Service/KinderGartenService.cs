@@ -37,6 +37,18 @@ namespace Service
             }
         }
 
+        public KinderGarten findUserByIdK(int id)
+        {
+            KinderGarten KinderGarten = null;
+            var response = httpClient.GetAsync(Statics.baseAddress + "admingarten/findUserByIdK/" + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var kinder = response.Content.ReadAsAsync<KinderGarten>().Result;
+                return kinder;
+            }
+            return KinderGarten;
+        }
+
         public IEnumerable<KinderGarten> getKindergartenByResponsible(int responsibleId)
         {
 

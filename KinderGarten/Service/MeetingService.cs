@@ -19,11 +19,11 @@ namespace Service
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", " " + token));
         }
-        public Boolean Add(Meeting meeting)
+        public Boolean Add(Meeting meeting, int idk)
         {
             try
             {
-                var APIResponse = httpClient.PostAsJsonAsync<Meeting>(Statics.baseAddress + "admingarten/addMeeting/",
+                var APIResponse = httpClient.PostAsJsonAsync<Meeting>(Statics.baseAddress + "admingarten/addMeeting/" + idk + "/",
                     meeting).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
                 System.Diagnostics.Debug.WriteLine(APIResponse.Result);
                 return true;
@@ -79,6 +79,17 @@ namespace Service
             }
             return new List<Meeting>();
         }
-      
+        public IEnumerable<Meeting> MeetingByKinderGarten(int kinderId)
+        {
+            var response = httpClient.GetAsync(Statics.baseAddress + "admingarten/findAllMeetingByKinderGarten/" + kinderId).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var meeting = response.Content.ReadAsAsync<IEnumerable<Meeting>>().Result;
+                return meeting;
+            }
+            return new List<Meeting>();
+        }
+
+
     }
 }

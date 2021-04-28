@@ -25,7 +25,7 @@ namespace Service
         {
             try
             {
-                var APIResponse = httpClient.PostAsJsonAsync<VoteForm>(Statics.baseAddress + "admingarten/kinder_garden/3/delegators/vote/1/",
+                var APIResponse = httpClient.PostAsJsonAsync<VoteForm>(Statics.baseAddress + "parent/kinder_garden/3/delegators/vote/1/",
                     vote).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
                 System.Diagnostics.Debug.WriteLine(APIResponse.Result);
                 return true;
@@ -47,7 +47,18 @@ namespace Service
             }
             return new List<User>();
         }
+        public IEnumerable<User> GetAllforparent()
+        {
+            var response = httpClient.GetAsync(Statics.baseAddress + "parent/kinder_garden/3/delegators").Result;
 
+            if (response.IsSuccessStatusCode)
+            {
+
+                var users = response.Content.ReadAsAsync<IEnumerable<User>>().Result;
+                return users;
+            }
+            return new List<User>();
+        }
         public User delegatorsElection(int idkinder)
         {
             User u = null;

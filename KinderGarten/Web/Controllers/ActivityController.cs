@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Mvc;
 using Model;
+using Newtonsoft.Json;
 using Service;
 
 
@@ -13,6 +16,7 @@ namespace Web.Controllers
     public class ActivityController : Controller
     {
         ActivityService activityService;
+        KinderGartenService kinderGartenService;
         public ActivityController()
         {
             String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
@@ -20,6 +24,7 @@ namespace Web.Controllers
             User usergarten = (User)System.Web.HttpContext.Current.Session["User"];
 
             activityService = new ActivityService(token);
+            kinderGartenService = new KinderGartenService(token);
         }
         
         // GET: Activity
@@ -30,8 +35,8 @@ namespace Web.Controllers
 
         public ActionResult ActivityByKinderGarten()
         {
-            int kinderId = 3;
-            return View(activityService.ActivityByKinderGarten(kinderId));
+            KinderGarten k = kinderGartenService.findUserByIdK((int)Session["id"]);
+            return View(activityService.ActivityByKinderGarten(k.Id));
         }
 
 
@@ -63,7 +68,11 @@ namespace Web.Controllers
                     var path = Path.Combine(Server.MapPath("~/Content/Upload/"), file.FileName);
                     file.SaveAs(path);
                 }
-                if (activityService.Add(activity))
+
+
+                KinderGarten k = kinderGartenService.findUserByIdK((int)Session["id"]);
+
+                if (activityService.Add(activity, k.Id))
             {
                 return RedirectToAction("Index");
             }
@@ -130,8 +139,9 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult deleteAllActivity([Bind(Include = "Description,Photo")] Activity activity)
         {
-            int idKinder = 3;
-            if (activityService.deleteAllActivity(idKinder,activity))
+            KinderGarten k = kinderGartenService.findUserByIdK((int)Session["id"]);
+
+            if (activityService.deleteAllActivity(k.Id,activity))
             {
                 return RedirectToAction("Index");
             }

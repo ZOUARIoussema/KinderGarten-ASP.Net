@@ -11,12 +11,14 @@ namespace Web.Controllers
     public class CategoryController : Controller
     {
         CategoryService categoryService;
+        KinderGartenService kinderGartenService;
+
         public CategoryController()
         {
             String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
 
             User usergarten = (User)System.Web.HttpContext.Current.Session["User"];
-
+            kinderGartenService = new KinderGartenService(token);
             categoryService = new CategoryService(token);
         }
 
@@ -26,6 +28,12 @@ namespace Web.Controllers
             return View(categoryService.GetAll());
         }
 
+        public ActionResult CategoryByKinderGarten()
+        {
+            KinderGarten k = kinderGartenService.findUserByIdK((int)Session["id"]);
+
+            return View(categoryService.CategoryByKinderGarten(k.Id));
+        }
         // GET: Category/Details/5
         public ActionResult Details(int id)
         {
@@ -49,7 +57,8 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (categoryService.Add(category))
+                KinderGarten k = kinderGartenService.findUserByIdK((int)Session["id"]);
+                if (categoryService.Add(category,k.Id))
                 {
                     return RedirectToAction("Index");
                 }

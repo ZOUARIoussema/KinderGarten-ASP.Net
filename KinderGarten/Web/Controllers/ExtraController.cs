@@ -11,18 +11,27 @@ namespace Web.Controllers
     public class ExtraController : Controller
     {
         ExtraService extraService ;
+        KinderGartenService kinderGartenService;
+
         public ExtraController()
         {
             String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
 
             User usergarten = (User)System.Web.HttpContext.Current.Session["User"];
-
+            kinderGartenService = new KinderGartenService(token);
             extraService = new ExtraService(token);
         }
         // GET: Extra
         public ActionResult Index()
         {
             return View(extraService.GetAll());
+        }
+
+        public ActionResult ExtraByKinderGarten()
+        {
+            KinderGarten k = kinderGartenService.findUserByIdK((int)Session["id"]);
+
+            return View(extraService.ExtraByKinderGarten(k.Id));
         }
 
         // GET: Extra/Details/5
@@ -48,7 +57,8 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (extraService.Add(extra))
+                KinderGarten k = kinderGartenService.findUserByIdK((int)Session["id"]);
+                if (extraService.Add(extra,k.Id))
                 {
                     return RedirectToAction("Index");
                 }

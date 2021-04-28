@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Mvc;
 
@@ -30,8 +32,18 @@ namespace Web.Controllers
 
         public ActionResult getKindergartenByResponsible()
         {
-            int responsibleId = 2;
-            return View(kinderGartenService.getKindergartenByResponsible(responsibleId));
+         //   int responsibleId = 2;
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:8081");
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = client.GetAsync("/user/findUser/" + Session["id"]).Result;
+            User user = new User();
+            if (response.IsSuccessStatusCode)
+            {
+                user = response.Content.ReadAsAsync<User>().Result;
+            }
+            
+            return View(kinderGartenService.getKindergartenByResponsible(user.Id));
         }
 
 
@@ -65,6 +77,16 @@ namespace Web.Controllers
                     var path = Path.Combine(Server.MapPath("~/Content/Upload/"), file.FileName);
                     file.SaveAs(path);
                 }
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri("http://localhost:8081");
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("/user/findUser/" + Session["id"]).Result;
+                User user = new User();
+                if (response.IsSuccessStatusCode)
+                {
+                    user = response.Content.ReadAsAsync<User>().Result;
+                }
+                kinder.Responsible = user;
                 if (kinderGartenService.AddKinder(kinder))
                 {
                     return RedirectToAction("Index");

@@ -19,11 +19,11 @@ namespace Service
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             httpClient.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer{0}", " " + token));
         }
-        public Boolean Add(Extra extra)
+        public Boolean Add(Extra extra, int idk)
         {
             try
             {
-                var APIResponse = httpClient.PostAsJsonAsync<Extra>(Statics.baseAddress + "admingarten/addExtra/",
+                var APIResponse = httpClient.PostAsJsonAsync<Extra>(Statics.baseAddress + "admingarten/addExtra/" + idk + "/",
                     extra).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
                 System.Diagnostics.Debug.WriteLine(APIResponse.Result);
                 return true;
@@ -79,5 +79,17 @@ namespace Service
             }
             return new List<Extra>();
         }
+
+        public IEnumerable<Extra> ExtraByKinderGarten(int kinderId)
+        {
+            var response = httpClient.GetAsync(Statics.baseAddress + "admingarten/findAllExtraByKinderGarten/" + kinderId).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var extra = response.Content.ReadAsAsync<IEnumerable<Extra>>().Result;
+                return extra;
+            }
+            return new List<Extra>();
+        }
+
     }
 }

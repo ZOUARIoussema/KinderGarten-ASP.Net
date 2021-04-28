@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Mvc;
 using Model;
@@ -26,7 +28,17 @@ namespace Web.Controllers
         }
         public ActionResult EstimateFilter()
         {
-            return View(estimateService.EstimateFilter());
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:8081");
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = client.GetAsync("/user/findUser/" + Session["id"]).Result;
+            User user = new User();
+            if (response.IsSuccessStatusCode)
+            {
+                user = response.Content.ReadAsAsync<User>().Result;
+            }
+
+            return View(estimateService.EstimateFilter(user.Id));
         }
 
         // GET: Estimate/Create
@@ -41,7 +53,17 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (estimateService.Add(estimate))
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri("http://localhost:8081");
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("/user/findUser/" + Session["id"]).Result;
+                User user = new User();
+                if (response.IsSuccessStatusCode)
+                {
+                    user = response.Content.ReadAsAsync<User>().Result;
+                }
+                
+                if (estimateService.Add(estimate,user.Id))
                 {
                     return RedirectToAction("Index");
                 }
@@ -77,21 +99,26 @@ namespace Web.Controllers
             }
         }
 
-        // GET: Estimate/Delete/5
-        public ActionResult Delete(DateTime dateC, int iduser, int idkinder)
-        {
-            return View();
-        }
 
         // POST: Estimate/Delete/5
-        [HttpPost]
-        public ActionResult Delete(DateTime dateC, int iduser, int idkinder, FormCollection collection)
+      
+        public ActionResult Delete(DateTime dateC)
         {
-            if (estimateService.deleteEstimate(dateC, iduser, idkinder))
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:8081");
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = client.GetAsync("/user/findUser/" + Session["id"]).Result;
+            User user = new User();
+            if (response.IsSuccessStatusCode)
+            {
+                user = response.Content.ReadAsAsync<User>().Result;
+            }
+
+            if (estimateService.deleteEstimate(dateC, user.Id, 3))
             {
                 return RedirectToAction("Index");
             }
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }

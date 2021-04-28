@@ -11,10 +11,12 @@ namespace Web.Controllers
     public class SessionVoteController : Controller
     {
         SessionVoteService sessionVoteService;
+        KinderGartenService kinderGartenService;
+
         public SessionVoteController()
         {
             String token = (String)System.Web.HttpContext.Current.Session["AccessToken"];
-
+            kinderGartenService = new KinderGartenService(token);
             User usergarten = (User)System.Web.HttpContext.Current.Session["User"];
 
             sessionVoteService = new SessionVoteService(token);
@@ -110,8 +112,8 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Winner(int sessionVoteId)
         {
-
-           sessionVoteService.delegatorsWinner(3, sessionVoteId);
+            KinderGarten k = kinderGartenService.findUserByIdK((int)Session["id"]);
+            sessionVoteService.delegatorsWinner(k.Id, sessionVoteId);
            
             return RedirectToAction("Index");
             
