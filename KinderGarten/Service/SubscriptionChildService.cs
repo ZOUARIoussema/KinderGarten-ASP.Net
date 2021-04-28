@@ -23,6 +23,19 @@ namespace Service
         }
         public Boolean Add(SubscriptionChild subscriptionChild)
         {
+
+            Extra extra = new Extra();
+            extra.Id = (int)subscriptionChild.ExtratId;
+
+            Child child = new Child();
+            child.Id =(int) subscriptionChild.ChildId;
+
+            subscriptionChild.LisExtras = new List<Extra>();
+
+            subscriptionChild.LisExtras.Add(extra);
+
+            subscriptionChild.Child = child;
+
             try
             {
                 var APIResponse = httpClient.PostAsJsonAsync<SubscriptionChild>(Statics.baseAddress + "parent/addSubscriptionChild/" + subscriptionChild.CategoryId,

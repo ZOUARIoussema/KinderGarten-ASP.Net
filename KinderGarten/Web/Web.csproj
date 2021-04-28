@@ -1316,11 +1316,16 @@
     <Content Include="Views\Shared\_AdminGartenLayout.cshtml" />
     <Content Include="Views\Event\GetEstimateByEvent.cshtml" />
     <Content Include="Views\Event\Sms.cshtml" />
+
+    <Content Include="Views\PayementEnLigneSubscriptionChild\ListSubscriptionChild.cshtml" />
+
     <Content Include="Views\Comment\Delete.cshtml" />
     <Content Include="Views\JustificationAbsence\Index.cshtml" />
     <Content Include="Views\Notice\Index.cshtml" />
     <Content Include="Views\Notice\Delete.cshtml" />
+
     <Content Include="Views\Event\IndexFront.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

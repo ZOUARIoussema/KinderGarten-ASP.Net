@@ -35,7 +35,10 @@ namespace Model
         public int ? CategoryId { get; set; }
         [JsonProperty("lisExtras")]
         public List<Extra> LisExtras { get; set; }
-       
+
+        public int? ExtratId { get; set; }
+
+        public int? ChildId { get; set; }
 
         [JsonProperty("child")]
         public Child Child { get; set; }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Model;
 
 namespace Web.Controllers
 {
@@ -14,6 +15,7 @@ namespace Web.Controllers
 
 
         PayementService payementService;
+        private static int idS;
 
 
         public AccountingController()
@@ -27,19 +29,48 @@ namespace Web.Controllers
         public ActionResult Index(String filtre)
         {
 
+
+            IEnumerable<SubscriptionChild> list = payementService.GetAllSubscription().Where(s => s.RestPay != 0);
+
+            double total = list.Select(s => s.Total).Sum();
+            double totalR = list.Select(s => s.RestPay).Sum();
+
+            ViewBag.Total = total;
+            ViewBag.TotalR = totalR;
+
+
             if (String.IsNullOrEmpty(filtre))
             {
 
-                return View(payementService.GetAllSubscription().Where(s => s.RestPay != 0));
+                return View(list);
             }
 
-            return View(payementService.GetAllSubscription().Where(s => (s.RestPay != 0 && s.Child.Name.ToLower()
-           .Contains(filtre.ToLower()))));
+            return View(list.Where(s => s.Child.Name.ToLower()
+           .Contains(filtre.ToLower())));
         }
 
 
-        public ActionResult Transfert()
+        public ActionResult Transfert(int id)
         {
+
+
+
+            idS = id;
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Transfert([Bind(Include = "PointFidelity")] TransfertModelView transfertModelView)
+        {
+
+            transfertModelView.SubscriptionChildId = idS;
+
+            if (payementService.TransfertPoint(transfertModelView))
+            {
+
+                return RedirectToAction("Index");
+            }
+
             return View();
         }
     }

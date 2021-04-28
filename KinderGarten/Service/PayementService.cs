@@ -132,7 +132,74 @@ namespace Service
         }
 
 
-       
+        public bool TransfertPoint(TransfertModelView transfertModelView)
+        {
+
+            try
+            {
+
+
+
+
+                var APIResponse = httpClient.PutAsync(Statics.baseAddress + "accounting/transfertPointFidelity/"+
+                    transfertModelView.SubscriptionChildId+"/"+ transfertModelView.PointFidelity,null
+                 ).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
+
+                System.Diagnostics.Debug.WriteLine(APIResponse.Result);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
+        public IEnumerable<SubscriptionChild> GetAllSubscriptionByParent(int id)
+        {
+
+            var tokenResponse = httpClient.GetAsync(Statics.baseAddress + "pay/getAllSubscriptionByParent/"+id).Result;
+
+            if (tokenResponse.IsSuccessStatusCode)
+            {
+                var subscriptions = tokenResponse.Content.ReadAsAsync<IEnumerable<SubscriptionChild>>().Result;
+                return subscriptions;
+            }
+
+            return new List<SubscriptionChild>();
+        }
+
+
+        public bool AddPayementOnLigne(PayementSubscription payement, String mail)
+        {
+
+
+
+
+            try
+            {
+
+
+                var APIResponse = httpClient.PostAsJsonAsync<PayementSubscription>(Statics.baseAddress + "pay/paySubscriptionOnLine/" + mail ,
+               payement).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
+
+                System.Diagnostics.Debug.WriteLine(APIResponse.Result);
+
+
+
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+
+        }
+
+
 
     }
 }
