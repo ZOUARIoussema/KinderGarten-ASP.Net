@@ -21,9 +21,9 @@
 				<img class="k-card-image" src="@Url.Content("~/Content/Upload/"+item.Attachment)" height="100" width="250" alt="Image" />
 				<div class="profile-content">
 					<div class="profile-name">
-						@Html.DisplayFor(modelItem => item.Parent.FirstName)
+						@Html.DisplayFor(modelItem => item.Parent.FirstName)  @Html.DisplayFor(modelItem => item.Parent.LastName)
 
-				</div>
+					</div>
 				<div class="profile-description">@Html.DisplayFor(modelItem => item.Description)</div>
 				<div class="row">
 					<div class="col-xs-4">
@@ -40,9 +40,9 @@
 					</div>
 					<div class="col-xs-4">
 						<div class="profile-overview">
-							
 
-							<h4><a href='@Url.Action("Index", "Comment", new { id = item.Id })'> Reply </a></h4>
+
+							&nbsp;&nbsp;&nbsp;&nbsp;	<h4><a href='@Url.Action("Index", "Comment", new { id = item.Id })'> Reply </a></h4>
 
 						</div>
 					</div>

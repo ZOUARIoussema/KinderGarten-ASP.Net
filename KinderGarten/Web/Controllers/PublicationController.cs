@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Mvc;
 using Model;
@@ -45,6 +47,17 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include = "Description,Attachement")] Publication publication, HttpPostedFileBase file)
         {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:8081");
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = client.GetAsync("/user/findUser/" + Session["id"]).Result;
+            User user = new User();
+            if (response.IsSuccessStatusCode)
+            {
+
+                user = response.Content.ReadAsAsync<User>().Result;
+            }
+            
             if (ModelState.IsValid)
             {
                 publication.Attachment = file.FileName;
@@ -55,6 +68,7 @@ namespace Web.Controllers
                 }
                 publication.NumberLike = 0;
                 publication.Date = DateTime.Now;
+                publication.Parent = user;
                 if (publicationService.Add(publication))
                 {
                     return RedirectToAction("Index");

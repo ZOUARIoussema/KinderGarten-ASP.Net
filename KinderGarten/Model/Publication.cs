@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace Model
         [JsonProperty("id")]
         public long Id { get; set; }
         [JsonProperty("date")]
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
         [JsonProperty("description")]
         public String Description { get; set; }

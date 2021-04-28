@@ -34,6 +34,17 @@ namespace Web.Controllers
             return View(eventService.getAllEventbyprice(price));
         }
 
+        public ActionResult IndexFront(string price)
+        {
+            if (String.IsNullOrEmpty(price))
+            {
+                return View(eventService.GetAllEvent());
+            }
+            return View();
+        }
+
+
+
         [HttpGet]
         public ActionResult GetEstimateByEvent(int id)
         {
@@ -158,6 +169,18 @@ namespace Web.Controllers
             if (eventService.deleteEventById(id))
             {
                 return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        public ActionResult Participate(int id, [Bind(Include = "NParticipate")] Event e)
+        {
+
+            e.Id = id;
+            if (eventService.AddParticipate(id, e)) 
+            {
+
+                return RedirectToAction("IndexFront");
             }
             return View();
         }

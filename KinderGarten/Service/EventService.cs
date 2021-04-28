@@ -147,5 +147,31 @@ namespace Service
                 return false;
             }
         }
+
+        public IEnumerable<Event> GetAllEvent()
+        {
+            var response = httpClient.GetAsync(Statics.baseAddress + "parent/getAllevent").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var Event = response.Content.ReadAsAsync<IEnumerable<Event>>().Result;
+                return Event;
+            }
+            return new List<Event>();
+        }
+
+        public Boolean AddParticipate(int id, Event e)
+        {
+            try
+            {
+                var APIResponse = httpClient.PutAsJsonAsync<Event>(Statics.baseAddress + "parent/addParticipate/" + id,
+                   e).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
+                System.Diagnostics.Debug.WriteLine(APIResponse.Result);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

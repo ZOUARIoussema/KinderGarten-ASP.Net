@@ -201,6 +201,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Upload\dislike.png" />
+    <Content Include="Content\Upload\event.jpg" />
     <Content Include="Content\Upload\like.png" />
     <Content Include="Content\Upload\notif.jpg" />
     <Content Include="Views\Chat\app.js" />
@@ -1319,6 +1320,7 @@
     <Content Include="Views\JustificationAbsence\Index.cshtml" />
     <Content Include="Views\Notice\Index.cshtml" />
     <Content Include="Views\Notice\Delete.cshtml" />
+    <Content Include="Views\Event\IndexFront.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -30,13 +30,16 @@ namespace Web.Controllers
             }
             return View();
         }
+        
 
         // GET: SubscriptionChild/Create
         public ActionResult Create()
         {
+           
             ViewBag.CategoryId = new SelectList(subscriptionChildService.GetAllCategorySubscription(), "Id", "Description");
 
             ViewBag.LisExtras = new SelectList(subscriptionChildService.GetAllExtra(), "Id", "Description", "Price");
+            
             return View();
         }
 
