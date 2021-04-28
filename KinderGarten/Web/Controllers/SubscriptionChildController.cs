@@ -11,6 +11,7 @@ namespace Web.Controllers
     public class SubscriptionChildController : Controller
     {
         SubscriptionChildService subscriptionChildService = new SubscriptionChildService();
+        ChildService ChildService = new ChildService();
         public SubscriptionChildController()
         {
         }
@@ -34,15 +35,17 @@ namespace Web.Controllers
         // GET: SubscriptionChild/Create
         public ActionResult Create()
         {
+            ViewBag.ChildId = new SelectList(ChildService.getAllChild(), "Id", "Name");
+
             ViewBag.CategoryId = new SelectList(subscriptionChildService.GetAllCategorySubscription(), "Id", "Description");
 
-            ViewBag.LisExtras = new SelectList(subscriptionChildService.GetAllExtra(), "Id", "Description", "Price");
+            ViewBag.ExtratId = new SelectList(subscriptionChildService.GetAllExtra(), "Id", "Description", "Price");
             return View();
         }
 
         // POST: SubscriptionChild/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "DateC,DateStart,DateEnd,categorySubscription,lisExtras,CategoryId")] SubscriptionChild subscriptionChild)
+        public ActionResult Create([Bind(Include = "DateC,DateStart,DateEnd,categorySubscription,lisExtras,CategoryId,ExtratId,ChildId")] SubscriptionChild subscriptionChild)
         {
 
 

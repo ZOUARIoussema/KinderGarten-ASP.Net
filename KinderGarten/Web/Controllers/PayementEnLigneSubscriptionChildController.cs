@@ -14,6 +14,8 @@ namespace Web.Controllers
     {
 
         PayementService payementService;
+        public static int idS;
+        public static double totalS;
 
         public PayementEnLigneSubscriptionChildController()
         {
@@ -24,16 +26,39 @@ namespace Web.Controllers
         }
 
         // GET: PayementEnLigneSubscriptionChild
-        public ActionResult Index(int id)
+        public ActionResult Index(int id,double total)
         {
+            idS = id;
+            totalS = total;
             return View();
         }
 
         [HttpPost]
-        public ActionResult Index()
+        public ActionResult Index(FormCollection formCollection)
         {
-           
-            return RedirectToAction("ListSubscriptionChild");
+
+            SubscriptionChild s = new SubscriptionChild();
+            s.Id = idS;
+
+            PayementSubscription payementSubscription = new PayementSubscription();
+            payementSubscription.TypePayement = TypePayement.onLine;
+            payementSubscription.Price = totalS;
+            payementSubscription.SubscriptionChild = s;
+
+            User u = (User)System.Web.HttpContext.Current.Session["User"];
+
+            if (u != null)
+            {
+                payementSubscription.User = u;
+            }
+
+            if (payementService.AddPayementOnLigne(payementSubscription, "oussema.zouari@esprit.tn"))
+            {
+
+                return RedirectToAction("ListSubscriptionChild");
+            }
+
+            return View();
         }
 
 

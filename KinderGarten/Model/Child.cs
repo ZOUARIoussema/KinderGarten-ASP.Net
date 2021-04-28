@@ -35,6 +35,8 @@ namespace Model
         public List<Category> ListInterest { get; set; }
         [JsonProperty("lisEvents")]
         public List<Event> LisEvents { get; set; }
+
+       
         
 
 

@@ -171,6 +171,34 @@ namespace Service
         }
 
 
+        public bool AddPayementOnLigne(PayementSubscription payement, String mail)
+        {
+
+
+
+
+            try
+            {
+
+
+                var APIResponse = httpClient.PostAsJsonAsync<PayementSubscription>(Statics.baseAddress + "pay/paySubscriptionOnLine/" + mail ,
+               payement).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
+
+                System.Diagnostics.Debug.WriteLine(APIResponse.Result);
+
+
+
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+
+        }
+
 
 
     }
