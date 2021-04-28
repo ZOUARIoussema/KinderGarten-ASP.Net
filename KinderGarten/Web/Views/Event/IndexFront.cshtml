@@ -30,7 +30,7 @@
 											<p>Price : @Html.DisplayFor(modelItem => item.Price)</p>
 											<h4 class="card-title">
 												<p>Number of participants :@Html.DisplayFor(modelItem => item.NParticipate)</p>
-												<a href="#" class="btn btn-primary btn-sm">Participate</a>
+												<button class="btn btn-primary btn-sm">@Html.ActionLink("Participate", "Participate", new { id = item.Id })</button>
 </div>
 						</div>
 

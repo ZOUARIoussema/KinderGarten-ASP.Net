@@ -37,11 +37,6 @@ namespace Web.Controllers
         public ActionResult Create()
         {
 
-           
-           
-
-            
-            
 
             ViewBag.ChildId = new SelectList(ChildService.getAllChild(), "Id", "Name");
 
@@ -61,7 +56,7 @@ namespace Web.Controllers
 
             if (subscriptionChildService.Add(subscriptionChild))
             {
-                return RedirectToAction("Index", "Publication");
+                return RedirectToAction("ListSubscriptionChild", "PayementEnLigneSubscriptionChild");
             }
             return View();
         }

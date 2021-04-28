@@ -48,7 +48,7 @@ namespace Web.Controllers
             justificationAbsence.Parent = user;
             if (justificationAbsenceService.Add(justificationAbsence))
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Publication");
             }
             return View();
         }

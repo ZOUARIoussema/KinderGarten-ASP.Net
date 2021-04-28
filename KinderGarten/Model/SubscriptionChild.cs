@@ -13,7 +13,8 @@ namespace Model
         [JsonProperty("id")]
         public int Id { get; set; }
         [JsonProperty("dateC")]
-       
+        [DataType(DataType.Date)]
+
         public DateTime DateC { get; set; }
         [JsonProperty("dateStart")]
         [DataType(DataType.Date)]

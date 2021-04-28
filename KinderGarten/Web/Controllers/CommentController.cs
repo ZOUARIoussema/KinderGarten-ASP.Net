@@ -118,7 +118,7 @@ namespace Web.Controllers
         {
             if (commentService.deleteCommentById(id))
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Publication");
             }
             return View();
         }
