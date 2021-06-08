@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "AccountNotApproved";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="dlab-bnr-inr overlay-black-middle bg-pt" style="background-image:url(/Content/images/banner/bnr4.jpg);">
+    <div class="container">
+        <div class="dlab-bnr-inr-entry">
+            <h1 class="text-white">Alert Account</h1>
+            <!-- Breadcrumb row -->
+            <div class="breadcrumb-row">
+                <ul class="list-inline">
+                    <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                    <li>Login</li>
+                    <li>Account Not Approved</li>
+                </ul>
+            </div>
+            <!-- Breadcrumb row END -->
+        </div>
+    </div>
+</div>
+
+
+<div class="section-full bg-white content-inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sort-title clearfix text-center">
+                    <h4>Your account is not active yet !</h4>
+                </div>
+                <!-- Alert box with summery -->
+                <div class="section-content box-sort-in m-b30">
+                    <div class="alert alert-danger">
+                       
+                        <ul class="list-angle-right">
+                            <li>Check your email and login again .</li>
+                            <li>An email confirmation will be send to your email .Then you can <a href="@Url.Action("Login","User")">login</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Alert box with summery END -->
+    </div>
+</div>

@@ -69,7 +69,9 @@
     <Compile Include="PublicationService.cs" />
     <Compile Include="SessionVoteService.cs" />
     <Compile Include="SpentService.cs" />
+    <Compile Include="StatisticsService.cs" />
     <Compile Include="SubscriptionChildService.cs" />
+    <Compile Include="UserAdminService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="Utils\Statics.cs" />
     <Compile Include="VaccineChildService.cs" />

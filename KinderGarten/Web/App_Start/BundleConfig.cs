@@ -71,7 +71,8 @@ namespace Web
              "~/Scripts/admin/js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js",
              "~/Scripts/admin/js/plugins/iCheck/icheck.min.js",
              "~/Scripts/admin/js/AdminLTE/app.js",
-             "~/Scripts/admin/js/AdminLTE/dashboard.js"
+             "~/Scripts/admin/js/AdminLTE/dashboard.js",
+             "~/Scripts/admin/js/sweetalert.min.js"
              ));
 
             bundles.Add(new StyleBundle("~/admin/css").Include(
@@ -83,7 +84,8 @@ namespace Web
                       "~/Content/admin/css/fullcalendar/fullcalendar.css",
                       "~/Content/admin/css/daterangepicker/daterangepicker-bs3.css",
                       "~/Content/admin/css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css",
-                      "~/Content/admin/css/AdminLTE.css"
+                      "~/Content/admin/css/AdminLTE.css",
+                      "~/Content/admin/css/sweetalert.min.css"
                       ));
 
 

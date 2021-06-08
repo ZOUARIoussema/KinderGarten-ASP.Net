@@ -1,63 +1,105 @@
-﻿@model IEnumerable<Model.User>
+﻿@model PagedList.IPagedList<Model.User>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Users";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+
+
 <h2>All Users</h2>
+
 
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            First Name
         </th>
-      
+
         <th>
-            @Html.DisplayNameFor(model => model.Tel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateC)
-        </th>
-       
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
+            Phone Number
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Password)
+            Creation Date
+        </th>
+
+        <th>
+            Email
+        </th>
+        <th>
+            Role
+        </th>
+        <th>
+         State User
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-      
-        <td>
-            @Html.DisplayFor(modelItem => item.Tel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateC)
-        </td>
-     
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.FirstName)
+    </td>
 
-            <button class="btn btn-primary btn-sm" > @Html.ActionLink("Update", "Update", new { id = item.Id }, new { @style = "color:#fff;" })</button>
-            <button class="btn btn-danger btn-sm">@Html.ActionLink("Delete","Delete", new { id = item.Id }, new { @style = "color:#fff;" })</button>
+    <td>
+        @Html.DisplayFor(modelItem => item.Tel)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DateC)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.Email)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem=> item.Role)
+    </td>
 
 
-          
+        @if (item.State.ToString().Equals("waiting"))
+        {
+        <td>
+            <span class="label label-warning">Waiting</span>
         </td>
+    }
+    else if (item.State.ToString().Equals("active"))
+    {
+        <td>
+            <span class="label label-info">Active</span>
+        </td>
+    }
+    else
+    {
+        <td>
+            <span class="label label-danger">Blocked</span>
+        </td>
+    }
+
+<td>
+
+    @using (Html.BeginForm("changestateuser", "Admin"))
+    {
+        <input type="hidden" name="iduser" value="@item.Id" />
+        <input type="submit" class="btn btn-success btn-sm" value="Make active"
+               @{ if (item.State.ToString().Equals("active")) { @: disabled="disabled"
+               } } />
+    }
+
+
+    <u>
+        @Html.ActionLink("Delete", "deleteUser", new { id = item.Id }, new { onclick = "return confirm('Are you sure you want to delete this user?')" })
+    </u>
+
+</td>
     </tr>
-}
+    }
 
 </table>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, Page_No => Url.Action("Users",
+    new { Page_No }))
+

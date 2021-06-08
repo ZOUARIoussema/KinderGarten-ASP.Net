@@ -1,0 +1,79 @@
+﻿@model Model.Claim
+
+
+<div>
+
+    @Html.HiddenFor(model => model.Id)
+
+    <h4> Details Claim</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Creation date
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Creation_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Objet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Objet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.State)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.State)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Parent.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Parent.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Parent.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Parent.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Parent.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Parent.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Parent.Tel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Parent.Tel)
+        </dd>
+
+    </dl>
+</div>
+
+
+

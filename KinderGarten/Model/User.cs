@@ -41,12 +41,15 @@ namespace Model
         public String Address { get; set; }
         [JsonProperty("role")]
         public Role Role { get; set; }
+        [JsonProperty("stateUser")]
+        public StateUser State { get; set; }
 
         [Required(ErrorMessage = "You must provide a phone number")]
         [DataType(DataType.PhoneNumber)]
         [RegularExpression("[9|5|2][0-9]{7}", ErrorMessage = "Not a valid phone number")]
         [JsonProperty("tel")]
         public int Tel { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public DateTime DateC { get; set; }
         public int ScoreDelegate { get; set; }
         [JsonProperty("email")]
@@ -74,6 +77,7 @@ namespace Model
         public List<Comment> LisCommentst { get; set; }
         public List<Child> ListChilds { get; set; }
         public SwitchAccount SwitchAccount { get; set; }
+        [JsonProperty("kinderGartenInscription")]
         public KinderGarten KinderGartenInscription { get; set; }
         public KinderGarten KinderGartenResponsible { get; set; }
         public KinderGarten kinderGartenDelegate { get; set; }

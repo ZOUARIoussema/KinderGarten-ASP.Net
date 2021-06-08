@@ -5,22 +5,52 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+<script type="text/javascript">
+    function deleteOrder(OrderID) {
+        debugger;
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure that you want to delete this Order?",
+            type: "warning",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            confirmButtonText: "Yes, delete it!",
+            confirmButtonColor: "#ec6c62"
+        },
+            function () {
+                $.ajax({
+                    url: "/Admin/Delete/" + OrderID,
+                    data:
+                    {
+                        "OrderID": OrderID
+                    },
+                    type: "DELETE"
+                })
+                    .done(function (data) {
+                        sweetAlert
+                            ({
+                                title: "Deleted!",
+                                text: "Your file was successfully deleted!",
+                                type: "success"
+                            },
+                                function () {
+                                    window.location.href = '/Admin/Users';
+                                });
+                    })
+                    .error(function (data) {
+                        swal("Oops", "We couldn't connect to the server!", "error");
+                    });
+            });
+    }
+</script>
+
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>User</h4>
     <hr />
-    <table>
-        <thead>
-        <td>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(model => model.FirstName)
-        </td>
-        </thead>
-    </table>
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.FirstName)
@@ -87,13 +117,16 @@
         </dd>
 
     </dl>
-
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Users")
-        </div>
+      
     }
+
+
+
+
+
 </div>
+
+

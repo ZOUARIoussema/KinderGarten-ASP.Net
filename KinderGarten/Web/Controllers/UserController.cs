@@ -64,6 +64,13 @@ namespace Web.Controllers
         }
 
 
+
+
+        public ActionResult AccountNotApproved()
+        {
+            return View();
+        }
+
         public ActionResult VerifyCodeAndChangePassword()
         {
             return View();
@@ -164,45 +171,47 @@ namespace Web.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+       
         public ActionResult Login([Bind(Include = "Email,Password")] User userlogin)
         {
             System.Diagnostics.Debug.WriteLine("email :" + userlogin.Email + ",password :" + userlogin.Password);
 
-            HttpClient httpuserauth = new HttpClient();
-            httpuserauth.BaseAddress = new Uri("http://localhost:8081/");
-            httpuserauth.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+           
+          
+                HttpClient httpuserauth = new HttpClient();
+                httpuserauth.BaseAddress = new Uri("http://localhost:8081/");
+                httpuserauth.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            var responseloginuser = httpuserauth.PostAsJsonAsync(Statics.baseAddress + "user/authenticate", userlogin).Result;
+                var responseloginuser = httpuserauth.PostAsJsonAsync(Statics.baseAddress + "user/authenticate", userlogin).Result;
+            if (responseloginuser.IsSuccessStatusCode)
+            {
+                var userauth = responseloginuser.Content.ReadAsStringAsync().Result;
 
-                if (responseloginuser.IsSuccessStatusCode)
+                var s = JsonConvert.DeserializeObject<userauthenticated>(userauth);
+
+                FormsAuthentication.SetAuthCookie(s.username, false);
+
+
+                Session["AccessToken"] = s.token;
+
+
+
+                System.Diagnostics.Debug.WriteLine("token :   :" + Session["AccessToken"]);
+
+                if (userservice.findUSerByEmail(userlogin.Email) != null)
                 {
-                    var userauth = responseloginuser.Content.ReadAsStringAsync().Result;
+                    User u = userservice.findUSerByEmail(userlogin.Email);
 
-                    var s = JsonConvert.DeserializeObject<userauthenticated>(userauth);
-
-                    FormsAuthentication.SetAuthCookie(s.username, false);
-
-
-                    Session["AccessToken"] = s.token;
-
-                
-
-                    System.Diagnostics.Debug.WriteLine("token :   :" + Session["AccessToken"]);
-
-                    if (userservice.findUSerByEmail(userlogin.Email) != null)
-                    {
-                        User u = userservice.findUSerByEmail(userlogin.Email);
-
-                        Session["User"] = u;
+                    Session["User"] = u;
                     Session["Id"] = u.Id;
-                        Session["firstname"] = u.FirstName;
+                    Session["firstname"] = u.FirstName;
+                    Session["State"] = u.State;
 
                     Session["id"] = u.Id;
                     Session["email"] = u.Email;
                     System.Diagnostics.Debug.WriteLine("********id*******" + Session["id"]);
 
-                    Session["lastname"] = u.LastName; 
+                    Session["lastname"] = u.LastName;
 
                     Session["datecreation"] = u.DateC.ToLongDateString();
                     Session["username"] = u.FirstName;
@@ -210,72 +219,82 @@ namespace Web.Controllers
 
 
 
-                        if (u.Role.ToString().Equals("ROLE_admin"))
+                    if (u.Role.ToString().Equals("ROLE_admin"))
 
-                        {
-                            return RedirectToAction("Index", "Admin");
-
-                        }
-
-                        if (u.Role.ToString().Equals("ROLE_visitor"))
-                        {
-                            return RedirectToAction("Index", "Home");
-                        }
-
-                         if (u.Role.ToString().Equals("ROLE_doctor"))
-                         {
-
-                        System.Diagnostics.Debug.WriteLine("doctor");
-
-                        return RedirectToAction("Index", "Medical");
-                         }
-
-                        if (u.Role.ToString().Equals("ROLE_agentCashier"))
-                         {
-                        return RedirectToAction("Index", "Accounting");
-                        }
-
-
-                    if (u.Role.ToString().Equals("ROLE_adminGarten"))
                     {
-                        return RedirectToAction("getKindergartenByResponsible", "KinderGarten");
+                        return RedirectToAction("Index", "Admin");
+
                     }
 
-                    if (u.Role.ToString().Equals("ROLE_parent"))
+                    else if (u.Role.ToString().Equals("ROLE_visitor") && u.State.ToString().Equals("active"))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                    else if (u.Role.ToString().Equals("ROLE_visitor") && u.State.ToString().Equals("waiting"))
+                    {
+
+                        return RedirectToAction("AccountNotApproved");
+                    }
+
+
+                    else if (u.Role.ToString().Equals("ROLE_doctor") && u.State.ToString().Equals("active"))
+                    {
+                        return RedirectToAction("Index", "Medical");
+                    }
+
+
+                    else if (u.Role.ToString().Equals("ROLE_doctor") && u.State.ToString().Equals("waiting"))
+                    {
+                        return RedirectToAction("AccountNotApproved");
+                    }
+
+                    else if (u.Role.ToString().Equals("ROLE_agentCashier") && u.State.ToString().Equals("active"))
+                    {
+                        return RedirectToAction("Index", "Accounting");
+                    }
+
+                    else if (u.Role.ToString().Equals("ROLE_agentCashier") && u.State.ToString().Equals("waiting"))
+                    {
+                        return RedirectToAction("AccountNotApproved");
+                    }
+
+
+                    else if (u.Role.ToString().Equals("ROLE_adminGarten") && u.State.ToString().Equals("active"))
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+
+                    else if (u.Role.ToString().Equals("ROLE_adminGarten") && u.State.ToString().Equals("waiting"))
+                    {
+
+                        return RedirectToAction("AccountNotApproved");
+
+                    }
+
+                    else if (u.Role.ToString().Equals("ROLE_parent") && u.State.ToString().Equals("active"))
                     {
                         return RedirectToAction("Index", "Publication");
 
                     }
-                    if (u.Role.ToString().Equals("ROLE_provider"))
+
+                    else if (u.Role.ToString().Equals("ROLE_parent") && u.State.ToString().Equals("waiting"))
+                    {
+                        return RedirectToAction("AccountNotApproved");
+
+                    }
+
+
+                    else if (u.Role.ToString().Equals("ROLE_provider"))
                     {
                         return RedirectToAction("Index", "Estimate");
                     }
 
+
                 }
-
-
-                //if (u.Role.Equals("ROLE_doctor"))
-                //{
-                //    return RedirectToAction("Index", "Admin");
-
-                //}
-
-                //if (u.Role.Equals("ROLE_futurParent"))
-                //{
-
-                //}
-
-                //if (u.Role.Equals("ROLE_agentCashier"))
-                //{
-
-                //}
-
             }
-            
-            
-           
 
-            ModelState.AddModelError("Error", "please verify your credentials !");
+            ModelState.AddModelError(string.Empty, "Please verify your credentials !");
             return View();
         }
 

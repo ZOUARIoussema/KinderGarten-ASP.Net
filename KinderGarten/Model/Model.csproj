@@ -66,6 +66,7 @@
     <Compile Include="formSatisfac.cs" />
     <Compile Include="JustificationAbsence.cs" />
     <Compile Include="KinderGarten.cs" />
+    <Compile Include="MaxScoreEval.cs" />
     <Compile Include="MedicalVisitKinderGarten.cs" />
     <Compile Include="Meeting.cs" />
     <Compile Include="Message.cs" />

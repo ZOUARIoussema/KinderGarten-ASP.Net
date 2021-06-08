@@ -78,44 +78,14 @@ namespace Service
             }
 
             return u;
-        }
+        }   
 
       
-        public IEnumerable<User> GetAll()
-        {
-
-            var response = httpClient.GetAsync(Statics.baseAddress + "useradmin/findAll").Result;
-
-
-            if (response.IsSuccessStatusCode)
-            {
-
-                var users = response.Content.ReadAsAsync<IEnumerable<User>>().Result;
-                return users;
-            }
-            return new List<User>();
-
-        }
+      
 
       
 
-        public bool DeleteUser(int id)
-        {
-
-            try
-            {
-                var APIResponse = httpClient.DeleteAsync(Statics.baseAddress + "useradmin/delete/" + id);
-
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-
-
-        }
+        
 
     }
 }

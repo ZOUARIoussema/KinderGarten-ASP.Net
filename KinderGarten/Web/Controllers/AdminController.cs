@@ -7,6 +7,10 @@ using System.Web.Mvc;
 using Service;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
+using System.Drawing;
+using Rotativa;
+using PagedList;
+using System.Web.UI;
 
 namespace Web.Controllers
 {
@@ -14,7 +18,9 @@ namespace Web.Controllers
     public class AdminController : Controller
     {
         private ClaimsService claimservice;
+        private UserAdminService useradminservice;
         private UserService userservice = new UserService();
+      
 
         public AdminController()
         {
@@ -22,14 +28,54 @@ namespace Web.Controllers
             // userservice = new UserService(token);
 
             claimservice = new ClaimsService(token);
+            useradminservice = new UserAdminService(token);
         }
 
 
+       
+
+        public ActionResult PrintPartialViewToPdf(int id)
+        {
+
+            Claim c = claimservice.getClaimById(id);
+
+                var report = new PartialViewAsPdf("~/Views/Admin/detailsPDF.cshtml", c);
+                return report;
+            
+        }
+
+       
+      
 
 
+        public ActionResult detailsPDF(int id)
+        {
+            return View(claimservice.getClaimById(id));
+        }
+
+
+        public ActionResult Kindergarten()
+        {
+            return View(useradminservice.GetAllKinder());
+        }
+
+
+        [Authorize]
         // GET: Admin
         public ActionResult Index()
-        {
+        {   
+            MaxScoreEval maxscore = useradminservice.getMaxScoreEval();
+
+            ViewBag.ChildsSubscribed = useradminservice.ChildSubscribed();
+
+            ViewBag.NbrUsersRegistered = useradminservice.UsersRegistred();
+
+            ViewBag.NbrUsersRegisteredThisMonth = useradminservice.UsersRegistredThisMonth();
+
+            ViewBag.maxscore = maxscore.MaxScore;
+
+            ViewBag.namekindergarten = maxscore.Name.ToString();
+
             return View();
            
         }
@@ -65,6 +111,12 @@ namespace Web.Controllers
         }
 
 
+        public ActionResult ParentsByKinderGarten()
+        {
+            return View(useradminservice.getParentsByKinderGarten());
+        }
+
+
         public ActionResult EditProfile(int id)
         {
             System.Diagnostics.Debug.WriteLine("******iduserprofile" + id);
@@ -82,6 +134,9 @@ namespace Web.Controllers
 
             return View();
         }
+
+
+
 
 
    
@@ -104,10 +159,14 @@ namespace Web.Controllers
              
         }
 
-        public ActionResult Users()
+        public ActionResult Users(int? Page_No)
         {
+            IEnumerable<User> listusers = useradminservice.getAll();
 
-            return View(userservice.GetAll());
+            int size_of_page = 4;
+            int No_Of_Page = (Page_No ?? 1);
+
+            return View(listusers.ToPagedList(No_Of_Page,size_of_page));
         }
 
       
@@ -151,25 +210,28 @@ namespace Web.Controllers
             }
         }
 
-        
 
-        // GET: Admin/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult deleteUser(int id)
         {
-            return View();
+             if (useradminservice.DeleteUser(id))
+                {
+                    return RedirectToAction("Users", "Admin");
+                }
+
+
+          return Json(new { Status = "error", Message = "Error occured , verify !" });
         }
 
-        // POST: Admin/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult changestateuser(int iduser)
         {
-
-            if (userservice.DeleteUser(id))
-            {
-                return RedirectToAction("Users");
-            }
-
-            return View();
+            String response  = useradminservice.changeStateUser(iduser);
+          
+            return RedirectToAction("Users", "Admin");
         }
+
+
+
+
     }
 }

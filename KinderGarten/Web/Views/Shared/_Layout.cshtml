@@ -103,7 +103,7 @@
                                 }
                             </style>
 
-                            @if (@Session["User"] != null)
+                            @if (@Session["User"] != null && @Session["State"].ToString().Equals("active"))
                             {
                                 <li class="has-mega-menu">
                                     <p class="username">Welcome  @Session["firstname"]</p>
